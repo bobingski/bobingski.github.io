@@ -84,7 +84,7 @@
 <meta name="description" content="Too young to be old, too old to be young">
 <meta property="og:type" content="website">
 <meta property="og:title" content="whistlestop">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="blog.whistlestop.ml/index.html">
 <meta property="og:site_name" content="whistlestop">
 <meta property="og:description" content="Too young to be old, too old to be young">
 <meta property="og:locale" content="en">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="blog.whistlestop.ml/"/>
 
 
 
@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C01-named-tuple-random-choice/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C01-named-tuple-random-choice/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -464,7 +464,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C24-CURSOR/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C24-CURSOR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -623,7 +623,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C23-存储过程/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C23-存储过程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -781,7 +781,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C22-View/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C22-View/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -941,7 +941,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C21-ALTER-TABLE/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C21-ALTER-TABLE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -988,7 +988,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:15:38-07:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:25:45-07:00">
                 2018-04-14
               </time>
             
@@ -1045,20 +1045,14 @@
 
       
         
-          
-            <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#给表添加一个列</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> vendors</span><br><span class="line"><span class="keyword">ADD</span> vend_phone <span class="built_in">CHAR</span>(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">#删除一个列</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Vendors</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> vend_phone;</span><br><span class="line"></span><br><span class="line">#定义外键</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orderitems_orders</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (order_num) <span class="keyword">REFERENCES</span> orders (order_num);</span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orderitems_products FOREIGN <span class="keyword">KEY</span> (prod_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> products (prod_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orders</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orders_customers FOREIGN <span class="keyword">KEY</span> (cust_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> customers (cust_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> products</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_products_vendors</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (vend_id) <span class="keyword">REFERENCES</span> vendors (vend_id);</span><br></pre></td></tr></table></figure>
-<p>复杂的表结构更改一般需要手动删除过程，它涉及以下步骤：</p>
-<ul>
-<li>用新的列布局创建一个新表；</li>
-<li>使用INSERT SELECT 语句（关于这条语句的详细介绍，请参阅第19章）从旧表复制数据到新表。如果有必要，可使用转换函数和计算字段；</li>
-<li>检验包含所需数据的新表；</li>
-<li>重命名旧表（如果确定，可以删除它）；</li>
-<li>用旧表原来的名字重命名新表；</li>
-<li>根据需要，重新创建触发器、存储过程、索引和外键。</li>
-</ul>
-<h3 id="DROP-TABLE"><a href="#DROP-TABLE" class="headerlink" title="DROP TABLE"></a>DROP TABLE</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#删除表没有确认，也不能撤销</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> customers2;</span><br></pre></td></tr></table></figure>
-<h3 id="RENAME-TABLE"><a href="#RENAME-TABLE" class="headerlink" title="RENAME TABLE"></a>RENAME TABLE</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RENAME</span> <span class="keyword">TABLE</span> backup_customers <span class="keyword">TO</span> customers,</span><br><span class="line">             backup_vendors <span class="keyword">TO</span> vendors,</span><br><span class="line">             backup_products <span class="keyword">TO</span> products;</span><br></pre></td></tr></table></figure>
-          
+          <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#给表添加一个列</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> vendors</span><br><span class="line"><span class="keyword">ADD</span> vend_phone <span class="built_in">CHAR</span>(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">#删除一个列</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Vendors</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> vend_phone;</span><br><span class="line"></span><br><span class="line">#定义外键</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orderitems_orders</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (order_num) <span class="keyword">REFERENCES</span> orders (order_num);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orderitems_products FOREIGN <span class="keyword">KEY</span> (prod_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> products (prod_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orders</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orders_customers FOREIGN <span class="keyword">KEY</span> (cust_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> customers (cust_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> products</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_products_vendors</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (vend_id) <span class="keyword">REFERENCES</span> vendors (vend_id);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/14/C21-ALTER-TABLE/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1105,7 +1099,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C21-CREATE-TABLE/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C21-CREATE-TABLE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1152,7 +1146,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:14:50-07:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:26:06-07:00">
                 2018-04-14
               </time>
             
@@ -1209,21 +1203,15 @@
 
       
         
-          
-            <h3 id="PRIMARY-KEY"><a href="#PRIMARY-KEY" class="headerlink" title="PRIMARY KEY"></a>PRIMARY KEY</h3><p>如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">PRIMARY KEY (vend_id) #用单个列作为主键</span><br><span class="line"></span><br><span class="line">#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line">(</span><br><span class="line">  order_num  <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  order_item <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  prod_id    <span class="built_in">char</span>(<span class="number">10</span>)     <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  quantity   <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  item_price <span class="built_in">decimal</span>(<span class="number">8</span>,<span class="number">2</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (order_num, order_item)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h3><p>每个表只允许一个AUTO_INCREMENT 列，而且它必须被索引（如，通过使它成为主键）。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cust_id      int      NOT NULL AUTO_INCREMENT,</span><br><span class="line">#AUTO_INCREMENT 告诉MySQL，本列每当增加一行时自动增量。每次执行一个INSERT 操作时，MySQL</span><br><span class="line">#自动对该列增量，给该列赋予下一个可用的值。这样给每个行分配一个唯一的cust_id ，从而可以用作主</span><br><span class="line">#键值。</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">last_insert_id</span>();</span><br><span class="line">#返回最后一个AUTO_INCREMENT 值</span><br></pre></td></tr></table></figure></p>
-<h3 id="DEFAULT"><a href="#DEFAULT" class="headerlink" title="DEFAULT"></a>DEFAULT</h3><p>如果在插入行时没有给出值，MySQL允许指定此时使用的默认值。默认值用CREATE TABLE 语句的列定义<br>中的DEFAULT关键字指定。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quantity   int          NOT NULL  DEFAULT 1,</span><br></pre></td></tr></table></figure>
-<h3 id="ENGINE"><a href="#ENGINE" class="headerlink" title="ENGINE"></a>ENGINE</h3><p>引擎类型可以混用。混用引擎类型有一个大缺陷。外键（用于强制实施引用完整性）不能跨引擎，即使用一个引擎的表不能引用具有使用不同引擎的表的外键。</p>
-<ul>
-<li>InnoDB 是一个可靠的事务处理引擎，它不支持全文本搜索；</li>
-<li>MEMORY 在功能等同于MyISAM ，但由于数据存储在内存中，速度很快（特别适合于临时  表</li>
-<li>MyISAM 是一个性能极高的引擎，它支持全文本搜索，但不支持事务处理。</li>
-</ul>
-<p><code></code>sql<br>CREATE TABLE orderitems<br>(<br>  order_num  int          NOT NULL ,<br>  order_item int          NOT NULL ,<br>  prod_id    char(10)     NOT NULL ,<br>  quantity   int          NOT NULL  DEFAULT 1,<br>  item_price decimal(8,2) NOT NULL ,<br>  PRIMARY KEY (order_num, order_item)<br>) ENGINE=InnoDB;</p>
-
-          
+          <h3 id="PRIMARY-KEY"><a href="#PRIMARY-KEY" class="headerlink" title="PRIMARY KEY"></a>PRIMARY KEY</h3><p>如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PRIMARY KEY (vend_id) #用单个列作为主键</span><br><span class="line"></span><br><span class="line">#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line">(</span><br><span class="line">  order_num  <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  order_item <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  prod_id    <span class="built_in">char</span>(<span class="number">10</span>)     <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  quantity   <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  item_price <span class="built_in">decimal</span>(<span class="number">8</span>,<span class="number">2</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (order_num, order_item)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/14/C21-CREATE-TABLE/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1270,7 +1258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C20-UPDATE-DELETE/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C20-UPDATE-DELETE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1317,7 +1305,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:13:39-07:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:26:35-07:00">
                 2018-04-14
               </time>
             
@@ -1374,22 +1362,14 @@
 
       
         
-          
-            <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="string">'elmer@fudd.com'</span>,</span><br><span class="line">       cust_name = <span class="string">'The Fudds'</span>,</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="literal">NULL</span> #<span class="literal">NULL</span> 用来去除cust_email 列中的值。</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span>;</span><br><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="IGNORE"><a href="#IGNORE" class="headerlink" title="IGNORE"></a>IGNORE</h3><p>如果用UPDATE 语句更新多行，并且在更新这些行中的一行或多行时出一个现错误，则整个UPDATE 操作<br>被取消（错误发生前更新的所有行被恢复到它们原来的值）。为即使是发生错误，也继续进行更新，可使<br>用IGNORE 关键字</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">IGNORE</span> customers ...</span><br></pre></td></tr></table></figure>
-<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> customers</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10006</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h3><ul>
-<li>除非确实打算更新和删除每一行，否则绝对不要使用不带WHERE 子句的UPDATE 或DELETE 语句。</li>
-<li>保证每个表都有主键（如果忘记这个内容，请参阅第15章），尽可能像WHERE 子句那样使用它（可以指</li>
-<li>定各主键、多个值或值的范围）。</li>
-<li>在对UPDATE 或DELETE 语句使用WHERE 子句前，应该先用SELECT 进行测试，保证它过滤的是正确的记</li>
-<li>录，以防编写的WHERE 子句不正确。</li>
-<li>使用强制实施引用完整性的数据库（关于这个内容，请参阅第15章），这样MySQL将不允许删除具有与</li>
-<li>其他表相关联的数据的行。</li>
-</ul>
-
-          
+          <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="string">'elmer@fudd.com'</span>,</span><br><span class="line">       cust_name = <span class="string">'The Fudds'</span>,</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> customers</span><br><span class="line"><span class="keyword">SET</span> cust_email = <span class="literal">NULL</span> #<span class="literal">NULL</span> 用来去除cust_email 列中的值。</span><br><span class="line"><span class="keyword">WHERE</span> cust_id = <span class="number">10005</span>;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/14/C20-UPDATE-DELETE/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1436,7 +1416,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C19-INSERT/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C19-INSERT/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1599,7 +1579,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C18-布尔方式-搜索-boolean-mode/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C18-布尔方式-搜索-boolean-mode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1757,7 +1737,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C18-全文本搜索/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C18-全文本搜索/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -2026,7 +2006,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://doubi.ws" title="doubi" target="_blank">doubi</a>
+                    <a href="https://doub.ws" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">

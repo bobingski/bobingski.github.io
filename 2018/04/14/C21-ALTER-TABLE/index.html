@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="123456789101112131415161718192021222324#给表添加一个列ALTER TABLE vendorsADD vend_phone CHAR(20);#删除一个列ALTER TABLE VendorsDROP COLUMN vend_phone;#定义外键ALTER TABLE orderitemsADD CONSTRAINT fk_orderitems_orders">
+<meta name="description" content="1234567891011121314151617181920212223#给表添加一个列ALTER TABLE vendorsADD vend_phone CHAR(20);#删除一个列ALTER TABLE VendorsDROP COLUMN vend_phone;#定义外键ALTER TABLE orderitemsADD CONSTRAINT fk_orderitems_ordersFO">
 <meta name="keywords" content="mysql,mysql crashcourse">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C21_ALTER TABLE">
-<meta property="og:url" content="http://yoursite.com/2018/04/14/C21-ALTER-TABLE/index.html">
+<meta property="og:url" content="blog.whistlestop.ml/2018/04/14/C21-ALTER-TABLE/index.html">
 <meta property="og:site_name" content="whistlestop">
-<meta property="og:description" content="123456789101112131415161718192021222324#给表添加一个列ALTER TABLE vendorsADD vend_phone CHAR(20);#删除一个列ALTER TABLE VendorsDROP COLUMN vend_phone;#定义外键ALTER TABLE orderitemsADD CONSTRAINT fk_orderitems_orders">
+<meta property="og:description" content="1234567891011121314151617181920212223#给表添加一个列ALTER TABLE vendorsADD vend_phone CHAR(20);#删除一个列ALTER TABLE VendorsDROP COLUMN vend_phone;#定义外键ALTER TABLE orderitemsADD CONSTRAINT fk_orderitems_ordersFO">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-15T06:15:38.934Z">
+<meta property="og:updated_time" content="2018-04-15T06:25:45.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C21_ALTER TABLE">
-<meta name="twitter:description" content="123456789101112131415161718192021222324#给表添加一个列ALTER TABLE vendorsADD vend_phone CHAR(20);#删除一个列ALTER TABLE VendorsDROP COLUMN vend_phone;#定义外键ALTER TABLE orderitemsADD CONSTRAINT fk_orderitems_orders">
+<meta name="twitter:description" content="1234567891011121314151617181920212223#给表添加一个列ALTER TABLE vendorsADD vend_phone CHAR(20);#删除一个列ALTER TABLE VendorsDROP COLUMN vend_phone;#定义外键ALTER TABLE orderitemsADD CONSTRAINT fk_orderitems_ordersFO">
 
 
 
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/14/C21-ALTER-TABLE/"/>
+  <link rel="canonical" href="blog.whistlestop.ml/2018/04/14/C21-ALTER-TABLE/"/>
 
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C21-ALTER-TABLE/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C21-ALTER-TABLE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -352,7 +352,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:15:38-07:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:25:45-07:00">
                 2018-04-14
               </time>
             
@@ -413,7 +413,8 @@
       
 
       
-        <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#给表添加一个列</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> vendors</span><br><span class="line"><span class="keyword">ADD</span> vend_phone <span class="built_in">CHAR</span>(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">#删除一个列</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Vendors</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> vend_phone;</span><br><span class="line"></span><br><span class="line">#定义外键</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orderitems_orders</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (order_num) <span class="keyword">REFERENCES</span> orders (order_num);</span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orderitems_products FOREIGN <span class="keyword">KEY</span> (prod_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> products (prod_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orders</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orders_customers FOREIGN <span class="keyword">KEY</span> (cust_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> customers (cust_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> products</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_products_vendors</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (vend_id) <span class="keyword">REFERENCES</span> vendors (vend_id);</span><br></pre></td></tr></table></figure>
+        <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#给表添加一个列</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> vendors</span><br><span class="line"><span class="keyword">ADD</span> vend_phone <span class="built_in">CHAR</span>(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">#删除一个列</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> Vendors</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">COLUMN</span> vend_phone;</span><br><span class="line"></span><br><span class="line">#定义外键</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orderitems_orders</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (order_num) <span class="keyword">REFERENCES</span> orders (order_num);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orderitems_products FOREIGN <span class="keyword">KEY</span> (prod_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> products (prod_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orders</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_orders_customers FOREIGN <span class="keyword">KEY</span> (cust_id)</span><br><span class="line"><span class="keyword">REFERENCES</span> customers (cust_id);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> products</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">CONSTRAINT</span> fk_products_vendors</span><br><span class="line">FOREIGN <span class="keyword">KEY</span> (vend_id) <span class="keyword">REFERENCES</span> vendors (vend_id);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>复杂的表结构更改一般需要手动删除过程，它涉及以下步骤：</p>
 <ul>
 <li>用新的列布局创建一个新表；</li>
@@ -619,7 +620,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://doubi.ws" title="doubi" target="_blank">doubi</a>
+                    <a href="https://doub.ws" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">

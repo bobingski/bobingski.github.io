@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="PRIMARY KEY如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。 12345678910111213PRIMARY KEY (vend_id) #用单个列作为主键#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名CREATE TABLE orderitems(  order_num  int          NOT NULL ,  order_item">
+<meta name="description" content="PRIMARY KEY如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。 123456789101112PRIMARY KEY (vend_id) #用单个列作为主键#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名CREATE TABLE orderitems(  order_num  int          NOT NULL ,  order_item i">
 <meta name="keywords" content="mysql,mysql crashcourse">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C21_CREATE TABLE">
-<meta property="og:url" content="http://yoursite.com/2018/04/14/C21-CREATE-TABLE/index.html">
+<meta property="og:url" content="blog.whistlestop.ml/2018/04/14/C21-CREATE-TABLE/index.html">
 <meta property="og:site_name" content="whistlestop">
-<meta property="og:description" content="PRIMARY KEY如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。 12345678910111213PRIMARY KEY (vend_id) #用单个列作为主键#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名CREATE TABLE orderitems(  order_num  int          NOT NULL ,  order_item">
+<meta property="og:description" content="PRIMARY KEY如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。 123456789101112PRIMARY KEY (vend_id) #用单个列作为主键#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名CREATE TABLE orderitems(  order_num  int          NOT NULL ,  order_item i">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-04-15T06:14:50.432Z">
+<meta property="og:updated_time" content="2018-04-15T06:26:06.433Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C21_CREATE TABLE">
-<meta name="twitter:description" content="PRIMARY KEY如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。 12345678910111213PRIMARY KEY (vend_id) #用单个列作为主键#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名CREATE TABLE orderitems(  order_num  int          NOT NULL ,  order_item">
+<meta name="twitter:description" content="PRIMARY KEY如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。 123456789101112PRIMARY KEY (vend_id) #用单个列作为主键#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名CREATE TABLE orderitems(  order_num  int          NOT NULL ,  order_item i">
 
 
 
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/14/C21-CREATE-TABLE/"/>
+  <link rel="canonical" href="blog.whistlestop.ml/2018/04/14/C21-CREATE-TABLE/"/>
 
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/14/C21-CREATE-TABLE/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C21-CREATE-TABLE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -352,7 +352,7 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:14:50-07:00">
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:26:06-07:00">
                 2018-04-14
               </time>
             
@@ -414,7 +414,8 @@
 
       
         <h3 id="PRIMARY-KEY"><a href="#PRIMARY-KEY" class="headerlink" title="PRIMARY KEY"></a>PRIMARY KEY</h3><p>如果主键使用单个列，则它的值必须唯一。如果使用多个列，则这些列的组合值必须唯一。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">PRIMARY KEY (vend_id) #用单个列作为主键</span><br><span class="line"></span><br><span class="line">#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line">(</span><br><span class="line">  order_num  <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  order_item <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  prod_id    <span class="built_in">char</span>(<span class="number">10</span>)     <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  quantity   <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  item_price <span class="built_in">decimal</span>(<span class="number">8</span>,<span class="number">2</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (order_num, order_item)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">PRIMARY KEY (vend_id) #用单个列作为主键</span><br><span class="line"></span><br><span class="line">#创建由多个列组成的主键,应该以逗号分隔的列表给出各列名</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> orderitems</span><br><span class="line">(</span><br><span class="line">  order_num  <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  order_item <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  prod_id    <span class="built_in">char</span>(<span class="number">10</span>)     <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  quantity   <span class="built_in">int</span>          <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  item_price <span class="built_in">decimal</span>(<span class="number">8</span>,<span class="number">2</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> ,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (order_num, order_item)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="AUTO-INCREMENT"><a href="#AUTO-INCREMENT" class="headerlink" title="AUTO_INCREMENT"></a>AUTO_INCREMENT</h3><p>每个表只允许一个AUTO_INCREMENT 列，而且它必须被索引（如，通过使它成为主键）。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cust_id      int      NOT NULL AUTO_INCREMENT,</span><br><span class="line">#AUTO_INCREMENT 告诉MySQL，本列每当增加一行时自动增量。每次执行一个INSERT 操作时，MySQL</span><br><span class="line">#自动对该列增量，给该列赋予下一个可用的值。这样给每个行分配一个唯一的cust_id ，从而可以用作主</span><br><span class="line">#键值。</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">last_insert_id</span>();</span><br><span class="line">#返回最后一个AUTO_INCREMENT 值</span><br></pre></td></tr></table></figure></p>
 <h3 id="DEFAULT"><a href="#DEFAULT" class="headerlink" title="DEFAULT"></a>DEFAULT</h3><p>如果在插入行时没有给出值，MySQL允许指定此时使用的默认值。默认值用CREATE TABLE 语句的列定义<br>中的DEFAULT关键字指定。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quantity   int          NOT NULL  DEFAULT 1,</span><br></pre></td></tr></table></figure>
@@ -620,7 +621,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://doubi.ws" title="doubi" target="_blank">doubi</a>
+                    <a href="https://doub.ws" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
