@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="blog.whistlestop.ml/"/>
-  <updated>2018-04-15T06:20:28.983Z</updated>
+  <updated>2018-04-16T13:08:21.930Z</updated>
   <id>blog.whistlestop.ml/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>春天的一些照片</title>
+    <link href="blog.whistlestop.ml/2018/04/15/%E6%98%A5%E5%A4%A9%E7%9A%84%E4%B8%80%E4%BA%9B%E7%85%A7%E7%89%87/"/>
+    <id>blog.whistlestop.ml/2018/04/15/春天的一些照片/</id>
+    <published>2018-04-16T05:32:30.000Z</published>
+    <updated>2018-04-16T13:08:21.930Z</updated>
+    
+    <content type="html"><![CDATA[<p>照片非出自本人，双休日这么好的日子，宅着，看看nba, 看看番。</p><p>2018年3月，同事去某个植物园，可能是上海植物园，陶堰情操，拍拍花草，感觉比以前拍的好看点。</p><a id="more"></a><p><img src="001.jpg" alt="01"></p><p><img src="002.jpg" alt="02"></p><p><img src="003.jpg" alt="03"></p><p><img src="004.jpg" alt="04"></p><p><img src="005.jpg" alt="05"></p><p><img src="006.jpg" alt="06"></p><p><img src="007.jpg" alt="07"></p><p><img src="008.jpg" alt="08"></p><p><img src="009.jpg" alt="09"></p><p><img src="010.jpg" alt="10"></p><p><img src="011.jpg" alt="11"></p><p><img src="012.jpg" alt="12"></p><p><img src="013.jpg" alt="13"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;照片非出自本人，双休日这么好的日子，宅着，看看nba, 看看番。&lt;/p&gt;
+&lt;p&gt;2018年3月，同事去某个植物园，可能是上海植物园，陶堰情操，拍拍花草，感觉比以前拍的好看点。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="life" scheme="blog.whistlestop.ml/categories/life/"/>
+    
+    
+      <category term="photo" scheme="blog.whistlestop.ml/tags/photo/"/>
+    
+  </entry>
   
   <entry>
     <title>C01_named tuple, random.choice</title>
@@ -475,31 +498,6 @@
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;1，在自己的线程类的&lt;strong&gt;init&lt;/strong&gt;里调用threading.Thread.&lt;strong&gt;init&lt;/strong&gt;(self, name = threadname)  Threadname为线程的名字&lt;br&gt;
-    
-    </summary>
-    
-      <category term="book notes" scheme="blog.whistlestop.ml/categories/book-notes/"/>
-    
-    
-      <category term="python" scheme="blog.whistlestop.ml/tags/python/"/>
-    
-      <category term="web scraper" scheme="blog.whistlestop.ml/tags/web-scraper/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C03_disk_cached.py_shutil</title>
-    <link href="blog.whistlestop.ml/2018/04/14/C03-disk-cached-py-shutil/"/>
-    <id>blog.whistlestop.ml/2018/04/14/C03-disk-cached-py-shutil/</id>
-    <published>2018-04-15T05:58:14.000Z</published>
-    <updated>2018-04-15T05:59:04.544Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>os模块提供了对目录或者文件的新建/删除/查看文件属性，还提供了对文件以及目录的路径操作。比如说：绝对路径，父目录……  但是，os文件的操作还应该包含移动 复制  打包 压缩 解压等操作，这些os模块都没有提供，shutil则就是对os中文件操作的补充， shutil是shell utility的缩写。<br><a id="more"></a></p></blockquote><h3 id="shutil-模块"><a href="#shutil-模块" class="headerlink" title="shutil 模块"></a>shutil 模块</h3><p>shutil.copyfile( src, dst) 从源src复制到dst中去。当然前提是目标地址是具备可写权限。抛出的异常信息为IOException. 如果当前的dst已存在的话就会被覆盖掉<br>shutil.move( src, dst)  移动文件或重命名<br>shutil.copymode( src, dst) 只是会复制其权限其他的东西是不会被复制的<br>shutil.copystat( src, dst) 复制权限、最后访问时间、最后修改时间<br>shutil.copy( src, dst)  复制一个文件到一个文件或一个目录<br>shutil.copy2( src, dst)  在copy上的基础上再复制文件最后访问时间与修改时间也复制过来了，类似于cp –p的东西<br>shutil.copy2( src, dst)  如果两个位置的文件系统是一样的话相当于是rename操作，只是改名；如果是不在相同的文件系统的话就是做move操作<br>shutil.copytree( olddir, newdir, True/Flase)<br>把olddir拷贝一份newdir，如果第3个参数是True，则复制目录时将保持文件夹下的符号连接，如果第3个参数是False，则将在复制的目录下生成物理副本来替代符号连接<br>shutil.rmtree( src ) 递归删除一个目录以及目录内的所有内容</p><h3 id="os-模块"><a href="#os-模块" class="headerlink" title="os 模块"></a>os 模块</h3><p>os.sep 可以取代操作系统特定的路径分隔符。windows下为 ‘\‘<br>os.name 字符串指示你正在使用的平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是 ‘posix’<br>os.getcwd() 函数得到当前工作目录，即当前Python脚本工作的目录路径<br>os.getenv() 获取一个环境变量，如果没有返回none<br>os.putenv(key, value) 设置一个环境变量值<br>os.listdir(path) 返回指定目录下的所有文件和目录名<br>os.remove(path) 函数用来删除一个文件<br>os.system(command) 函数用来运行shell命令<br>os.linesep 字符串给出当前平台使用的行终止符。例如，Windows使用 ‘\r\n’，Linux使用 ‘\n’ 而Mac使用 ‘\r’<br>os.path.split(path)  函数返回一个路径的目录名和文件名<br>os.path.isfile() 和os.path.isdir()函数分别检验给出的路径是一个文件还是目录<br>os.path.exists() 函数用来检验给出的路径是否真地存在<br>os.curdir  返回当前目录 (‘.’)<br>os.mkdir(path) 创建一个目录<br>os.makedirs(path) 递归的创建目录<br>os.chdir(dirname) 改变工作目录到dirname<br>os.path.getsize(name) 获得文件大小，如果name是目录返回0L<br>os.path.abspath(name) 获得绝对路径<br>os.path.normpath(path) 规范path字符串形式<br>os.path.splitext()  分离文件名与扩展名<br>os.path.join(path,name) 连接目录与文件名或目录<br>os.path.basename(path) 返回文件名<br>os.path.dirname(path) 返回文件路径<br>os.walk(top,topdown=True,onerror=None)  遍历迭代目录<br>os.rename(src, dst)  重命名file或者directory src到dst 如果dst是一个存在的directory, 将抛出OSError. 在Unix, 如果dst在存且是一个file, 如果用户有权限的话，它将被安静的替换. 操作将会失败在某些Unix 中如果src和dst在不同的文件系统中. 如果成功, 这命名操作将会是一个原子操作 (这是POSIX 需要). 在 Windows上, 如果dst已经存在, 将抛出OSError，即使它是一个文件. 在unix，Windows中有效。<br>os.renames(old, new) 递归重命名文件夹或者文件。像rename()</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;os模块提供了对目录或者文件的新建/删除/查看文件属性，还提供了对文件以及目录的路径操作。比如说：绝对路径，父目录……  但是，os文件的操作还应该包含移动 复制  打包 压缩 解压等操作，这些os模块都没有提供，shutil则就是对os中文件操作的补充， shutil是shell utility的缩写。&lt;br&gt;
     
     </summary>
     
