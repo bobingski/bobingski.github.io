@@ -2,9 +2,219 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>blog.whistlestop.ml/2018/04/21/%E6%98%A5%E5%A4%A9%E7%9A%84%E4%B8%80%E4%BA%9B%E7%85%A7%E7%89%87/</loc>
+    <loc>blog.whistlestop.ml/2018/04/22/%E6%98%A5%E5%A4%A9%E7%9A%84%E4%B8%80%E4%BA%9B%E7%85%A7%E7%89%87/</loc>
     
-    <lastmod>2018-04-21T04:22:07.460Z</lastmod>
+    <lastmod>2018-04-22T13:56:41.006Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E5%A4%AA%E5%A5%BD%E7%94%A8%EF%BC%81%EF%BC%81%EF%BC%81/</loc>
+    
+    <lastmod>2018-04-22T13:56:10.899Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C08-Object-References-Mutability-and-Recycling-01/</loc>
+    
+    <lastmod>2018-04-22T13:45:49.144Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C07-Stacked-Decorators-Parameterized-Decorators/</loc>
+    
+    <lastmod>2018-04-22T13:45:04.322Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C07-Implementing-a-Simple-Decorator/</loc>
+    
+    <lastmod>2018-04-22T13:44:15.690Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C07-Function-Decorators-and-Closures-02/</loc>
+    
+    <lastmod>2018-04-22T13:43:23.840Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C07-Function-Decorators-and-Closures01/</loc>
+    
+    <lastmod>2018-04-22T13:42:36.991Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C06-design-pattern-Command/</loc>
+    
+    <lastmod>2018-04-22T13:41:46.175Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C06-Strategy-Design-and-Function-Oriented-Strategy/</loc>
+    
+    <lastmod>2018-04-22T13:41:03.190Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C05-functional-programming/</loc>
+    
+    <lastmod>2018-04-22T13:39:54.335Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C05-functions/</loc>
+    
+    <lastmod>2018-04-22T13:39:02.549Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C04-bytes-bytesarray-struct-module-memory-views/</loc>
+    
+    <lastmod>2018-04-22T13:38:15.558Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C03-set-hash-tables/</loc>
+    
+    <lastmod>2018-04-22T13:36:32.748Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/re-module-compile-finditer-group-match/</loc>
+    
+    <lastmod>2018-04-22T13:36:27.667Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C03-Generic-Mapping-Types-hashable/</loc>
+    
+    <lastmod>2018-04-22T13:34:04.356Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C-deque/</loc>
+    
+    <lastmod>2018-04-22T13:33:18.830Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C02-Array-Memory-Views/</loc>
+    
+    <lastmod>2018-04-22T13:32:25.374Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C02-list-sort-and-the-sorted-Built-In-Function-bisect/</loc>
+    
+    <lastmod>2018-04-22T13:31:36.189Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C02-Sequence-Assignment/</loc>
+    
+    <lastmod>2018-04-22T13:30:42.446Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C02-Slice-Objects/</loc>
+    
+    <lastmod>2018-04-22T13:29:42.661Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C02-Tuple-unpacking-namedtuple/</loc>
+    
+    <lastmod>2018-04-22T13:28:02.810Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C02-Generate-Expressions/</loc>
+    
+    <lastmod>2018-04-22T13:27:09.340Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C02-listcomp-speed-py/</loc>
+    
+    <lastmod>2018-04-22T13:26:21.844Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C01-repr-str-bool/</loc>
+    
+    <lastmod>2018-04-22T13:24:18.538Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C01-How-Special-Methods-Are-Used/</loc>
+    
+    <lastmod>2018-04-22T13:23:02.624Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C29-mysqldump/</loc>
+    
+    <lastmod>2018-04-22T13:21:39.446Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C28-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</loc>
+    
+    <lastmod>2018-04-22T13:20:48.961Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C27-CHARACTER-SET-COLLATE/</loc>
+    
+    <lastmod>2018-04-22T13:19:56.940Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C26-COMMIT-ROLLBACK/</loc>
+    
+    <lastmod>2018-04-22T13:18:56.423Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C25-TRIGGER/</loc>
+    
+    <lastmod>2018-04-22T13:17:52.982Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/04/22/C29-getitem-setitem/</loc>
+    
+    <lastmod>2018-04-22T13:15:48.261Z</lastmod>
     
   </url>
   
