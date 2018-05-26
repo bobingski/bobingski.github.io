@@ -2,6 +2,209 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C01-Keys-and-Constraints-Indexes-Relationships-and-ForeignKeyConstraints/</loc>
+    
+    <lastmod>2018-05-26T05:34:03.262Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C01-Persisting-the-Tables/</loc>
+    
+    <lastmod>2018-05-26T05:33:54.156Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C02-Inserting-Data-Querying-Data/</loc>
+    
+    <lastmod>2018-05-26T05:33:42.940Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C10-Reflection-with-SQLAlchemy-ORM-and-Automap/</loc>
+    
+    <lastmod>2018-05-26T05:33:26.358Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C08-Understanding-the-Session-and-Exceptions/</loc>
+    
+    <lastmod>2018-05-26T05:32:07.045Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM-02/</loc>
+    
+    <lastmod>2018-05-26T05:31:14.571Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM/</loc>
+    
+    <lastmod>2018-05-26T05:30:06.041Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C05-Reflection/</loc>
+    
+    <lastmod>2018-05-26T05:29:25.879Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C04-Testing/</loc>
+    
+    <lastmod>2018-05-26T05:28:39.833Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C03-Exceptions-and-Transaction/</loc>
+    
+    <lastmod>2018-05-26T05:27:58.880Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C02-Built-In-SQL-Functions-and-Labels/</loc>
+    
+    <lastmod>2018-05-26T05:27:04.207Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C21-Class-Metaprogramming/</loc>
+    
+    <lastmod>2018-05-26T05:21:46.626Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-02/</loc>
+    
+    <lastmod>2018-05-26T05:20:16.481Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-01/</loc>
+    
+    <lastmod>2018-05-26T05:19:38.336Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/</loc>
+    
+    <lastmod>2018-05-26T05:19:00.088Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/</loc>
+    
+    <lastmod>2018-05-26T05:18:22.230Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C17-Concurrency-with-Futures/</loc>
+    
+    <lastmod>2018-05-26T05:17:30.574Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C16-Coroutines/</loc>
+    
+    <lastmod>2018-05-26T05:15:58.425Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C15-Context-Managers-and-else-Blocks/</loc>
+    
+    <lastmod>2018-05-26T05:15:12.792Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C14-Iterables-Iterators-and-Generators-02/</loc>
+    
+    <lastmod>2018-05-26T05:14:19.704Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C14-Iterables-Iterators-and-Generators-01/</loc>
+    
+    <lastmod>2018-05-26T05:13:28.189Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C13-Operator-Overloading-Doing-It-Right/</loc>
+    
+    <lastmod>2018-05-26T05:11:50.523Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C12-Inheritance-For-Good-or-For-Worse-02/</loc>
+    
+    <lastmod>2018-05-26T05:10:58.944Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C12-Inheritance-For-Good-or-For-Worse-01/</loc>
+    
+    <lastmod>2018-05-26T05:10:16.011Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C11-ABCs-in-the-Standard-Library/</loc>
+    
+    <lastmod>2018-05-26T05:09:28.429Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C11-Interfaces-From-Protocols-to-ABCs/</loc>
+    
+    <lastmod>2018-05-26T05:08:25.787Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C10-Sequence-Hacking-Hashing-and-Slicing/</loc>
+    
+    <lastmod>2018-05-26T05:07:32.555Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C09-A-Pythonic-Object/</loc>
+    
+    <lastmod>2018-05-26T05:05:58.595Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/05/25/C08-Object-References-Mutability-and-Recycling-02/</loc>
+    
+    <lastmod>2018-05-26T05:04:43.726Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>blog.whistlestop.ml/2018/04/22/%E6%98%A5%E5%A4%A9%E7%9A%84%E4%B8%80%E4%BA%9B%E7%85%A7%E7%89%87/</loc>
     
     <lastmod>2018-04-22T13:56:41.006Z</lastmod>

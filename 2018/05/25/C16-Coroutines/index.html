@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="fluent python,python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="We find two main senses for the verb “to yield” in dictionaries: to produce or to give way. Both senses apply in Python when we use the yield keyword in a generator. A line such as yield item produces">
+<meta name="keywords" content="fluent python,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C16_Coroutines">
+<meta property="og:url" content="blog.whistlestop.ml/2018/05/25/C16-Coroutines/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="We find two main senses for the verb “to yield” in dictionaries: to produce or to give way. Both senses apply in Python when we use the yield keyword in a generator. A line such as yield item produces">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-26T05:15:58.425Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C16_Coroutines">
+<meta name="twitter:description" content="We find two main senses for the verb “to yield” in dictionaries: to produce or to give way. Both senses apply in Python when we use the yield keyword in a generator. A line such as yield item produces">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/05/25/C16-Coroutines/"/>
+
+
+
+
+
+  <title>C16_Coroutines | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C16-Coroutines/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C16_Coroutines</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:15:33-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:15:58-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>We find two main senses for the verb “to yield” in dictionaries: to produce or to give way. Both senses apply in Python when we use the <strong>yield</strong> keyword in a generator. A line such as <strong>yield</strong> item produces a value that is received by the caller of <strong>next(…)</strong>, and it also gives way, suspending the execution of the generator so that the caller may proceed until it’s ready to consume another value by invoking <strong>next()</strong> again. The caller pulls values from the generator.<br><a id="more"></a><br>A <strong>coroutine</strong> is syntactically like a generator: just a function with the <strong>yield</strong> keyword in its body. However, in a <strong>coroutine</strong>, <strong>yield</strong> usually appears on the right side of an expression (e.g., <strong>datum = yield</strong>), and it may or may not produce a value—if there is no expression after the yield keyword, the generator yields <strong>None</strong>. The <strong>coroutine</strong> may receive data from the caller, which uses <strong>.send(datum)</strong> instead of <strong>next(…)</strong> to feed the <strong>coroutine</strong>. Usually, the caller pushes values into the <strong>coroutine</strong>.</p>
+<p>It is even possible that no data goes in or out through the <strong>yield</strong> keyword. Regardless of the flow of data, <strong>yield</strong> is a control flow device that can be used to implement cooperative multitasking: each <strong>coroutine</strong> yields control to a central scheduler so that other <strong>coroutines</strong> can be activated.</p>
+<p><strong><em>How Coroutines Evolved from Generators</em></strong></p>
+<p>Using <strong>.send(…)</strong>, the caller of the generator can post data that then becomes the value of the <strong>yield</strong> expression inside the generator function. This allows a generator to be used as a <strong>coroutine</strong>: a procedure that collaborates with the caller, yielding and receiving values from the caller.</p>
+<p>In addition to <strong>.send(…)</strong>, PEP 342 also added <strong>.throw(…)</strong> and <strong>.close()</strong> methods that respectively allow the caller to throw an exception to be handled inside the generator, and to terminate it.</p>
+<p>When you start thinking of <strong>yield</strong> primarily in terms of control flow, you have the mindset to understand <strong>coroutines</strong>.</p>
+<p><strong><em>Basic Behavior of a Generator Used as a Coroutine</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">simple_coroutine</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'-&gt; coroutine started'</span>)</span><br><span class="line"><span class="meta">... </span>    x = <span class="keyword">yield</span> <span class="comment"># 1</span></span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'-&gt; coroutine received:'</span>, x)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_coro = simple_coroutine()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_coro </span><br><span class="line">&lt;generator object simple_coroutine at <span class="number">0x05D8CA80</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(my_coro) <span class="comment"># 2</span></span><br><span class="line">-&gt; coroutine started</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_coro.send(<span class="number">42</span>) <span class="comment"># 3</span></span><br><span class="line">-&gt; coroutine received: 42</span><br><span class="line">Traceback (most recent call last): <span class="comment"># 4</span></span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>yield</strong> is used in an expression; when the coroutine is designed just to receive data from the client it yields None—this is implicit because there is no expression to the right of the yield keyword.</li>
+<li>The first call is <strong>next(…)</strong> because the generator hasn’t started so it’s not waiting in a <strong>yield</strong> and we can’t send it any data initially.</li>
+<li>This call makes the <strong>yield</strong> in the <strong>coroutine</strong> body evaluate to 42; now the <strong>coroutine</strong> resumes and runs until the next <strong>yield</strong> or termination.</li>
+<li>In this case, control flows off the end of the coroutine body, which prompts the generator machinery to raise <strong>StopIteration</strong>, as usual.</li>
+</ol>
+<p>A <strong>coroutine</strong> can be in one of four states. You can determine the current state using the <strong>inspect.getgeneratorstate(…)</strong> function, which returns one of these strings:</p>
+<p><strong>‘GEN_CREATED’</strong><br>Waiting to start execution.</p>
+<p><strong>‘GEN_RUNNING’</strong><br>Currently being executed by the interpreter.</p>
+<p><strong>‘GEN_SUSPENDED’</strong><br>Currently suspended at a yield expression.</p>
+<p><strong>‘GEN_CLOSED’</strong><br>Execution has completed.</p>
+<p>Because the argument to the <strong>send</strong> method will become the value of the pending <strong>yield</strong> expression, it follows that you can only make a call like <strong>my_coro.send(42)</strong> if the coroutine is currently suspended. But that’s not the case if the <strong>coroutine</strong> has never been activated—when its state is <strong>‘GEN_CREATED’</strong>. That’s why the first activation of a <strong>coroutine</strong> is always done with <strong>next(my_coro)</strong>—you can also call <strong>my_coro.send(None)</strong>, and the effect is the same.</p>
+<p>If you create a <strong>coroutine</strong> object and immediately try to send it a value that is not <strong>None</strong>, this is what happens:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_coro = simple_coroutine()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_coro.send(<span class="number">1729</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: can<span class="string">'t send non-None value to a just-started generator</span></span><br></pre></td></tr></table></figure>
+<p>The initial call <strong>next(my_coro)</strong> is often described as “priming” the <strong>coroutine</strong> (i.e., advancing it to the first <strong>yield</strong> to make it ready for use as a live coroutine).</p>
+<p><strong><em>A coroutine that yields twice</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">simple_coro2</span><span class="params">(a)</span>:</span></span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'-&gt; Started: a ='</span>, a)</span><br><span class="line"><span class="meta">... </span>    b = <span class="keyword">yield</span> a</span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'-&gt; Received: b ='</span>, b)</span><br><span class="line"><span class="meta">... </span>    c = <span class="keyword">yield</span> a + b</span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'-&gt; Received: c ='</span>, c)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_coro2=simple_coro2(<span class="number">14</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> inspect <span class="keyword">import</span> getgeneratorstate</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getgeneratorstate(my_coro2)</span><br><span class="line"><span class="string">'GEN_CREATED'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(my_coro2)</span><br><span class="line">-&gt; Started: a = 14</span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getgeneratorstate(my_coro2)</span><br><span class="line"><span class="string">'GEN_SUSPENDED'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_coro2.send(<span class="number">28</span>) <span class="comment"># 1</span></span><br><span class="line">-&gt; Received: b = 28</span><br><span class="line"><span class="number">42</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>my_coro2.send(<span class="number">99</span>) <span class="comment"># 2</span></span><br><span class="line">-&gt; Received: c = 99</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Send number <strong>28</strong> to suspended coroutine; the <strong>yield</strong> expression evaluates to <strong>28</strong> and that number is bound to <strong>b</strong>. The <strong>-&gt; Received: b = 28</strong> message is displayed, the value of <strong>a + b</strong> is yielded (<strong>42</strong>), and the coroutine is suspended waiting for the value to be assigned to <strong>c</strong>.</li>
+<li>Send number <strong>99</strong> to suspended coroutine; the yield expression evaluates to <strong>99</strong> the number is bound to <strong>c</strong>. The <strong>-&gt; Received: c = 99</strong> message is displayed, then the coroutine terminates, causing the generator object to raise <strong>StopIteration</strong>.</li>
+</ol>
+<p>It’s crucial to understand that the execution of the <strong>coroutine</strong> is suspended exactly at the <strong>yield</strong> keyword. As mentioned before, in an assignment statement, the code to the right of the <strong>=</strong> is evaluated before the actual assignment happens. This means that in a line like <strong>b = yield a</strong>, the value of <strong>b</strong> will only be set when the coroutine is activated later by the client code. It takes some effort to get used to this fact, but understanding it is essential to make sense of the use of yield in asynchronous programming.</p>
+<p>Execution of the <strong>simple_coro2</strong> coroutine can be split in three phases:</p>
+<ol>
+<li><strong>next(my_coro2)</strong> prints first message and runs to yield <strong>a</strong>, yielding number <strong>14</strong>.</li>
+<li><strong>my_coro2.send(28)</strong> assigns <strong>28</strong> to <strong>b</strong>, prints second message, and runs to <strong>yield a +<br>b</strong>, yielding number <strong>42</strong>.</li>
+<li><strong>my_coro2.send(99)</strong> assigns <strong>99</strong> to <strong>c</strong>, prints third message, and the coroutine ter‐<br>minates.</li>
+</ol>
+<h3 id="Example-Coroutine-to-Compute-a-Running-Average"><a href="#Example-Coroutine-to-Compute-a-Running-Average" class="headerlink" title="Example: Coroutine to Compute a Running Average"></a>Example: Coroutine to Compute a Running Average</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">averager</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    total= <span class="number">0.0</span></span><br><span class="line"><span class="meta">... </span>    count = <span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    average = <span class="keyword">None</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> <span class="keyword">True</span>: <span class="comment"># 1</span></span><br><span class="line"><span class="meta">... </span>        term = <span class="keyword">yield</span> average <span class="comment"># 2</span></span><br><span class="line"><span class="meta">... </span>        total += term</span><br><span class="line"><span class="meta">... </span>        count += <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>        average = total / count</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg = averager()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(coro_avg)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">10</span>)</span><br><span class="line"><span class="number">10.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">30</span>)</span><br><span class="line"><span class="number">20.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">5</span>)</span><br><span class="line"><span class="number">15.0</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>This infinite loop means this coroutine will keep on accepting values and producing results as long as the caller sends them. This coroutine will only terminate when the caller calls <strong>.close()</strong> on it, or when it’s garbage collected because there are no more references to it.</li>
+<li>The <strong>yield</strong> statement here is used to suspend the coroutine, produce a result to the caller, and—later—to get a value sent by the caller to the coroutine, which resumes its infinite loop.</li>
+</ol>
+<p>The call <strong>next(coro_avg)</strong> makes the coroutine advance to the <strong>yield</strong>, yielding the initial value for <strong>average</strong>, which is <strong>None</strong>, so it does not appear on the console. At this point, the coroutine is suspended at the yield, waiting for a value to be sent. The line <strong>coro_avg.send(10)</strong> provides that value, causing the coroutine to activate, assigning it to <strong>term</strong>, updating the <strong>total</strong>, <strong>count</strong>, and <strong>average</strong> variables, and then starting another iteration in the <strong>while</strong> loop, which yields the <strong>average</strong> and waits for another term.</p>
+<h3 id="Decorators-for-Coroutine-Priming"><a href="#Decorators-for-Coroutine-Priming" class="headerlink" title="Decorators for Coroutine Priming"></a>Decorators for Coroutine Priming</h3><p>You can’t do much with a coroutine without priming it: we must always remember to call <strong>next(my_coro)</strong> before <strong>my_coro.send(x)</strong>. To make coroutine usage more convenient, a priming decorator is sometimes used.</p>
+<p><strong><em>coroutil.py: decorator for priming coroutine</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">coroutine</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">... </span>    @wraps(func)</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">primer</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line"><span class="meta">... </span>        gen= func(*args, **kwargs)</span><br><span class="line"><span class="meta">... </span>        next(gen)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> gen</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> primer</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>@coroutine</span><br><span class="line"><span class="meta">... </span><span class="function"><span class="keyword">def</span> <span class="title">averager</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    total= <span class="number">0.0</span></span><br><span class="line"><span class="meta">... </span>    count = <span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    average= <span class="keyword">None</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"><span class="meta">... </span>        term= <span class="keyword">yield</span> average</span><br><span class="line"><span class="meta">... </span>        total += term</span><br><span class="line"><span class="meta">... </span>        count += <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>        average = total/count</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg= averager()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getgeneratorstate(coro_avg)</span><br><span class="line"><span class="string">'GEN_SUSPENDED'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">10</span>)</span><br><span class="line"><span class="number">10.0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">30</span>)</span><br><span class="line"><span class="number">20.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="Coroutine-Termination-and-Exception-Handling"><a href="#Coroutine-Termination-and-Exception-Handling" class="headerlink" title="Coroutine Termination and Exception Handling"></a>Coroutine Termination and Exception Handling</h3><p>An unhandled exception within a coroutine propagates to the caller of the <strong>next</strong> or <strong>send</strong> that triggered it.</p>
+<p><strong><em>How an unhandled exception kills a coroutine</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="string">'spam'</span>) <span class="comment"># 1</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">8</span>, <span class="keyword">in</span> averager</span><br><span class="line">TypeError: unsupported operand type(s) <span class="keyword">for</span> +=: <span class="string">'float'</span> <span class="keyword">and</span> <span class="string">'str'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">60</span>) <span class="comment"># 2</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>Sending a nonnumeric value causes an exception inside the coroutine.</li>
+<li>Because the exception was not handled in the coroutine, it terminated. Any attempt to reactivate it will raise <strong>StopIteration</strong>.</li>
+</ol>
+<p>Since Python 2.5, generator objects have two methods that allow the client to explicitly send exceptions into the coroutine—<strong>throw</strong> and <strong>close</strong>:</p>
+<p><strong>generator.throw(exc_type[, exc_value[, traceback]])</strong><br>Causes the <strong>yield</strong> expression where the generator was paused to raise the exception given. If the exception is handled by the generator, flow advances to the next yield, and the value yielded becomes the value of the <strong>generator.throw</strong> call. If the exception is not handled by the generator, it propagates to the context of the caller.</p>
+<p><strong>generator.close()</strong><br>Causes the <strong>yield</strong> expression where the generator was paused to raise a <strong>GeneratorExit</strong> exception. No error is reported to the caller if the generator does not handle that exception or raises <strong>StopIteration</strong>—usually by running to completion. When receiving a <strong>GeneratorExit</strong>, the generator must not yield a value, otherwise a <strong>RuntimeError</strong> is raised. If any other exception is raised by the generator, it propagates to the caller.</p>
+<p> <strong>_coro_exc_demo.py: test code for studying exception handling in a coroutine_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">DemoException</span><span class="params">(Exception)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="string">'''An exception type for the demonstration.'''</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">demo_exc_handling</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'-&gt; coroutine started'</span>)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>            x = <span class="keyword">yield</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">except</span> DemoException:</span><br><span class="line"><span class="meta">... </span>            print(<span class="string">'*** DemoException handled. Continuing...'</span>)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">else</span>:</span><br><span class="line"><span class="meta">... </span>            print(<span class="string">'-&gt; coroutine received: &#123;!r&#125;'</span>.format(x))</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">raise</span> RuntimeError(<span class="string">'This line should never run.'</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro= demo_exc_handling()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(exc_coro)</span><br><span class="line">-&gt; coroutine started</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro.send(<span class="number">11</span>)</span><br><span class="line">-&gt; coroutine received: 11</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro.close()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getgeneratorstate(exc_coro)</span><br><span class="line"><span class="string">'GEN_CLOSED'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>_Throwing DemoException into demo_exc_handling does not break it_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro= demo_exc_handling()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(exc_coro)</span><br><span class="line">-&gt; coroutine started</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro.send(<span class="number">11</span>)</span><br><span class="line">-&gt; coroutine received: 11</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro.throw(DemoException)</span><br><span class="line">*** DemoException handled. Continuing...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getgeneratorstate(exc_coro)</span><br><span class="line"><span class="string">'GEN_SUSPENDED'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Coroutine terminates if it can’t handle an exception thrown into it</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro= demo_exc_handling()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(exc_coro)</span><br><span class="line">-&gt; coroutine started</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro.send(<span class="number">11</span>)</span><br><span class="line">-&gt; coroutine received: 11</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>exc_coro.throw(ZeroDivisionError)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">5</span>, <span class="keyword">in</span> demo_exc_handling</span><br><span class="line">ZeroDivisionError</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getgeneratorstate(exc_coro)</span><br><span class="line"><span class="string">'GEN_CLOSED'</span></span><br></pre></td></tr></table></figure>
+<p>If it’s necessary that some cleanup code is run no matter how the coroutine ends, you need to wrap the relevant part of the coroutine body in a <strong>try/finally</strong> block.</p>
+<p><strong>_coro_finally_demo.py: use of try/finally to perform actions on coroutine termination_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoException</span><span class="params">(Exception)</span>:</span></span><br><span class="line">    <span class="string">'''An exception type for the demonstration.'''</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">demo_finally</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'-&gt; coroutine started'</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                x = <span class="keyword">yield</span></span><br><span class="line">            <span class="keyword">except</span> DemoException:</span><br><span class="line">                print(<span class="string">'*** DemoException handled. Continuing...'</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(<span class="string">'-&gt; coroutine received: &#123;!r&#125;'</span>.format(x))</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        print(<span class="string">'-&gt; coroutine ending'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Returning-a-Value-from-a-Coroutine"><a href="#Returning-a-Value-from-a-Coroutine" class="headerlink" title="Returning a Value from a Coroutine"></a>Returning a Value from a Coroutine</h3><p><strong><em>coroaverager2.py: code for an averager coroutine that returns a result</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Result= namedtuple(<span class="string">'Result'</span>, <span class="string">'count average'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">averager</span><span class="params">()</span>:</span></span><br><span class="line">    total = <span class="number">0.0</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    average = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        term = <span class="keyword">yield</span></span><br><span class="line">        <span class="keyword">if</span> term <span class="keyword">is</span> <span class="keyword">None</span>: <span class="comment"># 1</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        total += term</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        average = total / count</span><br><span class="line">    <span class="keyword">return</span> Result(count, average) <span class="comment"># 2</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>In order to return a value, a coroutine must terminate normally; this is why this version of averager has a condition to break out of its accumulating loop.</li>
+<li><p>Return a <strong>namedtuple</strong> with the count and average. Before Python 3.3, it was a syntax error to return a value in a generator function.</p>
+<p><strong><em>coroaverager2.py: doctest showing the behavior of averager</em></strong></p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg= averager()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(coro_avg)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">30</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="keyword">None</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration: Result(count=<span class="number">2</span>, average=<span class="number">20.0</span>)</span><br><span class="line"><span class="comment"># Sending None terminates the loop, causing the coroutine to end by returning the result. As usual, the </span></span><br><span class="line"><span class="comment"># generator object raises StopIteration. The value attribute of the exception carries the value returned.</span></span><br></pre></td></tr></table></figure>
+<p>Note that the value of the return expression is smuggled to the caller as an attribute of the <strong>StopIteration</strong> exception. This is a bit of a hack, but it preserves the existing behavior of generator objects: raising <strong>StopIteration</strong> when exhausted.</p>
+<p> <strong><em>Catching StopIteration lets us get the value returned by averager</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg= averager()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(coro_avg)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>coro_avg.send(<span class="number">30</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>    coro_avg.send(<span class="keyword">None</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">except</span> StopIteration <span class="keyword">as</span> exc:</span><br><span class="line"><span class="meta">... </span>    result= exc.value</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result</span><br><span class="line">Result(count=<span class="number">2</span>, average=<span class="number">20.0</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Using-yield-from"><a href="#Using-yield-from" class="headerlink" title="Using yield from"></a>Using yield from</h3><p>The first thing to know about <strong>yield from</strong> is that it is a completely new language construct. It does so much more than <strong>yield</strong> that the reuse of that keyword is arguably misleading. Similar constructs in other languages are called <strong>await</strong>, and that is a much better name because it conveys a crucial point: when a generator <strong>gen</strong> calls <strong>yield from</strong> <strong>subgen()</strong>, the <strong>subgen</strong> takes over and will yield values to the caller of <strong>gen</strong>; the caller will in effect drive <strong>subgen</strong> directly. Meanwhile <strong>gen</strong> will be blocked, waiting until <strong>subgen</strong> terminates.</p>
+<p> <strong><em>Chaining iterables with yield from</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">chain</span><span class="params">(*iterables)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> it <span class="keyword">in</span> iterables:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">yield</span> <span class="keyword">from</span> it</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'ABC'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = tuple(range(<span class="number">3</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(chain(s, t))</span><br><span class="line">[<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<p>The first thing the <strong>yield from x</strong> expression does with the <strong>x</strong> object is to call <strong>iter(x)</strong> to obtain an iterator from it. This means that <strong>x</strong> can be any <strong>iterable</strong>.</p>
+<p>However, if replacing nested <strong>for</strong> loops yielding values was the only contribution of <strong>yield from</strong>, this language addition wouldn’t have had a good chance of being accepted. The real nature of <strong>yield from</strong> cannot be demonstrated with simple iterables; it requires the mind-expanding use of nested generators. That’s why PEP 380, which introduced <strong>yield from</strong>, is titled “Syntax for Delegating to a Subgenerator.”</p>
+<p>The main feature of <strong>yield from</strong> is to open a bidirectional channel from the outermost caller to the innermost subgenerator, so that values can be sent and yielded back and forth directly from them, and exceptions can be thrown all the way in without adding a lot of exception handling boilerplate code in the intermediate coroutines. This is what enables coroutine delegation in a way that was not possible before.</p>
+<p><em>delegating generator</em><br>The generator function that contains the <strong>yield from <iterable></iterable></strong> expression.</p>
+<p><em>subgenerator</em><br>The generator obtained from the <strong><iterable></iterable></strong> part of the <strong>yield from</strong> expression. This is the “subgenerator” mentioned in the title of PEP 380: “Syntax for Delegating to a Subgenerator.”</p>
+<p><em>caller</em><br>PEP 380 uses the term “caller” to refer to the client code that calls the delegating generator. Depending on context, I use “client” instead of “caller,” to distinguish from the delegating generator, which is also a “caller” (it calls the subgenerator)</p>
+<p><strong><em>coroaverager3.py: using yield from to drive averager and report statistics</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Result= namedtuple(<span class="string">'Result'</span>, <span class="string">'count average'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># the subgenerator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">averager</span><span class="params">()</span>:</span></span><br><span class="line">    total= <span class="number">0.0</span></span><br><span class="line">    count= <span class="number">0</span></span><br><span class="line">    average= <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        term= <span class="keyword">yield</span> <span class="comment"># Each value sent by the client code in main will be bound to term here.</span></span><br><span class="line">        <span class="keyword">if</span> term <span class="keyword">is</span> <span class="keyword">None</span>: <span class="comment"># The crucial terminating condition. Without it, a yield</span></span><br><span class="line">           <span class="comment"># from calling this coroutine will block forever.</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        total+= term</span><br><span class="line">        count+= <span class="number">1</span></span><br><span class="line">        average= total/ count</span><br><span class="line">    <span class="keyword">return</span> Result(count, average)</span><br><span class="line">    <span class="comment"># The returned Result will be the value of the yield from expression in grouper</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># the delegating generator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">grouper</span><span class="params">(results, key)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:<span class="comment"># Each iteration in thisloop creates a new instance of averager; </span></span><br><span class="line">        <span class="comment"># each is a generator object operating as a coroutine.</span></span><br><span class="line">        </span><br><span class="line">        results[key] = <span class="keyword">yield</span> <span class="keyword">from</span> averager()</span><br><span class="line">        <span class="comment"># Whenever grouper is sent a value, it’s piped into the averager instance </span></span><br><span class="line">        <span class="comment"># by the yield from. grouper will be suspended here as long as the </span></span><br><span class="line">        <span class="comment"># averager instance is consuming values sent by the client. When an </span></span><br><span class="line">        <span class="comment"># averager instance runs to the end, the value it returns is bound to </span></span><br><span class="line">        <span class="comment"># results[key]. The while loop then proceeds to create another averager </span></span><br><span class="line">        <span class="comment"># instance to consume more values.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># the client code</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(data)</span>:</span></span><br><span class="line">    results=&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> key, values <span class="keyword">in</span> data.items():</span><br><span class="line">        group= grouper(results, key) </span><br><span class="line">        <span class="comment"># group is a generator objectresulting from calling grouper with the </span></span><br><span class="line">        <span class="comment"># results dict to collect the results, and a particular key. It will </span></span><br><span class="line">        <span class="comment"># operate as a coroutine.</span></span><br><span class="line">        </span><br><span class="line">        next(group) <span class="comment"># Prime the coroutine.</span></span><br><span class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> values:</span><br><span class="line">            group.send(value)</span><br><span class="line">            <span class="comment"># Send each value into the grouper. That value ends up in the term = </span></span><br><span class="line">            <span class="comment"># yield line of averager; grouper never has a chance to see it.</span></span><br><span class="line"></span><br><span class="line">        group.send(<span class="keyword">None</span>)</span><br><span class="line">        <span class="comment"># Sending None into grouper causes the current averager instance to </span></span><br><span class="line">        <span class="comment"># terminate, and allows grouper to run again, which creates another </span></span><br><span class="line">        <span class="comment"># averager for the next group of values</span></span><br><span class="line"></span><br><span class="line">    report(results)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">report</span><span class="params">(results)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> key, result <span class="keyword">in</span> sorted(results.items()):</span><br><span class="line">        group, unit = key.split(<span class="string">';'</span>)</span><br><span class="line">        print(<span class="string">'&#123;:2&#125; &#123;:5&#125; averaging &#123;:.2f&#125;&#123;&#125;'</span>.format(</span><br><span class="line">            result.count, group, result.average, unit</span><br><span class="line">            ))</span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line"> <span class="string">'girls;kg'</span>:</span><br><span class="line"> [<span class="number">40.9</span>, <span class="number">38.5</span>, <span class="number">44.3</span>, <span class="number">42.2</span>, <span class="number">45.2</span>, <span class="number">41.7</span>, <span class="number">44.5</span>, <span class="number">38.0</span>, <span class="number">40.6</span>, <span class="number">44.5</span>],</span><br><span class="line"> <span class="string">'girls;m'</span>:</span><br><span class="line"> [<span class="number">1.6</span>, <span class="number">1.51</span>, <span class="number">1.4</span>, <span class="number">1.3</span>, <span class="number">1.41</span>, <span class="number">1.39</span>, <span class="number">1.33</span>, <span class="number">1.46</span>, <span class="number">1.45</span>, <span class="number">1.43</span>],</span><br><span class="line"> <span class="string">'boys;kg'</span>:</span><br><span class="line"> [<span class="number">39.0</span>, <span class="number">40.8</span>, <span class="number">43.2</span>, <span class="number">40.8</span>, <span class="number">43.1</span>, <span class="number">38.6</span>, <span class="number">41.4</span>, <span class="number">40.6</span>, <span class="number">36.3</span>],</span><br><span class="line"> <span class="string">'boys;m'</span>:</span><br><span class="line"> [<span class="number">1.38</span>, <span class="number">1.5</span>, <span class="number">1.32</span>, <span class="number">1.25</span>, <span class="number">1.37</span>, <span class="number">1.48</span>, <span class="number">1.25</span>, <span class="number">1.49</span>, <span class="number">1.46</span>],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main(data)</span><br></pre></td></tr></table></figure>
+<p>What would happen if we omitted the call <strong>group.send(None)</strong> marked “important!” in main:<br>• Each iteration of the outer <strong>for</strong> loop creates a new <strong>grouper</strong> instance named <strong>group</strong>; this is the delegating generator.<br>• The call <strong>next(group)</strong> primes the <strong>grouper</strong> delegating generator, which enters its while <strong>True</strong> loop and suspends at the <strong>yield from</strong>, after calling the subgenerator <strong>averager</strong>.<br>• The inner <strong>for</strong> loop calls <strong>group.send(value)</strong>; this feeds the subgenerator <strong>averager</strong> directly. Meanwhile, the current <strong>group</strong> instance of <strong>grouper</strong> is suspended at the <strong>yield from</strong>.<br>• When the inner <strong>for</strong> loop ends, the <strong>group</strong> instance is still suspended at the <strong>yield from</strong>, so the assignment to <strong>results[key]</strong> in the body of grouper has not happened yet.<br>• Without the last <strong>group.send(None)</strong> in the outer <strong>for</strong> loop, the <strong>averager</strong> subgenerator never terminates, the delegating generator group is never reactivated, and the assignment to <strong>results[key]</strong> never happens.<br>• When execution loops back to the top of the outer <strong>for</strong> loop, a new <strong>grouper</strong> instance is created and bound to <strong>group</strong>. The previous <strong>grouper</strong> instance is garbage collected (together with its own unfinished <strong>averager</strong> subgenerator instance).</p>
+<p>Example 16-17 demonstrates the simplest arrangement of <strong>yield from</strong>, with only one delegating generator and one subgenerator. Because the delegating generator works as a pipe, you can connect any number of them in a pipeline: one delegating generator uses <strong>yield from</strong> to call a subgenerator, which itself is a delegating generator calling another subgenerator with <strong>yield from</strong>, and so on. Eventually this chain must end in a simple generator that uses just <strong>yield</strong>, but it may also end in any iterable object.</p>
+<p>Every <strong>yield from</strong> chain must be driven by a client that calls <strong>next(…)</strong> or <strong>.send(…)</strong> on the outermost delegating generator. This call may be implicit, such as a <strong>for</strong> loop.</p>
+<h3 id="The-Meaning-of-yield-from"><a href="#The-Meaning-of-yield-from" class="headerlink" title="The Meaning of yield from"></a>The Meaning of yield from</h3><p>• Any values that the subgenerator yields are passed directly to the caller of the delegating generator (i.e., the client code).<br>• Any values sent to the delegating generator using <strong>send()</strong> are passed directly to the subgenerator. If the sent value is <strong>None</strong>, the subgenerator’s <strong>__next__()</strong> method is called. If the sent value is not <strong>None</strong>, the subgenerator’s <strong>send()</strong> method is called. If the call raises <strong>StopIteration</strong>, the delegating generator is resumed. Any other exception is propagated to the delegating generator.<br>• <strong>return</strong> expr in a generator (or subgenerator) causes <strong>StopIteration(expr)</strong> to be raised upon exit from the generator.<br>• The value of the <strong>yield from</strong> expression is the first argument to the <strong>StopIteration</strong> exception raised by the subgenerator when it terminates.</p>
+<p>The other two features of <strong>yield from</strong> have to do with exceptions and termination:<br>• Exceptions other than <strong>GeneratorExit</strong> thrown into the delegating generator are passed to the <strong>throw()</strong> method of the subgenerator. If the call raises <strong>StopIteration</strong>, the delegating generator is resumed. Any other exception is propagated to the delegating generator.<br>• If a <strong>GeneratorExit</strong> exception is thrown into the delegating generator, or the <strong>close()</strong> method of the delegating generator is called, then the <strong>close()</strong> method of the subgenerator is called if it has one. If this call results in an exception, it is propagated to the delegating generator. Otherwise, <strong>GeneratorExit</strong> is raised in the delegating generator.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fluent-python/" rel="tag"><i class="fa fa-tag"></i> fluent python</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/C15-Context-Managers-and-else-Blocks/" rel="next" title="C15_Context Managers and else Blocks">
+                <i class="fa fa-chevron-left"></i> C15_Context Managers and else Blocks
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/C17-Concurrency-with-Futures/" rel="prev" title="C17_Concurrency with Futures(Not finished) ">
+                C17_Concurrency with Futures(Not finished)  <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-Coroutine-to-Compute-a-Running-Average"><span class="nav-number">1.</span> <span class="nav-text">Example: Coroutine to Compute a Running Average</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decorators-for-Coroutine-Priming"><span class="nav-number">2.</span> <span class="nav-text">Decorators for Coroutine Priming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Coroutine-Termination-and-Exception-Handling"><span class="nav-number">3.</span> <span class="nav-text">Coroutine Termination and Exception Handling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Returning-a-Value-from-a-Coroutine"><span class="nav-number">4.</span> <span class="nav-text">Returning a Value from a Coroutine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-yield-from"><span class="nav-number">5.</span> <span class="nav-text">Using yield from</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Meaning-of-yield-from"><span class="nav-number">6.</span> <span class="nav-text">The Meaning of yield from</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

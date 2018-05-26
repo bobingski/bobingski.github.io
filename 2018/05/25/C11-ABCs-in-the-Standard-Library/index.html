@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="fluent python,python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="ABCs are available in the standard library. Most are defined in the collections.abc module, but there are others. You can find ABCs in the numbers and io packages">
+<meta name="keywords" content="fluent python,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C11_ABCs in the Standard Library">
+<meta property="og:url" content="blog.whistlestop.ml/2018/05/25/C11-ABCs-in-the-Standard-Library/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="ABCs are available in the standard library. Most are defined in the collections.abc module, but there are others. You can find ABCs in the numbers and io packages">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://user-images.githubusercontent.com/33891164/39363928-e9ba4520-49e0-11e8-9cc5-273134e16df4.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/33891164/39364346-8be1ba12-49e2-11e8-85d8-a08f39454d95.png">
+<meta property="og:updated_time" content="2018-05-26T05:09:28.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C11_ABCs in the Standard Library">
+<meta name="twitter:description" content="ABCs are available in the standard library. Most are defined in the collections.abc module, but there are others. You can find ABCs in the numbers and io packages">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/33891164/39363928-e9ba4520-49e0-11e8-9cc5-273134e16df4.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/05/25/C11-ABCs-in-the-Standard-Library/"/>
+
+
+
+
+
+  <title>C11_ABCs in the Standard Library | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C11-ABCs-in-the-Standard-Library/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C11_ABCs in the Standard Library</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:08:55-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:09:28-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ABCs are available in the standard library. Most are defined in the <strong>collections.abc</strong> module, but there are others. You can find ABCs in the <strong>numbers</strong> and <strong>io</strong> packages<br><a id="more"></a></p>
+<h3 id="ABCs-in-collections-abc"><a href="#ABCs-in-collections-abc" class="headerlink" title="ABCs in collections.abc"></a>ABCs in collections.abc</h3><p><img src="https://user-images.githubusercontent.com/33891164/39363928-e9ba4520-49e0-11e8-9cc5-273134e16df4.png" alt="image"></p>
+<p><strong><em>Iterable, Container, and Sized</em></strong><br>Every collection should either inherit from these ABCs or at least implement compatible protocols. <strong>Iterable</strong> supports iteration with <strong>__iter__</strong>, Container supports the in operator with <strong>__contains__</strong>, and Sized supports <strong>len()</strong> with <strong>__len__</strong>.</p>
+<p><strong><em>Sequence, Mapping, and Set</em></strong><br>These are the main <strong>immutable</strong> collection types, and each has a <strong>mutable</strong> subclass. A detailed diagram for <strong>MutableSequence</strong> is in Figure 11-2; for <strong>MutableMapping</strong> and <strong>MutableSet</strong>, there are diagrams in Chapter 3.</p>
+<p><strong><em>MappingView</em></strong><br>In Python 3, the objects returned from the mapping methods .<strong>items()</strong>, .<strong>keys()</strong>, and .<strong>values()</strong> inherit from <strong>ItemsView</strong>, <strong>ValuesView</strong>, and <strong>ValuesView</strong>, respectively. The first two also inherit the rich interface of <strong>Set</strong>.</p>
+<p><strong><em>Callable and Hashable</em></strong><br>These ABCs are not so closely related to collections, but <strong>collections.abc</strong> was the first package to define ABCs in the standard library, and these two were deemed important enough to be included. I’ve never seen <strong>subclasses</strong> of either <strong>Callable</strong> or <strong>Hashable</strong>. Their main use is to support the <strong>insinstance</strong> built-in as a safe way of determining whether an object is <strong>callable</strong> or <strong>hashable</strong>.</p>
+<p><strong><em>Iterator</em></strong><br>Note that <strong>iterator</strong> subclasses <strong>Iterable</strong>. </p>
+<h3 id="The-Numbers-Tower-of-ABCs"><a href="#The-Numbers-Tower-of-ABCs" class="headerlink" title="The Numbers Tower of ABCs"></a>The Numbers Tower of ABCs</h3><p>The <strong>numbers</strong> package defines the so-called “numerical tower” ,where <strong>Number</strong> is the topmost superclass, <strong>Complex</strong> is its immediate subclass, and so on, down to <strong>Integral</strong>:</p>
+<ul>
+<li>Number</li>
+<li>Complex</li>
+<li>Real</li>
+<li>Rational</li>
+<li>Integral</li>
+</ul>
+<p>So if you need to check for an integer, use <strong>isinstance(x, numbers.Integral)</strong> to accept <strong>int</strong>, <strong>bool</strong> (which subclasses <strong>int</strong>) or other integer types that may be provided by external libraries that register their types with the <strong>numbers</strong> ABCs. </p>
+<p>If, on the other hand, a value can be a floating-point type, you write <strong>isinstance(x, numbers.Real)</strong>, and your code will happily take <strong>bool</strong>, <strong>int</strong>, <strong>float</strong>, <strong>fractions.Fraction</strong>, or any other noncomplex numerical type provided by an external library, such as NumPy.</p>
+<h3 id="Defining-and-Using-an-ABC"><a href="#Defining-and-Using-an-ABC" class="headerlink" title="Defining and Using an ABC"></a>Defining and Using an ABC</h3><p>The <strong>Tombola</strong> ABC has four methods. The two abstract methods are:<br><strong>.load(…)</strong>: put items into the container.<br><strong>.pick()</strong>: remove one item at random from the container, returning it.</p>
+<p>The concrete methods are:<br><strong>.loaded()</strong>: return True if there is at least one item in the container. <strong>.inspect()</strong>: return a sorted tuple built from the items currently in the container, without changing its contents (its internal ordering is not preserved).</p>
+<p><img src="https://user-images.githubusercontent.com/33891164/39364346-8be1ba12-49e2-11e8-85d8-a08f39454d95.png" alt="image"></p>
+<p><strong><em>tombola.py: Tombola is an ABC with two abstract methods and two concrete methods</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> abc</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tombola</span><span class="params">(abc.ABC)</span>:</span> <span class="comment">#To define an ABC, subclass abc.ABC</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @abc.abstractclassmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load</span><span class="params">(self, iterable)</span>:</span></span><br><span class="line">        <span class="string">"""Add items from an iterable"""</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @abc.abstractclassmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pick</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        Remove item at random, returning it.</span></span><br><span class="line"><span class="string">        This method should raise LookUpError when the instance is empty</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">loaded</span><span class="params">(self)</span>:</span> <span class="comment">#An ABC may include concrete methods.</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">        return True if there is at least 1 item, False otherwise</span></span><br><span class="line"><span class="string">        '''</span></span><br><span class="line">        <span class="comment">#Concrete methods in an ABC must rely only on the interface defined by the ABC </span></span><br><span class="line">        <span class="keyword">return</span> bool(self.inspect())</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inspect</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">'''Return a sorted tuple with the items currently inside'''</span></span><br><span class="line">        items=[]</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                items.append(self.pick())</span><br><span class="line">            <span class="keyword">except</span> LookupError: <span class="keyword">break</span></span><br><span class="line">        self.load(items)</span><br><span class="line">        <span class="keyword">return</span> tuple(sorted(items))</span><br></pre></td></tr></table></figure>
+<h3 id="ABC-Syntax-Details"><a href="#ABC-Syntax-Details" class="headerlink" title="ABC Syntax Details"></a>ABC Syntax Details</h3><p>The best way to declare an ABC is to subclass <strong>abc.ABC</strong> or any other ABC.</p>
+<p>However, the <strong>abc.ABC</strong> class is new in Python 3.4, so if you are using an earlier version of Python—and it does not make sense to subclass another existing ABC—then you must use the <strong>metaclass= keyword</strong> in the class statement, pointing to <strong>abc.ABCMeta</strong> (not <strong>abc.ABC</strong>). </p>
+<p>The <strong>metaclass= keyword</strong> argument was introduced in Python 3. In Python 2, you must use the <strong>__metaclass__</strong> class attribute.</p>
+<h3 id="Subclassing-the-Tombola-ABC"><a href="#Subclassing-the-Tombola-ABC" class="headerlink" title="Subclassing the Tombola ABC"></a>Subclassing the Tombola ABC</h3><p>This <strong>BingoCage</strong> implements the required abstract methods <strong>load</strong> and <strong>pick</strong>, inherits <strong>loaded</strong> from <strong>Tombola</strong>, overrides <strong>inspect</strong>, and adds  <strong>__call__.</strong></p>
+<p> <strong><em>bingo.py: BingoCage is a concrete subclass of Tombola</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import random</span><br><span class="line"></span><br><span class="line">from tombola import Tombola</span><br><span class="line"></span><br><span class="line">class BingoCage(Tombola):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        self._randomizer=random.SystemRandom()</span><br><span class="line">        self._items=[]</span><br><span class="line">        self.load(items)</span><br><span class="line"></span><br><span class="line">    def load(self, items):</span><br><span class="line">        self._items.extend(items)</span><br><span class="line">        self._randomizer.shuffle(self._items)</span><br><span class="line"></span><br><span class="line">    def pick(self):</span><br><span class="line">        try:</span><br><span class="line">            return self._items.pop()</span><br><span class="line">        except IndexError:</span><br><span class="line">            raise LookupError(&apos;pick from empty BingoCage&apos;)</span><br><span class="line"></span><br><span class="line">    def __call__(self):</span><br><span class="line">        self.pick()</span><br><span class="line">from tombola import Tombola</span><br><span class="line"></span><br><span class="line">class BingoCage(Tombola):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        self._randomizer=random.SystemRandom()</span><br><span class="line">        self._items=[]</span><br><span class="line">        self.load(items)</span><br><span class="line"></span><br><span class="line">    def load(self, items):</span><br><span class="line">        self._items.extend(items)</span><br><span class="line">        self._randomizer.shuffle(self._items)</span><br><span class="line"></span><br><span class="line">    def pick(self):</span><br><span class="line">        try:</span><br><span class="line">            return self._items.pop()</span><br><span class="line">        except IndexError:</span><br><span class="line">            raise LookupError(&apos;pick from empty BingoCage&apos;)</span><br><span class="line"></span><br><span class="line">    def __call__(self):</span><br><span class="line">        self.pick()</span><br></pre></td></tr></table></figure>
+<h3 id="A-Virtual-Subclass-of-Tombola"><a href="#A-Virtual-Subclass-of-Tombola" class="headerlink" title="A Virtual Subclass of Tombola"></a>A Virtual Subclass of Tombola</h3><p>Virtual subclasses do not inherit from their registered ABCs, and are not checked for conformance to the ABC interface at any time, not even when they are instantiated. It’s up to the subclass to actually implement all the methods needed to avoid runtime errors.</p>
+<p>The <strong>register</strong> method is usually invoked as a plain function, but it can also be used as a decorator. We use the decorator syntax and implement <strong>TomboList</strong>, a virtual subclass of <strong>Tombola</strong>.</p>
+<p> <strong><em>tombolist.py: class TomboList is a virtual subclass of Tombola</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randrange</span><br><span class="line"><span class="keyword">from</span> tombola <span class="keyword">import</span> Tombola</span><br><span class="line"></span><br><span class="line"><span class="comment">#Tombolist is registered as a virtual subclass of Tombola.</span></span><br><span class="line"><span class="meta">@Tombola.register</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TomboList</span><span class="params">(list)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pick</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self:</span><br><span class="line">            position=randrange(len(self))</span><br><span class="line">            <span class="keyword">return</span> self.pop(position)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> LookupError(<span class="string">'pop from empty TomboList'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Tombolist.load is the same as list.extend.</span></span><br><span class="line">    load=list.extend</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">loaded</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bool(self)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inspect</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tuple(sorted(self))</span><br></pre></td></tr></table></figure>
+<p>Note that because of the registration, the functions <strong>issubclass</strong> and <strong>isinstance</strong> act as if <strong>TomboList</strong> is a subclass of <strong>Tombola</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> tombola <span class="keyword">import</span> Tombola</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> tombolist <span class="keyword">import</span> TomboList</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>issubclass(TomboList, Tombola)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = TomboList(range(<span class="number">100</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>isinstance(t, Tombola)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>However, inheritance is guided by a special class attribute named <strong>__mro__</strong>—the <strong>Method Resolution Order</strong>. It basically lists the class and its superclasses in the order Python uses to search for methods. If you inspect the <strong><strong>mro</strong></strong> of <strong>TomboList</strong>, you’ll see that it lists only the “real” superclasses—<strong>list</strong> and <strong>object</strong>:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>TomboList.__mro__</span><br><span class="line">(&lt;class 'tombolist.TomboList'&gt;, &lt;class 'list'&gt;, &lt;class 'object'&gt;)</span><br></pre></td></tr></table></figure>
+<p><strong>Tombola</strong> is not in <strong>Tombolist</strong>.<strong>__mro__</strong>, so <strong>Tombolist</strong> does not inherit any methods from <strong>Tombola</strong>.</p>
+<h3 id="How-the-Tombola-Subclasses-Were-Tested"><a href="#How-the-Tombola-Subclasses-Were-Tested" class="headerlink" title="How the Tombola Subclasses Were Tested"></a>How the Tombola Subclasses Were Tested</h3><p>test the <strong>Tombola</strong> example:</p>
+<p><strong>__subclasses__()</strong><br>Method that returns a list of the immediate subclasses of the class. The list does not include virtual subclasses.</p>
+<p><strong>_abc_registry</strong><br>Data attribute—available only in ABCs—that is bound to a <strong>WeakSet</strong> with weak references to registered virtual subclasses of the abstract class.</p>
+<h3 id="Usage-of-register-in-Practice"><a href="#Usage-of-register-in-Practice" class="headerlink" title="Usage of register in Practice"></a>Usage of register in Practice</h3><p>Even if <strong>register</strong> can now be used as a decorator, it’s more widely deployed as a function to register classes defined elsewhere. For example, in the source code for the <strong>collections.abc</strong> module, the built-in types <strong>tuple</strong>, <strong>str</strong>, <strong>range</strong>, and <strong>memoryview</strong> are registered as virtual subclasses of <strong>Sequence</strong> like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Sequence.register(tuple)</span><br><span class="line">Sequence.register(str)</span><br><span class="line">Sequence.register(range)</span><br><span class="line">Sequence.register(memoryview)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fluent-python/" rel="tag"><i class="fa fa-tag"></i> fluent python</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/C11-Interfaces-From-Protocols-to-ABCs/" rel="next" title="C11_Interfaces: From Protocols to ABCs">
+                <i class="fa fa-chevron-left"></i> C11_Interfaces: From Protocols to ABCs
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/C12-Inheritance-For-Good-or-For-Worse-01/" rel="prev" title="C12_Inheritance: For Good or For Worse_01">
+                C12_Inheritance: For Good or For Worse_01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ABCs-in-collections-abc"><span class="nav-number">1.</span> <span class="nav-text">ABCs in collections.abc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Numbers-Tower-of-ABCs"><span class="nav-number">2.</span> <span class="nav-text">The Numbers Tower of ABCs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Defining-and-Using-an-ABC"><span class="nav-number">3.</span> <span class="nav-text">Defining and Using an ABC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ABC-Syntax-Details"><span class="nav-number">4.</span> <span class="nav-text">ABC Syntax Details</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subclassing-the-Tombola-ABC"><span class="nav-number">5.</span> <span class="nav-text">Subclassing the Tombola ABC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Virtual-Subclass-of-Tombola"><span class="nav-number">6.</span> <span class="nav-text">A Virtual Subclass of Tombola</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-the-Tombola-Subclasses-Were-Tested"><span class="nav-number">7.</span> <span class="nav-text">How the Tombola Subclasses Were Tested</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Usage-of-register-in-Practice"><span class="nav-number">8.</span> <span class="nav-text">Usage of register in Practice</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

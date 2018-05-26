@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,sqlalchemy," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="The Session">
+<meta name="keywords" content="python,sqlalchemy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlalchemy_C06_Defining Schema with SQLAlchemy ORM_02">
+<meta property="og:url" content="blog.whistlestop.ml/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM-02/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="The Session">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-26T05:31:14.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sqlalchemy_C06_Defining Schema with SQLAlchemy ORM_02">
+<meta name="twitter:description" content="The Session">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM-02/"/>
+
+
+
+
+
+  <title>sqlalchemy_C06_Defining Schema with SQLAlchemy ORM_02 | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sqlalchemy_C06_Defining Schema with SQLAlchemy ORM_02</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:30:30-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:31:14-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="The-Session"><a href="#The-Session" class="headerlink" title="The Session"></a>The Session</h2><a id="more"></a> 
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>engine= create_engine(<span class="string">'sqlite:///:memory:'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Session= sessionmaker(bind= engine)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session =Session()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> sessionmaker</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>engine = create_engine(<span class="string">'sqlite:///:memory:'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Session = sessionmaker(bind=engine)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session = Session()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> Column, Integer, Numeric, String, DateTime, ForeignKey, Boolean</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.ext.declarative <span class="keyword">import</span> declarative_base</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy.orm <span class="keyword">import</span> relationship, backref</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Base= declarative_base()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Cookie</span><span class="params">(Base)</span>:</span></span><br><span class="line"><span class="meta">... </span>    __tablename__= <span class="string">'cookies'</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span>    cookie_id = Column(Integer(), primary_key=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">... </span>    cookie_name = Column(String(<span class="number">50</span>), index=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">... </span>    cookie_recipe_url = Column(String(<span class="number">255</span>))</span><br><span class="line"><span class="meta">... </span>    cookie_sku = Column(String(<span class="number">55</span>))</span><br><span class="line"><span class="meta">... </span>    quantity = Column(Integer())</span><br><span class="line"><span class="meta">... </span>    unit_cost = Column(Numeric(<span class="number">12</span>, <span class="number">2</span>))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">"Cookie(cookie_name='&#123;self.cookie_name&#125;', "</span> \</span><br><span class="line"><span class="meta">... </span>                       <span class="string">"cookie_recipe_url='&#123;self.cookie_recipe_url&#125;', "</span> \</span><br><span class="line"><span class="meta">... </span>                       <span class="string">"cookie_sku='&#123;self.cookie_sku&#125;', "</span> \</span><br><span class="line"><span class="meta">... </span>                       <span class="string">"quantity=&#123;self.quantity&#125;, "</span> \</span><br><span class="line"><span class="meta">... </span>                       <span class="string">"unit_cost=&#123;self.unit_cost&#125;)"</span>.format(self=self)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">User</span><span class="params">(Base)</span>:</span></span><br><span class="line"><span class="meta">... </span>    __tablename__ = <span class="string">'users'</span></span><br><span class="line"><span class="meta">... </span>    </span><br><span class="line"><span class="meta">... </span>    user_id = Column(Integer(), primary_key=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">... </span>    username = Column(String(<span class="number">15</span>), nullable=<span class="keyword">False</span>, unique=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">... </span>    email_address = Column(String(<span class="number">255</span>), nullable=<span class="keyword">False</span>)</span><br><span class="line"><span class="meta">... </span>    phone = Column(String(<span class="number">20</span>), nullable=<span class="keyword">False</span>)</span><br><span class="line"><span class="meta">... </span>    password = Column(String(<span class="number">25</span>), nullable=<span class="keyword">False</span>)</span><br><span class="line"><span class="meta">... </span>    created_on = Column(DateTime(), default=datetime.now)</span><br><span class="line"><span class="meta">... </span>    updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)</span><br><span class="line"><span class="meta">... </span>    </span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">"User(username='&#123;self.username&#125;', "</span> \</span><br><span class="line"><span class="meta">... </span>                     <span class="string">"email_address='&#123;self.email_address&#125;', "</span> \</span><br><span class="line"><span class="meta">... </span>                     <span class="string">"phone='&#123;self.phone&#125;', "</span> \</span><br><span class="line"><span class="meta">... </span>                     <span class="string">"password='&#123;self.password&#125;')"</span>.format(self=self)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Order</span><span class="params">(Base)</span>:</span></span><br><span class="line"><span class="meta">... </span>    __tablename__ = <span class="string">'orders'</span></span><br><span class="line"><span class="meta">... </span>    order_id = Column(Integer(), primary_key=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">... </span>    user_id = Column(Integer(), ForeignKey(<span class="string">'users.user_id'</span>))</span><br><span class="line"><span class="meta">... </span>    shipped = Column(Boolean(), default=<span class="keyword">False</span>)</span><br><span class="line"><span class="meta">... </span>    </span><br><span class="line"><span class="meta">... </span>    user =  relationship(<span class="string">"User"</span>, backref=backref(<span class="string">'orders'</span>, order_by=order_id))</span><br><span class="line"><span class="meta">... </span>    </span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">"Order(user_id=&#123;self.user_id&#125;, "</span> \</span><br><span class="line"><span class="meta">... </span>                      <span class="string">"shipped=&#123;self.shipped&#125;)"</span>.format(self=self)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span><span class="params">(Base)</span>:</span></span><br><span class="line"><span class="meta">... </span>    __tablename__ = <span class="string">'line_items'</span></span><br><span class="line"><span class="meta">... </span>    line_item_id = Column(Integer(), primary_key=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">... </span>    order_id = Column(Integer(), ForeignKey(<span class="string">'orders.order_id'</span>))</span><br><span class="line"><span class="meta">... </span>    cookie_id = Column(Integer(), ForeignKey(<span class="string">'cookies.cookie_id'</span>))</span><br><span class="line"><span class="meta">... </span>    quantity = Column(Integer())</span><br><span class="line"><span class="meta">... </span>    extended_cost = Column(Numeric(<span class="number">12</span>, <span class="number">2</span>))</span><br><span class="line"><span class="meta">... </span>    </span><br><span class="line"><span class="meta">... </span>    order = relationship(<span class="string">"Order"</span>, backref=backref(<span class="string">'line_items'</span>, order_by=line_item_id))</span><br><span class="line"><span class="meta">... </span>    cookie = relationship(<span class="string">"Cookie"</span>, uselist=<span class="keyword">False</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">"LineItems(order_id=&#123;self.order_id&#125;, "</span> \</span><br><span class="line"><span class="meta">... </span>                          <span class="string">"cookie_id=&#123;self.cookie_id&#125;, "</span> \</span><br><span class="line"><span class="meta">... </span>                          <span class="string">"quantity=&#123;self.quantity&#125;, "</span> \</span><br><span class="line"><span class="meta">... </span>                          <span class="string">"extended_cost=&#123;self.extended_cost&#125;)"</span>.format(</span><br><span class="line"><span class="meta">... </span>                    self=self)    </span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Base.metadata.create_all(engine)</span><br></pre></td></tr></table></figure>
+<h2 id="Inserting-Data"><a href="#Inserting-Data" class="headerlink" title="Inserting Data"></a>Inserting Data</h2><p><strong><em>Inserting a single object</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cc_cookie = Cookie(cookie_name=<span class="string">'chocolate chip'</span>, </span><br><span class="line">                   cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/recipe.html'</span>,</span><br><span class="line">                   cookie_sku=<span class="string">'CC01'</span>,</span><br><span class="line">                   quantity=<span class="number">12</span>,</span><br><span class="line">                   unit_cost=<span class="number">0.50</span>)</span><br><span class="line">session.add(cc_cookie) </span><br><span class="line">session.commit()</span><br></pre></td></tr></table></figure>
+<p>When <strong>commit()</strong> is called on the session, the cookie is actually inserted into the database. It also updates <strong>cc_cookie</strong> with the primary key of the record in the database. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(cc_cookie.cookie_id)</span><br><span class="line">C:\FluentPython\env\lib\site-packages\sqlalchemy\sql\sqltypes.py:<span class="number">603</span>: SAWarning: Dialect sqlite+pysqlite does *<span class="keyword">not</span>* support Decimal objects natively, <span class="keyword">and</span> SQLAlchemy must convert <span class="keyword">from</span> floating point - rounding errors <span class="keyword">and</span> other issues may occur. Please consider storing Decimal numbers <span class="keyword">as</span> strings <span class="keyword">or</span> integers on this platform <span class="keyword">for</span> lossless storage.</span><br><span class="line">  <span class="string">'storage.'</span> % (dialect.name, dialect.driver))</span><br><span class="line"><span class="number">1</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>When we create the instance of the <strong>Cookie</strong> class and then add it to the session, nothing is sent to the database. It’s not until we call <strong>commit()</strong> on the session that anything is sent to the database.</p>
+<p><strong><em>Multiple inserts</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">dcc = Cookie(cookie_name=<span class="string">'dark chocolate chip'</span>,</span><br><span class="line">             cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/recipe_dark.html'</span>,</span><br><span class="line">             cookie_sku=<span class="string">'CC02'</span>,</span><br><span class="line">             quantity=<span class="number">1</span>,</span><br><span class="line">             unit_cost=<span class="number">0.75</span>)</span><br><span class="line">mol = Cookie(cookie_name=<span class="string">'molasses'</span>,</span><br><span class="line">             cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/recipe_molasses.html'</span>,</span><br><span class="line">             cookie_sku=<span class="string">'MOL01'</span>,</span><br><span class="line">             quantity=<span class="number">1</span>,</span><br><span class="line">             unit_cost=<span class="number">0.80</span>)</span><br><span class="line">session.add(dcc) </span><br><span class="line">session.add(mol) </span><br><span class="line">session.flush() </span><br><span class="line">print(dcc.cookie_id)</span><br><span class="line">print(mol.cookie_id)</span><br></pre></td></tr></table></figure>
+<p>we used the <strong>flush()</strong> method on the session instead of <strong>commit()</strong>.A flush is like a commit; however, it doesn’t perform a database commit and end the transaction. Because of this, the <strong>dcc</strong> and <strong>mol</strong> instances are still connected to the session, and can be used to perform additional database tasks without triggering additional database queries. We also issue the <strong>session.flush()</strong> statement one time, even though we added multiple records into the database. This actually results in two insert statements being sent to the database inside a single transaction.</p>
+<p>The second method of inserting multiple records into the database is great when you want to insert data into the table and you don’t need to perform additional work on that data.</p>
+<p><strong><em>Bulk inserting multiple records</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">c1 = Cookie(cookie_name=<span class="string">'peanut butter'</span>,</span><br><span class="line">            cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/peanut.html'</span>,</span><br><span class="line">            cookie_sku=<span class="string">'PB01'</span>,</span><br><span class="line">            quantity=<span class="number">24</span>,</span><br><span class="line">            unit_cost=<span class="number">0.25</span>)</span><br><span class="line">c2 = Cookie(cookie_name=<span class="string">'oatmeal raisin'</span>,</span><br><span class="line">            cookie_recipe_url=<span class="string">'http://some.okay.me/cookie/raisin.html'</span>,</span><br><span class="line">            cookie_sku=<span class="string">'EWW01'</span>,</span><br><span class="line">            quantity=<span class="number">100</span>,</span><br><span class="line">            unit_cost=<span class="number">1.00</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.bulk_save_objects([c1,c2])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.commit()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c1.cookie_id</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>c1</strong> object isn’t associated with the session, and can’t refresh its <strong>cookie_id</strong> for printing.</p>
+<p>The method demonstrated is substantially faster than performing multiple individual adds and inserts.This speed does come at the expense of some features we get in the normal add and commit, such as:</p>
+<ul>
+<li>Relationship settings and actions are not respected or triggered.</li>
+<li>The objects are not connected to the session.</li>
+<li>Fetching primary keys is not done by default.</li>
+<li>No events will be triggered.</li>
+</ul>
+<p>If you are inserting multiple records and don’t need access to relationships or the inserted primary key, use <strong>bulk_save_objects</strong> or its related methods. This is especially true if you are ingesting data from an external data source such as a CSV or a large JSON document with nested arrays.</p>
+<h2 id="Querying-Data"><a href="#Querying-Data" class="headerlink" title="Querying Data"></a>Querying Data</h2><p><strong><em>Get all the cookies</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>cookies= session.query(Cookie).all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> cookie <span class="keyword">in</span> cookies: print(cookie)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">Cookie(cookie_name=<span class="string">'chocolate chip'</span>, cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/recipe.html'</span>, cookie_sku=<span class="string">'CC01'</span>, quantity=<span class="number">12</span>, unit_cost=<span class="number">0.50</span>)</span><br><span class="line">Cookie(cookie_name=<span class="string">'peanut butter'</span>, cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/peanut.html'</span>, cookie_sku=<span class="string">'PB01'</span>, quantity=<span class="number">24</span>, unit_cost=<span class="number">0.25</span>)</span><br><span class="line">Cookie(cookie_name=<span class="string">'oatmeal raisin'</span>, cookie_recipe_url=<span class="string">'http://some.okay.me/cookie/raisin.html'</span>, cookie_sku=<span class="string">'EWW01'</span>, quantity=<span class="number">100</span>, unit_cost=<span class="number">1.00</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>These objects are connected to the session, which means we can change them or delete them and persist that change to the database.</p>
+<p>In addition to using the query as an iterable or calling the <strong>all()</strong> method, there are many other ways of accessing the data. You can use the following methods to fetch results:</p>
+<p><strong>first()</strong><br>    Returns the first record object if there is one.</p>
+<p><strong>one()</strong><br>    Queries all the rows, and raises an exception if anything other than a single result is returned.</p>
+<p><strong>scalar()</strong><br>    Returns the first element of the first result, None if there is no result, or an error if there is more than one result.</p>
+<h3 id="Controlling-the-Columns-in-the-Query"><a href="#Controlling-the-Columns-in-the-Query" class="headerlink" title="Controlling the Columns in the Query"></a>Controlling the Columns in the Query</h3><p>To limit the fields that are returned from a query, we need to pass in the columns we want in the <strong>query()</strong> method constructor separated by columns.</p>
+<p><strong>_Select only cookie_name_</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.query(Cookie.cookie_id, Cookie.cookie_name).first()</span><br><span class="line">(<span class="number">1</span>, <span class="string">'chocolate chip'</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Ordering"><a href="#Ordering" class="headerlink" title="Ordering"></a>Ordering</h3><p>However, if we want the list to be returned in a particular order, we can chain an order_by() statement to our select.</p>
+<p><strong><em>Order by quantity ascending</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> cookie <span class="keyword">in</span> session.query(Cookie).order_by(Cookie.quantity):</span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'&#123;:3&#125; - &#123;&#125;'</span>.format(cookie.quantity, cookie.cookie_name))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"> <span class="number">12</span> - chocolate chip</span><br><span class="line"> <span class="number">24</span> - peanut butter</span><br><span class="line"><span class="number">100</span> - oatmeal raisin</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>If you want to sort in reverse or descending order, use the <strong>desc()</strong> statement. The <strong>desc()</strong> function wraps the specific column you want to sort in a descending manner.</p>
+<p><strong><em>Order by quantity descending</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> desc</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> cookie <span class="keyword">in</span> session.query(Cookie).order_by(desc(Cookie.quantity)):</span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'&#123;:3&#125; - &#123;&#125;'</span>.format(cookie.quantity, cookie.cookie_name))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="number">100</span> - oatmeal raisin</span><br><span class="line"> <span class="number">24</span> - peanut butter</span><br><span class="line"> <span class="number">12</span> - chocolate chip</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>The <strong>desc()</strong> function can also be used as a method on a column object, such as <strong>Cookie.quantity.desc()</strong>. However, that can be a bit more confusing to read in long statements.</p>
+<h3 id="Limiting"><a href="#Limiting" class="headerlink" title="Limiting"></a>Limiting</h3><p>In prior examples, we used the <strong>first()</strong> method to get just a single row back. While our <strong>query()</strong> gave us the one row we asked for, the actual query ran over and accessed all the results, not just the single record. If we want to limit the query, we can use array slice notation to actually issue a limit statement as part of our query.</p>
+<p><strong><em>Two fewest cookie inventories</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= session.query(Cookie).order_by(Cookie.quantity)[:<span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print([result.cookie_name <span class="keyword">for</span> result <span class="keyword">in</span> query])</span><br><span class="line">[<span class="string">'chocolate chip'</span>, <span class="string">'peanut butter'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>In addition to using the array slice notation, it is also possible to use the <strong>limit()</strong> statement.</p>
+<p><strong><em>Two fewest cookie inventories with limit</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">query = session.query(Cookie).order_by(Cookie.quantity).limit(<span class="number">2</span>)</span><br><span class="line">print([result.cookie_name <span class="keyword">for</span> result <span class="keyword">in</span> query])</span><br></pre></td></tr></table></figure></p>
+<h3 id="Built-In-SQL-Functions-and-Labels"><a href="#Built-In-SQL-Functions-and-Labels" class="headerlink" title="Built-In SQL Functions and Labels"></a>Built-In SQL Functions and Labels</h3><p>SQLAlchemy can also leverage SQL functions found in the backend database. Two very commonly used database functions are <strong>SUM()</strong> and <strong>COUNT()</strong>. To use these functions, we need to import the <strong>sqlalchemy.func</strong> module generator that makes them available. These functions are wrapped around the column(s) on which they are operating.</p>
+<p><strong><em>Summing our cookies</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> func</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>inv_count= session.query(func.sum(Cookie.quantity)).scalar()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>inv_count</span><br><span class="line"><span class="number">136</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Notice the use of <strong>scalar</strong>, which will return only the leftmost column in the first record.</p>
+<p><strong><em>Counting our inventory records</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>rec_count= session.query(func.count(Cookie.cookie_name)).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rec_count</span><br><span class="line">(<span class="number">3</span>,)</span><br></pre></td></tr></table></figure>
+<p>Using functions such as <strong>count()</strong> and <strong>sum()</strong> will end up returning tuples or results with column names like <strong>count_1</strong>. These types of returns are often not what we want. Also, if we have several counts in a query we’d have to know the occurrence number in the statement, and incorporate that into the column name, so the fourth count() function would be <strong>count_4</strong>. This simply is not as explicit and clear as we should be in our naming, especially when surrounded with other Python code.</p>
+<p><strong><em>Renaming our count column</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>rec_count= session.query(func.count(Cookie.cookie_name).label(<span class="string">'inventory_count'</span>)).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rec_count.keys()</span><br><span class="line">[<span class="string">'inventory_count'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rec_count.inventory_count</span><br><span class="line"><span class="number">3</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Filtering"><a href="#Filtering" class="headerlink" title="Filtering"></a>Filtering</h3><p>Filtering queries is done by appending <strong>filter()</strong> statements to our query. A typical <strong>filter()</strong> clause has a column, an operator, and a value or column. It is possible to chain multiple <strong>filters()</strong> clauses together or comma separate multiple <strong>ClauseElement</strong> expressions in a single filter, and they will act like ANDs in traditional SQL statements.</p>
+<p><strong><em>Filtering by cookie name with filter</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>record = session.query(Cookie).filter(Cookie.cookie_name==<span class="string">'chocolate chip'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(record)</span><br><span class="line">Cookie(cookie_name=<span class="string">'chocolate chip'</span>, cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/recipe.html'</span>, cookie_sku=<span class="string">'CC01'</span>, quantity=<span class="number">12</span>, unit_cost=<span class="number">0.50</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>There is also a <strong>filter_by()</strong> method that works similarly to the <strong>filter()</strong> method except instead of explicity providing the class as part of the filter expression it uses attribute keyword expressions from the primary entity of the query or the last entity that was joined to the statement. It also uses a keyword assignment instead of a <strong>Boolean</strong>.</p>
+<p><strong>_Filtering by cookie name with filter_by_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>record= session.query(Cookie).filter_by(cookie_name=<span class="string">'chocolate chip'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(record)</span><br><span class="line">Cookie(cookie_name=<span class="string">'chocolate chip'</span>, cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/recipe.html'</span>, cookie_sku=<span class="string">'CC01'</span>, quantity=<span class="number">12</span>, unit_cost=<span class="number">0.50</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p> <strong><em>Finding names with “chocolate” in them</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= session.query(Cookie).filter(Cookie.cookie_name.like(<span class="string">'%chocolate%'</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> record <span class="keyword">in</span> query:</span><br><span class="line"><span class="meta">... </span>    print(record.cookie_name)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">chocolate chip</span><br><span class="line">dark chocolate chip</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>we are using the <strong>Cookie.cookie_name</strong> column inside of a filter statement as a type of <strong>ClauseElement</strong> to filter our results, and we are taking advantage of the <strong>like()</strong> method that is available on <strong>ClauseElements</strong>. There are many other methods available.</p>
+<p>If we don’t use one of the <strong>ClauseElement</strong> methods, then we will have an operator in our filter clauses. </p>
+<h3 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h3><p><strong><em>String concatenation with +</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>results= session.query(Cookie.cookie_name, <span class="string">'SKU-'</span>+Cookie.cookie_sku).all()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> row <span class="keyword">in</span> results:print(row)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">(<span class="string">'chocolate chip'</span>, <span class="string">'SKU-CC01'</span>)</span><br><span class="line">(<span class="string">'dark chocolate chip'</span>, <span class="string">'SKU-CC02'</span>)</span><br><span class="line">(<span class="string">'molasses'</span>, <span class="string">'SKU-MOL01'</span>)</span><br><span class="line">(<span class="string">'peanut butter'</span>, <span class="string">'SKU-PB01'</span>)</span><br><span class="line">(<span class="string">'oatmeal raisin'</span>, <span class="string">'SKU-EWW01'</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><strong><em>Inventory value by cookie</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> cast</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= session.query(Cookie.cookie_name, cast(</span><br><span class="line"><span class="meta">... </span>    (Cookie.quantity * Cookie.unit_cost),Numeric(<span class="number">12</span>,<span class="number">2</span>)</span><br><span class="line"><span class="meta">... </span>    ).label(<span class="string">'inv_cost'</span>) <span class="comment">#  using the label() function to rename the column</span></span><br><span class="line"><span class="meta">... </span>                     )</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> result <span class="keyword">in</span> query:print(<span class="string">'&#123;&#125;- &#123;&#125;'</span>.format(result.cookie_name, result.inv_cost))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">chocolate chip- <span class="number">6.00</span></span><br><span class="line">dark chocolate chip- <span class="number">0.75</span></span><br><span class="line">molasses- <span class="number">0.80</span></span><br><span class="line">peanut butter- <span class="number">6.00</span></span><br><span class="line">oatmeal raisin- <span class="number">100.00</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>cast</strong> is a function that allows us to convert types. In this case, we will be getting back results such as 6.0000000000, so by casting it, we can make it look like currency. It is also possible to accomplish the same task in Python with <strong>print(‘{} -{:.2f}’.format(row.cookie_name, row.inv_cost)</strong>).</p>
+<p>If we need to combine where statements, we can use a couple of different methods. One of those methods is known as Boolean operators.</p>
+<h3 id="Boolean-Operators"><a href="#Boolean-Operators" class="headerlink" title="Boolean Operators"></a>Boolean Operators</h3><p>when you write <strong>A &lt; B &amp; C &lt; D</strong>, what you are actually writing is <strong>A &lt; (B&amp;C) &lt; D</strong>, when you probably intended to get <strong>(A &lt; B) &amp;(C &lt; D)</strong>.</p>
+<p>Often we want to chain multiple where clauses together in inclusive and exclusionary manners; this should be done via conjunctions.</p>
+<h3 id="Conjunctions"><a href="#Conjunctions" class="headerlink" title="Conjunctions"></a>Conjunctions</h3><p>While it is possible to chain multiple <strong>filter()</strong> clauses together, it’s often more readable and functional to use conjunctions to accomplish the desired effect. I also prefer to use conjunctions instead of Boolean operators, as conjunctions will make your code more expressive. The conjunctions in SQLAlchemy are <strong>and_()</strong>, <strong>or_()</strong>, and <strong>not_()</strong>. They have underscores to separate them from the built-in keywords.</p>
+<p><strong><em>Using the or() conjunction</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= session.query(Cookie).filter(</span><br><span class="line"><span class="meta">... </span>    Cookie.quantity &gt; <span class="number">23</span>,</span><br><span class="line"><span class="meta">... </span>    Cookie.unit_cost &lt; <span class="number">0.4</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> and_, or_, not_</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query = session.query(Cookie).filter(</span><br><span class="line"><span class="meta">... </span>    or_(</span><br><span class="line"><span class="meta">... </span>        Cookie.quantity.between(<span class="number">10</span>, <span class="number">50</span>),</span><br><span class="line"><span class="meta">... </span>        Cookie.cookie_name.contains(<span class="string">'chip'</span>)</span><br><span class="line"><span class="meta">... </span>        )</span><br><span class="line"><span class="meta">... </span>    )</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> result <span class="keyword">in</span> query: print(result.cookie_name)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">chocolate chip</span><br><span class="line">dark chocolate chip</span><br><span class="line">peanut butter</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Updating-Data"><a href="#Updating-Data" class="headerlink" title="Updating Data"></a>Updating Data</h3><p> <strong><em>Updating data via object</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>query=session.query(Cookie)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc_cookie= query.filter(Cookie.cookie_name==<span class="string">'chocolate chip'</span>).first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc_cookie.quantity = cc_cookie.quantity + <span class="number">120</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.commit()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(cc_cookie.quantity)</span><br><span class="line"><span class="number">132</span></span><br></pre></td></tr></table></figure>
+<p> <strong><em>Updating data in place</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= session.query(Cookie)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query=query.filter(Cookie.cookie_name==<span class="string">'chocolate chip'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query.update(&#123;Cookie.quantity: Cookie.quantity - <span class="number">20</span>&#125;)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc_cookie= query.first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(cc_cookie.quantity)</span><br><span class="line"><span class="number">112</span></span><br></pre></td></tr></table></figure>
+<p>The <strong>update()</strong> method causes the record to be updated outside of the session, and returns the number of rows updated.</p>
+<h3 id="Deleting-Data"><a href="#Deleting-Data" class="headerlink" title="Deleting Data"></a>Deleting Data</h3><p>To create a delete statement, you can use either the <strong>delete()</strong> function or the <strong>delete()</strong> method on the table from which you are deleting data. Unlike <strong>insert()</strong> and <strong>update()</strong>, <strong>delete()</strong> takes no values parameter, only an optional <strong>where</strong> clause (omitting the <strong>where</strong> clause will delete all rows from the table).</p>
+<p> <strong><em>Deleting data</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= session.query(Cookie)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= query.filter(Cookie.cookie_name==<span class="string">'dark chocolate chip'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dcc_cookie=query.one()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.delete(dcc_cookie)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.commit()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dcc_cookie= query.first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(dcc_cookie)</span><br><span class="line"><span class="keyword">None</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>It is also possible to delete data in place without having the object</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= session.query(Cookie)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= query.filter(Cookie.cookie_name==<span class="string">'molasses'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query.delete()</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mol_cookie= query.first()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(mol_cookie)</span><br><span class="line"><span class="keyword">None</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>Adding related objects</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>cookiemon = User(username=<span class="string">'cookiemon'</span>,</span><br><span class="line"><span class="meta">... </span> email_address=<span class="string">'mon@cookie.com'</span>,</span><br><span class="line"><span class="meta">... </span> phone=<span class="string">'111-111-1111'</span>,</span><br><span class="line"><span class="meta">... </span> password=<span class="string">'password'</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cakeeater = User(username=<span class="string">'cakeeater'</span>,</span><br><span class="line"><span class="meta">... </span> email_address=<span class="string">'cakeeater@cake.com'</span>,</span><br><span class="line"><span class="meta">... </span> phone=<span class="string">'222-222-2222'</span>,</span><br><span class="line"><span class="meta">... </span> password=<span class="string">'password'</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pieperson = User(username=<span class="string">'pieperson'</span>,</span><br><span class="line"><span class="meta">... </span> email_address=<span class="string">'person@pie.com'</span>,</span><br><span class="line"><span class="meta">... </span> phone=<span class="string">'333-333-3333'</span>,</span><br><span class="line"><span class="meta">... </span> password=<span class="string">'password'</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.add(cookiemon)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.add(cakeeater)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.add(pieperson)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.commit()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o1=Order()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o1.user= cookiemon</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.add(o1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc= session.query(Cookie).filter(Cookie.cookie_name==<span class="string">'chocolate chip'</span>).one()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>line1= LineItem(cookie= cc, quantity= <span class="number">2</span>, extended_cost= <span class="number">1.00</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pb= session.query(Cookie    ).filter(Cookie.cookie_name==<span class="string">'peanut butter'</span>).one()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>line2= LineItem(quantity= <span class="number">12</span>, extended_cost= <span class="number">3.00</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>line2.cookie= pb</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>line2.order = o1</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o1.line_items.append(line1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o1.line_items.append(line2)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.commit()</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o2=Order()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o2.user= cakeeater</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cc= session.query(Cookie).filter(Cookie.cookie_name==<span class="string">'chocolate chip'</span>).one()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>line1= LineItem(cookie=cc, quantity= <span class="number">24</span>, extended_cost=<span class="number">12.00</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>oat= session.query(Cookie).filter(Cookie.cookie_name==<span class="string">'oatmeal raisin'</span>).one()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>line2= LineItem(cookie=oat, quantity= <span class="number">6</span>, extended_cost=<span class="number">6.00</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o2.line_items.append(line1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>o2.line_items.append(line2)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.add(o2)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>session.commit()</span><br></pre></td></tr></table></figure>
+<h3 id="Joins"><a href="#Joins" class="headerlink" title="Joins"></a>Joins</h3><p>let’s use the <strong>join()</strong> and <strong>outerjoin()</strong> methods to take a look at how to query related data. For example, to fulfill the order placed by the <strong>cookiemon</strong> user, we need to determine how many of each cookie type were ordered. This requires you to use a total of three joins to get all the way down to the name of the cookies.</p>
+<p><strong><em>Using join to select from multiple tables</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> Cookie.cookie_name, LineItem.quantity,</span><br><span class="line"> LineItem.extended_cost)</span><br><span class="line">query = query.join(User).join(LineItem).join(Cookie)</span><br><span class="line">results = query.filter(User.username == <span class="string">'cookiemon'</span>).all()</span><br><span class="line">print(results)</span><br><span class="line">[</span><br><span class="line"> (<span class="string">u'1'</span>, <span class="string">u'cookiemon'</span>, <span class="string">u'111-111-1111'</span>, <span class="string">u'chocolate chip'</span>, <span class="number">2</span>, Decimal(<span class="string">'1.00'</span>))</span><br><span class="line"> (<span class="string">u'1'</span>, <span class="string">u'cookiemon'</span>, <span class="string">u'111-111-1111'</span>, <span class="string">u'peanut butter'</span>, <span class="number">12</span>, Decimal(<span class="string">'3.00'</span>))</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p> <strong><em>Using outerjoin to select from multiple tables</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> func</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query=session.query(User.username, func.count(Order.order_id))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query=query.outerjoin(Order).group_by(User.username)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(query)</span><br><span class="line">SELECT users.username AS users_username, count(orders.order_id) AS count_1 </span><br><span class="line">FROM users LEFT OUTER JOIN orders ON users.user_id = orders.user_id GROUP BY users.username</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> row <span class="keyword">in</span> query: print(row)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">(<span class="string">'cakeeater'</span>, <span class="number">1</span>)</span><br><span class="line">(<span class="string">'cookiemon'</span>, <span class="number">0</span>)</span><br><span class="line">(<span class="string">'pieperson'</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>However, what if we have a self-referential table like a table of managers and their reports? The ORM allows us to establish a relationship that points to the same table; however, we need to specify an option called <strong>remote_side</strong> to make the relationship a many to one:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Employee</span><span class="params">(Base)</span>:</span></span><br><span class="line"><span class="meta">... </span>    __tablename__=<span class="string">'employees'</span></span><br><span class="line"><span class="meta">... </span>    id= Column(Integer(), primary_key= <span class="keyword">True</span>)</span><br><span class="line"><span class="meta">... </span>    manager_id= Column(Integer(), ForeignKey(<span class="string">'employees.id'</span>))</span><br><span class="line"><span class="meta">... </span>    name= Column(String(<span class="number">255</span>), nullable= <span class="keyword">False</span>)</span><br><span class="line"><span class="meta">... </span>    manager= relationship(<span class="string">'Employee'</span>,backref=backref(<span class="string">'reports'</span>), remote_side=[id])</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Establishes a relationship back to the same table, specifies the <strong>remote_side</strong>, and makes the relationship a many to one.</p>
+<p><strong><em>add an employee and another employee that reports to her:</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">marsha = Employee(name=<span class="string">'Marsha'</span>)</span><br><span class="line">fred = Employee(name=<span class="string">'Fred'</span>)</span><br><span class="line">marsha.reports.append(fred)</span><br><span class="line">session.add(marsha)</span><br><span class="line">session.commit()</span><br></pre></td></tr></table></figure>
+<p><strong><em>print the employees that report to Marsha, we would do so by accessing the reports property as follows:</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> report <span class="keyword">in</span> marsha.reports:</span><br><span class="line">    print(report.name)</span><br></pre></td></tr></table></figure>
+<h3 id="Grouping"><a href="#Grouping" class="headerlink" title="Grouping"></a>Grouping</h3><p>When using grouping, you need one or more columns to group on and one or more<br>columns that it makes sense to aggregate with counts, sums, etc., as you would in<br>normal SQL.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">query = session.query(User.username, func.count(Order.order_id))</span><br><span class="line">query = query.outerjoin(Order).group_by(User.username)</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> query:</span><br><span class="line"> print(row)</span><br></pre></td></tr></table></figure>
+<h3 id="Chaining"><a href="#Chaining" class="headerlink" title="Chaining"></a>Chaining</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_orders_by_customer</span><span class="params">(cust_name)</span>:</span></span><br><span class="line">    query = session.query(Order.order_id, User.username, User.phone,</span><br><span class="line">    Cookie.cookie_name, LineItem.quantity,</span><br><span class="line">    LineItem.extended_cost)</span><br><span class="line">    query = query.join(User).join(LineItem).join(Cookie)</span><br><span class="line">    results = query.filter(User.username == cust_name).all()</span><br><span class="line">    <span class="keyword">return</span> results</span><br><span class="line"></span><br><span class="line">get_orders_by_customer(<span class="string">'cakeeater'</span>)</span><br><span class="line">[(<span class="string">u'2'</span>, <span class="string">u'cakeeater'</span>, <span class="string">u'222-222-2222'</span>, <span class="string">u'chocolate chip'</span>, <span class="number">24</span>, Decimal(<span class="string">'12.00'</span>)),</span><br><span class="line">(<span class="string">u'2'</span>, <span class="string">u'cakeeater'</span>, <span class="string">u'222-222-2222'</span>, <span class="string">u'oatmeal raisin'</span>, <span class="number">6</span>, Decimal(<span class="string">'6.00'</span>))]</span><br></pre></td></tr></table></figure>
+<p><strong><em>Conditional chaining</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">get_orders_by_customer</span><span class="params">(cust_name, shipped= None, details= False)</span>:</span></span><br><span class="line"><span class="meta">... </span>    query= session.query(Order.order_id, User.username, User.phone)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span>    query= query.join(User)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> details:</span><br><span class="line"><span class="meta">... </span>        query= query.add_columns(Cookie.cookie_name,LineItem.quantity,</span><br><span class="line"><span class="meta">... </span>                                 LineItem.extended_cost</span><br><span class="line"><span class="meta">... </span>                                 )</span><br><span class="line"><span class="meta">... </span>        query=query.join(LineItem).join(Cookie)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> shipped <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line"><span class="meta">... </span>        query= query.where(Order.shipped == shipped)</span><br><span class="line"><span class="meta">... </span>    results= query.filter(User.username== cust_name).all()</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> results</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= session.query(Order.order_id, User.username, User.phone)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query= query.join(User)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(query)</span><br><span class="line">SELECT orders.order_id AS orders_order_id, users.username AS users_username, users.phone AS users_phone </span><br><span class="line">FROM orders JOIN users ON users.user_id = orders.user_id</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>query=query.join(LineItem).join(Cookie)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(query)</span><br><span class="line">SELECT orders.order_id AS orders_order_id, users.username AS users_username, users.phone AS users_phone </span><br><span class="line">FROM orders JOIN users ON users.user_id = orders.user_id JOIN line_items ON orders.order_id = line_items.order_id JOIN cookies ON cookies.cookie_id = line_items.cookie_id</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Raw-Queries"><a href="#Raw-Queries" class="headerlink" title="Raw Queries"></a>Raw Queries</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> text</span><br><span class="line">query = session.query(User).filter(text(<span class="string">"username='cookiemon'"</span>))</span><br><span class="line">print(query.all())</span><br><span class="line">[User(username=<span class="string">'cookiemon'</span>, email_address=<span class="string">'mon@cookie.com'</span>,</span><br><span class="line"> phone=<span class="string">'111-111-1111'</span>, password=<span class="string">'password'</span>)]</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+            <a href="/tags/sqlalchemy/" rel="tag"><i class="fa fa-tag"></i> sqlalchemy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM/" rel="next" title="sqlalchemy_C06_Defining Schema with SQLAlchemy ORM">
+                <i class="fa fa-chevron-left"></i> sqlalchemy_C06_Defining Schema with SQLAlchemy ORM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/sqlalchemy-C08-Understanding-the-Session-and-Exceptions/" rel="prev" title="sqlalchemy_C08_Understanding the Session and Exceptions">
+                sqlalchemy_C08_Understanding the Session and Exceptions <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Session"><span class="nav-number">1.</span> <span class="nav-text">The Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inserting-Data"><span class="nav-number">2.</span> <span class="nav-text">Inserting Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Querying-Data"><span class="nav-number">3.</span> <span class="nav-text">Querying Data</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Controlling-the-Columns-in-the-Query"><span class="nav-number">3.1.</span> <span class="nav-text">Controlling the Columns in the Query</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ordering"><span class="nav-number">3.2.</span> <span class="nav-text">Ordering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Limiting"><span class="nav-number">3.3.</span> <span class="nav-text">Limiting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Built-In-SQL-Functions-and-Labels"><span class="nav-number">3.4.</span> <span class="nav-text">Built-In SQL Functions and Labels</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filtering"><span class="nav-number">3.5.</span> <span class="nav-text">Filtering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Operators"><span class="nav-number">3.6.</span> <span class="nav-text">Operators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Boolean-Operators"><span class="nav-number">3.7.</span> <span class="nav-text">Boolean Operators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conjunctions"><span class="nav-number">3.8.</span> <span class="nav-text">Conjunctions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Updating-Data"><span class="nav-number">3.9.</span> <span class="nav-text">Updating Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deleting-Data"><span class="nav-number">3.10.</span> <span class="nav-text">Deleting Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Joins"><span class="nav-number">3.11.</span> <span class="nav-text">Joins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grouping"><span class="nav-number">3.12.</span> <span class="nav-text">Grouping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chaining"><span class="nav-number">3.13.</span> <span class="nav-text">Chaining</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Raw-Queries"><span class="nav-number">3.14.</span> <span class="nav-text">Raw Queries</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

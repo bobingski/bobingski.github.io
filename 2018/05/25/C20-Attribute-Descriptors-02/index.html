@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="fluent python,python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Overriding Versus Nonoverriding DescriptorsRecall that there is an important asymmetry in the way Python handles attributes. Reading an attribute through an instance normally returns the attribute def">
+<meta name="keywords" content="fluent python,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C20_Attribute Descriptors_02">
+<meta property="og:url" content="blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-02/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Overriding Versus Nonoverriding DescriptorsRecall that there is an important asymmetry in the way Python handles attributes. Reading an attribute through an instance normally returns the attribute def">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-26T05:20:16.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C20_Attribute Descriptors_02">
+<meta name="twitter:description" content="Overriding Versus Nonoverriding DescriptorsRecall that there is an important asymmetry in the way Python handles attributes. Reading an attribute through an instance normally returns the attribute def">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-02/"/>
+
+
+
+
+
+  <title>C20_Attribute Descriptors_02 | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C20_Attribute Descriptors_02</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:19:51-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:20:16-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Overriding-Versus-Nonoverriding-Descriptors"><a href="#Overriding-Versus-Nonoverriding-Descriptors" class="headerlink" title="Overriding Versus Nonoverriding Descriptors"></a>Overriding Versus Nonoverriding Descriptors</h2><p>Recall that there is an important asymmetry in the way Python handles attributes. Reading an attribute through an instance normally returns the attribute defined in the instance, but if there is no such attribute in the instance, a class attribute will be retrieved. On the other hand, assigning to an attribute in an instance normally creates the attribute in the instance, without affecting the class at all.<br><a id="more"></a><br>This asymmetry also affects descriptors, in effect creating two broad categories of descriptors depending on whether the <strong>__set__</strong> method is defined. </p>
+<h3 id="Overriding-Descriptor"><a href="#Overriding-Descriptor" class="headerlink" title="Overriding Descriptor"></a>Overriding Descriptor</h3><p>A descriptor that implements the <strong>__set__</strong> method is called an overriding descriptor, because although it is a class attribute, a descriptor implementing  <strong>__set__</strong> will override attempts to assign to instance attributes. Properties are also overriding descriptors: if you don’t provide a <strong>setter</strong> function, the default  <strong>__set__</strong> from the property class will raise <strong>AttributeError</strong> to signal that the attribute is read-only. </p>
+<p><strong><em>descriptorkinds.py: simple classes for studying descriptor overriding behavior</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cls_name</span><span class="params">(obj_or_cls)</span>:</span></span><br><span class="line">    cls= type(obj_or_cls)</span><br><span class="line">    <span class="keyword">if</span> cls <span class="keyword">is</span> type: cls= obj_or_cls</span><br><span class="line">    <span class="keyword">return</span> cls.__name__.split(<span class="string">'.'</span>)[<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">display</span><span class="params">(obj)</span>:</span></span><br><span class="line">    cls= type(obj)</span><br><span class="line">    <span class="keyword">if</span> cls <span class="keyword">in</span> <span class="keyword">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&lt;class &#123;&#125;&gt;'</span>.format(obj.__name__)</span><br><span class="line">    <span class="keyword">elif</span> cls <span class="keyword">in</span> [type(<span class="keyword">None</span>), int]: <span class="keyword">return</span> repr(obj)</span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> <span class="string">'&lt;&#123;&#125; object&gt;'</span>.format(cls_name(obj))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_args</span><span class="params">(name, *args)</span>:</span></span><br><span class="line">    pseudo_args= <span class="string">', '</span>.join(display(x) <span class="keyword">for</span> x <span class="keyword">in</span> args)</span><br><span class="line">    print(<span class="string">'-&gt; &#123;&#125;.__&#123;&#125;__(&#123;&#125;)'</span>.format(cls_name(args[<span class="number">0</span>]),name, pseudo_args))</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Overriding</span>:</span></span><br><span class="line">    <span class="string">'''data descriptor or enforced descriptor'''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__get__</span><span class="params">(self, instance, owner)</span>:</span></span><br><span class="line">        print_args(<span class="string">'get'</span>,self, instance, owner)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__set__</span><span class="params">(self, instance, value)</span>:</span></span><br><span class="line">        print_args(<span class="string">'set'</span>, self, instance, value)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OverridingNoGet</span>:</span></span><br><span class="line">    <span class="string">'''without __get__'''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__set__</span><span class="params">(self, instance, value)</span>:</span></span><br><span class="line">        print_args(<span class="string">'set'</span>, self, instance, value)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NonOveriding</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__get__</span><span class="params">(self, instance, owner)</span>:</span></span><br><span class="line">        print_args(<span class="string">'get'</span>,self, instance, owner)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Managed</span>:</span></span><br><span class="line">    over= Overriding()</span><br><span class="line">    over_no_get= OverridingNoGet()</span><br><span class="line">    non_over= NonOveriding()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">spam</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'-&gt; Managed.spam(&#123;&#125;)'</span>.format(display(self)))</span><br></pre></td></tr></table></figure>
+<p> <strong><em>Behavior of an overriding descriptor: obj.over is an instance of Overriding</em></strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> &gt;&gt;&gt; obj = Managed()</span><br><span class="line"> &gt;&gt;&gt; obj.over</span><br><span class="line"> -&gt; Overriding.__get__(&lt;Overriding object&gt;, &lt;Managed object&gt;,</span><br><span class="line"> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Managed</span>&gt;)</span></span><br><span class="line"><span class="class"> &gt;&gt;&gt; <span class="title">Managed</span>.<span class="title">over</span></span></span><br><span class="line"><span class="class"> -&gt; Overriding.__get__(&lt;Overriding object&gt;, <span class="keyword">None</span>, &lt;class Managed&gt;)</span></span><br><span class="line"><span class="class"> &gt;&gt;&gt; obj.over = 7</span></span><br><span class="line"><span class="class"> -&gt; Overriding.__set__(&lt;Overriding object&gt;, &lt;Managed object&gt;, 7)</span></span><br><span class="line"><span class="class"> &gt;&gt;&gt; obj.over</span></span><br><span class="line"><span class="class"> -&gt; Overriding.__get__(&lt;Overriding object&gt;, &lt;Managed object&gt;,</span></span><br><span class="line"><span class="class"> &lt;class Managed&gt;)</span></span><br><span class="line"><span class="class"> &gt;&gt;&gt; obj.__dict__['over'] = 8</span></span><br><span class="line"><span class="class"> &gt;&gt;&gt; vars(obj)</span></span><br><span class="line"><span class="class"> &#123;'over':</span> <span class="number">8</span>&#125;</span><br><span class="line"> &gt;&gt;&gt; obj.over</span><br><span class="line"> -&gt; Overriding.__get__(&lt;Overriding object&gt;, &lt;Managed object&gt;,</span><br><span class="line"> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Managed</span>&gt;)</span></span><br><span class="line"># even with an instance attribute named over, the Managed.over descriptor still overrides attempts to read obj.over.</span><br></pre></td></tr></table></figure>
+<h3 id="Overriding-Descriptor-Without-get"><a href="#Overriding-Descriptor-Without-get" class="headerlink" title="Overriding Descriptor Without __get__"></a>Overriding Descriptor Without __get__</h3><p>Usually, overriding descriptors implement both <strong>__set__</strong> and <strong>__get__</strong>, but it’s also possible to implement only <strong>__set__</strong>. In this case, only writing is handled by the descriptor. Reading the descriptor through an instance will return the descriptor object itself because there is no <strong>__get__</strong> to handle that access. If a namesake instance attribute is created with a new value via direct access to the instance <strong>__dict__</strong>, the <strong>__set__</strong> method will still override further attempts to set that attribute, but reading that attribute will simply return the new value from the instance, instead of returning the descriptor object. In other words, the instance attribute will shadow the descriptor, but only when reading.</p>
+<p><strong>_Overriding descriptor without get: obj.over_no_get is an instance of OverridingNoGet_</strong></p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.over_no_get</span><br><span class="line"> &lt;__main__.OverridingNoGet object at <span class="number">0x665bcc</span>&gt;</span><br><span class="line"> &gt;&gt;&gt; Managed.over_no_get</span><br><span class="line"> &lt;__main__.OverridingNoGet object at <span class="number">0x665bcc</span>&gt;</span><br><span class="line"> &gt;&gt;&gt; obj.over_no_get = <span class="number">7</span></span><br><span class="line"> -&gt; OverridingNoGet.__set__(&lt;OverridingNoGet object&gt;, &lt;Managed object&gt;, 7)</span><br><span class="line"> &gt;&gt;&gt; obj.over_no_get</span><br><span class="line"> &lt;__main__.OverridingNoGet object at <span class="number">0x665bcc</span>&gt;</span><br><span class="line"> &gt;&gt;&gt; obj.__dict__[<span class="string">'over_no_get'</span>] = <span class="number">9</span></span><br><span class="line"> &gt;&gt;&gt; obj.over_no_get</span><br><span class="line"> <span class="number">9</span></span><br><span class="line"> &gt;&gt;&gt; obj.over_no_get = <span class="number">7</span></span><br><span class="line"> -&gt; OverridingNoGet.__set__(&lt;OverridingNoGet object&gt;, &lt;Managed object&gt;, 7)</span><br><span class="line"> &gt;&gt;&gt; obj.over_no_get</span><br><span class="line"> <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<h3 id="Nonoverriding-Descriptor"><a href="#Nonoverriding-Descriptor" class="headerlink" title="Nonoverriding Descriptor"></a>Nonoverriding Descriptor</h3><p>If a descriptor does not implement <strong>__set__</strong>, then it’s a nonoverriding descriptor. Setting an instance attribute with the same name will shadow the descriptor, rendering it ineffective for handling that attribute in that specific instance. Methods are implemented as nonoverriding descriptors.</p>
+<p><strong>_Behavior of a nonoverriding descriptor: obj.non_over is an instance of NonOverriding_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj = Managed()</span><br><span class="line"> &gt;&gt;&gt; obj.non_over</span><br><span class="line"> -&gt; NonOverriding.__get__(&lt;NonOverriding object&gt;, &lt;Managed object&gt;,</span><br><span class="line"> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Managed</span>&gt;)</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"># The obj now has an instance attribute named non_over, which shadows the namesake descriptor </span><br><span class="line"><span class="comment"># attribute in the Managed class.</span></span><br><span class="line"> &gt;&gt;&gt; obj.non_over = <span class="number">7</span></span><br><span class="line"> &gt;&gt;&gt; obj.non_over</span><br><span class="line"> <span class="number">7</span></span><br><span class="line"></span><br><span class="line"> &gt;&gt;&gt; Managed.non_over</span><br><span class="line"> -&gt; NonOverriding.__get__(&lt;NonOverriding object&gt;, None, &lt;class Managed&gt;)</span><br><span class="line"> &gt;&gt;&gt; <span class="keyword">del</span> obj.non_over</span><br><span class="line"> &gt;&gt;&gt; obj.non_over</span><br><span class="line"> -&gt; NonOverriding.__get__(&lt;NonOverriding object&gt;, &lt;Managed object&gt;,</span><br><span class="line"> &lt;<span class="class"><span class="keyword">class</span> <span class="title">Managed</span>&gt;)</span></span><br></pre></td></tr></table></figure>
+<p>Python contributors and authors use different terms when discussing these concepts. Overriding descriptors are also called data descriptors or enforced descriptors. Nonoverriding descriptors are also known as nondata descriptors or shadowable descriptors.</p>
+<h3 id="Overwriting-a-Descriptor-in-the-Class"><a href="#Overwriting-a-Descriptor-in-the-Class" class="headerlink" title="Overwriting a Descriptor in the Class"></a>Overwriting a Descriptor in the Class</h3><p>Regardless of whether a descriptor is overriding or not, it can be overwritten by assignment to the class.</p>
+<p><strong><em>Example 20-12 Any descriptor can be overwritten on the class itself</em></strong></p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj = Managed()</span><br><span class="line"> &gt;&gt;&gt; Managed.over = <span class="number">1</span></span><br><span class="line"> &gt;&gt;&gt; Managed.over_no_get = <span class="number">2</span></span><br><span class="line"> &gt;&gt;&gt; Managed.non_over = <span class="number">3</span></span><br><span class="line"> &gt;&gt;&gt; obj.over, obj.over_no_get, obj.non_over</span><br><span class="line"> (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<p>Example 20-12 reveals another asymmetry regarding reading and writing attributes: although the reading of a class attribute can be controlled by a descriptor with <strong>__get__</strong> attached to the managed class, the writing of a class attribute cannot be handled by a descriptor with <strong>__set__</strong> attached to the <strong>same</strong> class.</p>
+<h2 id="Methods-Are-Descriptors"><a href="#Methods-Are-Descriptors" class="headerlink" title="Methods Are Descriptors"></a>Methods Are Descriptors</h2><p>A function within a class becomes a bound method because all user-defined functions have a <strong>__get__</strong> method, therefore they operate as descriptors when attached to a class.</p>
+<p><strong><em>A method is a nonoverriding descriptor</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> &gt;&gt;&gt; obj = Managed()</span><br><span class="line"> &gt;&gt;&gt; obj.spam <span class="comment"># Reading from obj.spam retrieves a bound method object.</span></span><br><span class="line"> &lt;bound method Managed.spam of &lt;descriptorkinds.Managed object at <span class="number">0x74c80c</span>&gt;&gt;</span><br><span class="line"> &gt;&gt;&gt; Managed.spam <span class="comment"># But reading from Managed.spam retrieves a function.</span></span><br><span class="line"> &lt;function Managed.spam at <span class="number">0x734734</span>&gt;</span><br><span class="line"> &gt;&gt;&gt; obj.spam = <span class="number">7</span></span><br><span class="line"> &gt;&gt;&gt; obj.spam</span><br><span class="line"> <span class="number">7</span></span><br><span class="line"><span class="comment"># Assigning a value to obj.spam shadows the class attribute, rendering the spam method inaccessible </span></span><br><span class="line"><span class="comment"># from the obj instance.</span></span><br></pre></td></tr></table></figure></p>
+<p>Because functions do not implement <strong>__set__</strong>, they are nonoverriding descriptors.</p>
+<p><strong>obj.spam</strong> and <strong>Managed.spam</strong> retrieve different objects. As usual with descriptors, the <strong>__get__</strong> of a function returns a reference to itself when the access happens through the managed class. But when the access goes through an instance, the <strong>__get__</strong> of the function returns a bound method object: a callable that wraps the function and binds the managed instance (e.g., <strong>obj</strong>) to the first argument of the function (i.e., <strong>self</strong>), like the <strong>functools.partial</strong> function does.</p>
+<p><strong>_method_is_descriptor.py: a Text class, derived from UserString_</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Text</span><span class="params">(collections.UserString)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Text(&#123;!r&#125;)'</span>.format(self.data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>Experiments with a method</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>word = Text(<span class="string">'forward'</span>)</span><br><span class="line"> &gt;&gt;&gt; word</span><br><span class="line"> Text(<span class="string">'forward'</span>)</span><br><span class="line"> &gt;&gt;&gt; word.reverse()</span><br><span class="line"> Text(<span class="string">'drawrof'</span>)</span><br><span class="line"> &gt;&gt;&gt; Text.reverse(Text(<span class="string">'backward'</span>))</span><br><span class="line"> Text(<span class="string">'drawkcab'</span>)</span><br><span class="line"> &gt;&gt;&gt; type(Text.reverse), type(word.reverse)</span><br><span class="line"> (&lt;class 'function'&gt;, &lt;class 'method'&gt;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Text.reverse operates as a function, even working with objects that are not instances of Text.</span></span><br><span class="line"> &gt;&gt;&gt; list(map(Text.reverse, [<span class="string">'repaid'</span>, (<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>), Text(<span class="string">'stressed'</span>)]))</span><br><span class="line"> [<span class="string">'diaper'</span>, (<span class="number">30</span>, <span class="number">20</span>, <span class="number">10</span>), Text(<span class="string">'desserts'</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Any function is a nonoverriding descriptor. Calling its __get__ with an instance retrieves a method </span></span><br><span class="line"><span class="comment"># bound to that instance.</span></span><br><span class="line"> &gt;&gt;&gt; Text.reverse.__get__(word)</span><br><span class="line"> &lt;bound method Text.reverse of Text(<span class="string">'forward'</span>)&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Calling the function’s __get__ with None as the instance argument retrieves the function itself.</span></span><br><span class="line"> &gt;&gt;&gt; Text.reverse.__get__(<span class="keyword">None</span>, Text)</span><br><span class="line"> &lt;function Text.reverse at <span class="number">0x101244e18</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># The expression word.reverse actually invokes Text.reverse.__get__(word), returning the bound method.</span></span><br><span class="line"> &gt;&gt;&gt; word.reverse</span><br><span class="line"> &lt;bound method Text.reverse of Text(<span class="string">'forward'</span>)&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># The bound method object has a __self__ attribute holding a reference to the instance on which the </span></span><br><span class="line"><span class="comment"># method was called.</span></span><br><span class="line"> &gt;&gt;&gt; word.reverse.__self__</span><br><span class="line"> Text(<span class="string">'forward'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># The __func__ attribute of the bound method is a reference to the original function attached to the </span></span><br><span class="line"><span class="comment"># managed class.</span></span><br><span class="line"> &gt;&gt;&gt; word.reverse.__func__ <span class="keyword">is</span> Text.reverse</span><br><span class="line"> <span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
+<p>The bound method object also has a <strong>__call__</strong> method, which handles the actual invocation. This method calls the original function referenced in <strong>__func__</strong>, passing the <strong>__self__</strong> attribute of the method as the first argument. That’s how the implicit binding of the conventional <strong>self</strong> argument works.</p>
+<p>The way functions are turned into bound methods is a prime example of how descriptors are used as infrastructure in the language.</p>
+<h2 id="Descriptor-Usage-Tips"><a href="#Descriptor-Usage-Tips" class="headerlink" title="Descriptor Usage Tips"></a>Descriptor Usage Tips</h2><p>The following list addresses some practical consequences of the descriptor characteristics just described:</p>
+<p><em>Use property to Keep It Simple</em><br>The property built-in actually creates overriding descriptors implementing both <strong>__set__</strong> and <strong>__get__</strong>, even if you do not define a <strong>setter</strong> method. The default <strong>__set__</strong> of a property raises <strong>AttributeError</strong>: can’t set attribute, so a property is the easiest way to create a read-only attribute, avoiding the issue described next.</p>
+<p><em>Read-only descriptors require \</em>_set___<br>If you use a descriptor class to implement a read-only attribute, you must remember to code both <strong>__get__</strong> and <strong>__set__</strong>, otherwise setting a namesake attribute on an instance will shadow the descriptor. The <strong>__set__</strong> method of a read-only attribute should just raise <strong>AttributeError</strong> with a suitable message.</p>
+<p><em>Validation descriptors can work with \</em>_set__ only_<br>In a descriptor designed only for validation, the <strong>__set__</strong> method should check the value argument it gets, and if valid, set it directly in the instance <strong>__dict__</strong> using the descriptor instance name as key. That way, reading the attribute with the same name from the instance will be as fast as possible, because it will not require a <strong>__get__</strong>. </p>
+<p><em>Caching can be done efficiently with \</em>_get__ only_<br>If you code just the <strong>__get__</strong> method, you have a nonoverriding descriptor. These are useful to make some expensive computation and then cache the result by setting an attribute by the same name on the instance. The namesake instance attribute will shadow the descriptor, so subsequent access to that attribute will fetch it directly from the instance <strong>__dict__</strong> and not trigger the descriptor <strong>__get__</strong> anymore.</p>
+<p><em>Nonspecial methods can be shadowed by instance attributes</em><br>Because functions and methods only implement <strong>__get__</strong>, they do not handle attempts at setting instance attributes with the same name, so a simple assignment like <strong>_my_obj.the_method = 7_</strong> means that further access to the_method through that instance will retrieve the number 7—without affecting the class or other instances. However, this issue does not interfere with special methods. The interpreter only looks for special methods in the class itself, in other words, <strong>repr(x)</strong> is executed as <strong>x.__class__.__repr__(x)</strong>, so a <strong>__repr__</strong> attribute defined in <strong>x</strong> has no effect on <strong>repr(x)</strong>. For the same reason, the existence of an attribute named <strong>__getattr__</strong> in an instance will not subvert the usual attribute access algorithm.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fluent-python/" rel="tag"><i class="fa fa-tag"></i> fluent python</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/C20-Attribute-Descriptors-01/" rel="next" title="C20_Attribute Descriptors_01">
+                <i class="fa fa-chevron-left"></i> C20_Attribute Descriptors_01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/C21-Class-Metaprogramming/" rel="prev" title="C21_Class Metaprogramming">
+                C21_Class Metaprogramming <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overriding-Versus-Nonoverriding-Descriptors"><span class="nav-number">1.</span> <span class="nav-text">Overriding Versus Nonoverriding Descriptors</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overriding-Descriptor"><span class="nav-number">1.1.</span> <span class="nav-text">Overriding Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overriding-Descriptor-Without-get"><span class="nav-number">1.2.</span> <span class="nav-text">Overriding Descriptor Without __get__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nonoverriding-Descriptor"><span class="nav-number">1.3.</span> <span class="nav-text">Nonoverriding Descriptor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overwriting-a-Descriptor-in-the-Class"><span class="nav-number">1.4.</span> <span class="nav-text">Overwriting a Descriptor in the Class</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Methods-Are-Descriptors"><span class="nav-number">2.</span> <span class="nav-text">Methods Are Descriptors</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Descriptor-Usage-Tips"><span class="nav-number">3.</span> <span class="nav-text">Descriptor Usage Tips</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

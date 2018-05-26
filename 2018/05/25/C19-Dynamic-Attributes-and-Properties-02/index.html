@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="fluent python,python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Using a Property for Attribute ValidationSo far, we have only seen the @property decorator used to implement read-only properties. In this section, we will create a read/write property.">
+<meta name="keywords" content="fluent python,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C19_Dynamic Attributes and Properties_02">
+<meta property="og:url" content="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Using a Property for Attribute ValidationSo far, we have only seen the @property decorator used to implement read-only properties. In this section, we will create a read/write property.">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-26T05:19:00.088Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C19_Dynamic Attributes and Properties_02">
+<meta name="twitter:description" content="Using a Property for Attribute ValidationSo far, we have only seen the @property decorator used to implement read-only properties. In this section, we will create a read/write property.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/"/>
+
+
+
+
+
+  <title>C19_Dynamic Attributes and Properties_02 | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C19_Dynamic Attributes and Properties_02</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:18:38-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:19:00-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Using-a-Property-for-Attribute-Validation"><a href="#Using-a-Property-for-Attribute-Validation" class="headerlink" title="Using a Property for Attribute Validation"></a>Using a Property for Attribute Validation</h2><p>So far, we have only seen the <strong>@property</strong> decorator used to implement read-only properties. In this section, we will create a read/write property.<br><a id="more"></a>  </p>
+<h3 id="LineItem-Take-1-Class-for-an-Item-in-an-Order"><a href="#LineItem-Take-1-Class-for-an-Item-in-an-Order" class="headerlink" title="LineItem Take #1: Class for an Item in an Order"></a>LineItem Take #1: Class for an Item in an Order</h3><p> <strong>_bulkfood_v1.py: the simplest LineItem class_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, description, weight, price)</span>:</span></span><br><span class="line">        self.description = description</span><br><span class="line">        self.weight= weight</span><br><span class="line">        self.price= price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subtotal</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.weight * self.price</span><br></pre></td></tr></table></figure>
+<p><strong><em>A negative weight results in a negative subtotal</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>raisins = LineItem(<span class="string">'Golden raisins'</span>, <span class="number">10</span>, <span class="number">6.95</span>)</span><br><span class="line"> &gt;&gt;&gt; raisins.subtotal()</span><br><span class="line"> <span class="number">69.5</span></span><br><span class="line"> &gt;&gt;&gt; raisins.weight = <span class="number">-20</span> <span class="comment"># garbage in...</span></span><br><span class="line"> &gt;&gt;&gt; raisins.subtotal() <span class="comment"># garbage out...</span></span><br><span class="line"> <span class="number">-139.0</span></span><br></pre></td></tr></table></figure>
+<h3 id="LineItem-Take-2-A-Validating-Property"><a href="#LineItem-Take-2-A-Validating-Property" class="headerlink" title="LineItem Take #2: A Validating Property"></a>LineItem Take #2: A Validating Property</h3><p>Implementing a property will allow us to use a <strong>getter</strong> and a <strong>setter</strong>, but the interface of <strong>LineItem</strong> will not change (i.e., setting the weight of a <strong>LineItem</strong> will still be written as <strong>raisins.weight = 12</strong>).</p>
+<p><strong>_bulkfood_v2.py: a LineItem with a weight property_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, description, weight, price)</span>:</span></span><br><span class="line">        self.description = description</span><br><span class="line">        self.weight= weight</span><br><span class="line">        self.price= price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subtotal</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.weight * self.price</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">weight</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># The methodsthat implement a property all have the name of the public </span></span><br><span class="line">        <span class="comment"># attribute: weight.</span></span><br><span class="line">        <span class="keyword">return</span> self.__weight <span class="comment"># The actual value is stored in a private attribute __weight</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property.setter</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">weight</span><span class="params">(self, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> value &gt; <span class="number">0</span>:</span><br><span class="line">            self.__weight = value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'value must be &gt; 0'</span>)</span><br></pre></td></tr></table></figure>
+<p><strong><em>Note how a LineItem with an invalid weight cannot be created now:</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>walnuts = LineItem(<span class="string">'walnuts'</span>, <span class="number">0</span>, <span class="number">10.00</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> ...</span><br><span class="line">ValueError: value must be &gt; <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>Now we have protected <strong>weight</strong> from users providing negative values. Although buyers usually can’t set the price of an item, a clerical error or a bug may create a <strong>LineItem</strong> with a negative <strong>price</strong>. To prevent that, we could also turn <strong>price</strong> into a property, but this would entail some repetition in our code.</p>
+<p>There are two ways to abstract away property definitions: using a property factory or a descriptor class. The descriptor class approach is more flexible, and we’ll devote Chapter 20 to a full discussion of it. Properties are in fact implemented as descriptor classes themselves.</p>
+<h2 id="A-Proper-Look-at-Properties"><a href="#A-Proper-Look-at-Properties" class="headerlink" title="A Proper Look at Properties"></a>A Proper Look at Properties</h2><p>Although often used as a decorator, the <strong>property</strong> built-in is actually a class. In Python, functions and classes are often interchangeable, because both are callable and there is no <strong>new</strong> operator for object instantiation, so invoking a constructor is no different than invoking a factory function. And both can be used as decorators, as long as they return a new callable that is a suitable replacement of the decorated function.</p>
+<p>This is the full signature of the <strong>property</strong> constructor:</p>
+<p><code>property(fget=None, fset=None, fdel=None, doc=None)</code></p>
+<p>All arguments are optional, and if a function is not provided for one of them, the corresponding operation is not allowed by the resulting property object.</p>
+<h3 id="Properties-Override-Instance-Attributes"><a href="#Properties-Override-Instance-Attributes" class="headerlink" title="Properties Override Instance Attributes"></a>Properties Override Instance Attributes</h3><p>Properties are always class attributes, but they actually manage attribute access in the instances of the class.</p>
+<p><strong><em>Instance attribute does not shadow class property</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">Class</span>:</span></span><br><span class="line"><span class="meta">... </span>    data=<span class="string">'the class data attr'</span></span><br><span class="line"><span class="meta">... </span>    @property</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">prop</span><span class="params">(self)</span>:</span> <span class="keyword">return</span> <span class="string">'the prop value'</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj=Class()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Class.prop</span><br><span class="line">&lt;property object at <span class="number">0x05B54CC0</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.prop</span><br><span class="line"><span class="string">'the prop value'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.prop= <span class="string">'foo'</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: can<span class="string">'t set attribute</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; obj.__dict__['</span>prop<span class="string">'] = '</span>foo<span class="string">'</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; vars(obj)</span></span><br><span class="line"><span class="string">&#123;'</span>prop<span class="string">': '</span>foo<span class="string">'&#125;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; obj.prop # reading obj.prop still runs the property getter. The property is not shadowed by an instance attribute.</span></span><br><span class="line"><span class="string">'</span>the prop value<span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&gt;&gt;&gt; Class.prop ='</span>baz<span class="string">' # Overwriting Class.prop destroys the property object.</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; obj.prop # Now obj.prop retrieves the instance attribute. Class.prop is not a property anymore, so it no longer overrides obj.prop.</span></span><br><span class="line"><span class="string">'</span>foo<span class="string">'</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong><em>New class property shadows existing instance attribute</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.data</span><br><span class="line"><span class="string">'the class data attr'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.data= <span class="string">'bar'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Class.data</span><br><span class="line"><span class="string">'the class data attr'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Class.data = property(<span class="keyword">lambda</span> self: <span class="string">'the "data" prop value'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.data <span class="comment"># obj.data is now shadowed by the Class.data property.</span></span><br><span class="line"><span class="string">'the "data" prop value'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> Class.data</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>obj.data</span><br><span class="line"><span class="string">'bar'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>The main point of this section is that an expression like <strong>obj.attr</strong> does not search for <strong>attr</strong> starting with obj. The search actually starts at <strong>obj.__class__</strong>, and only if there is no property named attr in the class, Python looks in the obj instance itself. This rule applies not only to properties but to a whole category of descriptors, the overriding descriptors.</p>
+<h2 id="Property-Documentation"><a href="#Property-Documentation" class="headerlink" title="Property Documentation"></a>Property Documentation</h2><p>When tools such as the console <strong>help()</strong> function or IDEs need to display the documentation of a property, they extract the information from the <strong>_\doc__</strong> attribute of the property.</p>
+<p>If used with the classic call syntax, <strong>property</strong> can get the documentation string as the <strong>doc</strong> argument:<br><code>weight = property(get_weight, set_weight, doc=&#39;weight in kilograms&#39;)</code></p>
+<p>When <strong>property</strong> is deployed as a decorator, the docstring of the getter method—the one with the <strong>@property</strong> decorator itself—is used as the documentation of the property as a whole.</p>
+<h2 id="Coding-a-Property-Factory"><a href="#Coding-a-Property-Factory" class="headerlink" title="Coding a Property Factory"></a>Coding a Property Factory</h2><p><strong>_bulkfood_v2prop.py: the quantity property factory in use_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line">    weight= quantity(<span class="string">'weight'</span>)</span><br><span class="line">    price= quantity(<span class="string">'price'</span>)</span><br><span class="line">    <span class="comment"># Use the factory to define the first custom property, weight, as a class </span></span><br><span class="line">    <span class="comment"># attribute.</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, description, weight, price)</span>:</span></span><br><span class="line">        self.description= description</span><br><span class="line">        self.weight= weight</span><br><span class="line">        self.price= price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subtotal</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.weight * self.price</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quantity</span><span class="params">(storage_name)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># qty_getter references storage_name, so it will be preserved in the closure </span></span><br><span class="line">    <span class="comment"># of this function; the value is retrieved directly from the instance.__dict__</span></span><br><span class="line">    <span class="comment"># to bypass the property and avoid an infinite recursion.</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">qty_getter</span><span class="params">(instance)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> instance.__dict__[storage_name]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">qty_setter</span><span class="params">(instance, value)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> value &gt; <span class="number">0</span>:</span><br><span class="line">            instance.__dict__[storage_name] = value</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'value must be &gt; 0'</span>)</span><br><span class="line">    <span class="keyword">return</span> property(qty_getter, qty_setter)</span><br></pre></td></tr></table></figure>
+<p> <strong>_bulkfood_v2prop.py: the quantity property factory_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>nutmeg = LineItem(<span class="string">'Moluccan nutmeg'</span>, <span class="number">8</span>, <span class="number">13.95</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reading the weight and price through the properties shadowing the namesake instance attributes.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>nutmeg.weight, nutmeg.price</span><br><span class="line"> (<span class="number">8</span>, <span class="number">13.95</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Using vars to inspect the nutmeg instance: here we see the actual instance attributes used to store the values.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sorted(vars(nutmeg).items())</span><br><span class="line"> [(<span class="string">'description'</span>, <span class="string">'Moluccan nutmeg'</span>), (<span class="string">'price'</span>, <span class="number">13.95</span>), (<span class="string">'weight'</span>, <span class="number">8</span>)]</span><br></pre></td></tr></table></figure>
+<p>The <strong>weight</strong> property overrides the <strong>weight</strong> instance attribute so that every reference to <strong>self.weight</strong> or <strong>nutmeg.weight</strong> is handled by the property functions, and the only way to bypass the property logic is to access the instance <strong>__dict__</strong> directly.</p>
+<h2 id="Handling-Attribute-Deletion"><a href="#Handling-Attribute-Deletion" class="headerlink" title="Handling Attribute Deletion"></a>Handling Attribute Deletion</h2><p>Recall from the Python tutorial that object attributes can be deleted using the <strong>del</strong> statement:</p>
+<p><code>del my_object.an_attribute</code></p>
+<p>In practice, deleting attributes is not something we do every day in Python, and the requirement to handle it with a property is even more unusual. But it is supported, and I can think of a silly example to demonstrate it.</p>
+<p>In a property definition, the <strong>@my_propety.deleter</strong> decorator is used to wrap the method in charge of deleting the attribute managed by the property.</p>
+<p><strong><em>blackknight.py</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">BlackKnight</span>:</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.members = [<span class="string">'an arm'</span>, </span><br><span class="line"><span class="meta">... </span>                        <span class="string">'another arm'</span>,</span><br><span class="line"><span class="meta">... </span>                        <span class="string">'a leg'</span></span><br><span class="line"><span class="meta">... </span>                        ]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span>        self.phrases = [<span class="string">"'Tis but a scratch."</span>,</span><br><span class="line"><span class="meta">... </span>                        <span class="string">"It's just a flesh wound."</span>,</span><br><span class="line"><span class="meta">... </span>                        <span class="string">"I'm invincible!"</span>]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span>    @property</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">member</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'next member is:'</span>)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> self.members[<span class="number">0</span>]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">... </span>    @member.deleter</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">member</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        text=<span class="string">'BLACK KNIGHT (loses &#123;&#125;)\n-- &#123;&#125;'</span></span><br><span class="line"><span class="meta">... </span>        print(text.format(self.members.pop(<span class="number">0</span>), self.phrases.pop(<span class="number">0</span>)))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>knight= BlackKnight()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>knight.member</span><br><span class="line">next member <span class="keyword">is</span>:</span><br><span class="line"><span class="string">'an arm'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> knight.member</span><br><span class="line">BLACK KNIGHT (loses an arm)</span><br><span class="line">-- <span class="string">'Tis but a scratch.</span></span><br><span class="line"><span class="string">&gt;&gt;&gt; del knight.member</span></span><br><span class="line"><span class="string">BLACK KNIGHT (loses another arm)</span></span><br><span class="line"><span class="string">-- It'</span>s just a flesh wound.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> knight.member</span><br><span class="line">BLACK KNIGHT (loses a leg)</span><br><span class="line">-- I<span class="string">'m invincible!</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Using the classic call syntax instead of decorators, the <strong>fdel</strong> argument is used to set the deleter function. For example, the <strong>member</strong> property would be coded like this in the body of the <strong>BlackKnight</strong> class:</p>
+<p><code>member = property(member_getter, fdel=member_deleter)</code></p>
+<p>If you are not using a property, attribute deletion can also be handled by implementing the lower-level <strong>__delattr__</strong> special method.</p>
+<h2 id="Essential-Attributes-and-Functions-for-Attribute-Handling"><a href="#Essential-Attributes-and-Functions-for-Attribute-Handling" class="headerlink" title="Essential Attributes and Functions for Attribute Handling"></a>Essential Attributes and Functions for Attribute Handling</h2><h3 id="Special-Attributes-that-Affect-Attribute-Handling"><a href="#Special-Attributes-that-Affect-Attribute-Handling" class="headerlink" title="Special Attributes that Affect Attribute Handling"></a>Special Attributes that Affect Attribute Handling</h3><p>The behavior of many of the functions and special methods listed in the following sections depend on three special attributes:</p>
+<p><strong>__class__</strong><br>A reference to the object’s class (i.e., <strong>obj.__class__</strong> is the same as <strong>type(obj)</strong>). Python looks for special methods such as <strong>__getattr__</strong> only in an object’s class, and not in the instances themselves.</p>
+<p><strong>__dict__</strong><br>A mapping that stores the writable attributes of an object or class. An object that has a <strong>__dict__</strong> can have arbitrary new attributes set at any time. If a class has a <strong>__slots__</strong> attribute, then its instances may not have a <strong>__dict__</strong>. See <strong>__slots__</strong>  (next).</p>
+<p><strong>__slots__</strong><br>An attribute that may be defined in a class to limit the attributes its instances can have. <strong>__slots__</strong>  is a tuple of strings naming the allowed attributes. If the ‘<strong>__dict__</strong>‘ name is not in <strong>__slots__</strong> , then the instances of that class will not have a <strong>__dict__</strong> of their own, and only the named attributes will be allowed in them.</p>
+<h3 id="Built-In-Functions-for-Attribute-Handling"><a href="#Built-In-Functions-for-Attribute-Handling" class="headerlink" title="Built-In Functions for Attribute Handling"></a>Built-In Functions for Attribute Handling</h3><p>These five built-in functions perform object attribute reading, writing, and introspection:</p>
+<p><strong>dir([object])</strong><br>Lists most attributes of the object. The official docs say <strong>dir</strong> is intended for interactive use so it does not provide a comprehensive list of attributes, but an “interesting” set of names. <strong>dir</strong> can inspect objects implemented with or without a <strong>__dict__</strong>. The <strong>__dict__</strong> attribute itself is not listed by <strong>dir</strong>, but the <strong>__dict__</strong> keys are listed. Several special attributes of classes, such as <strong>__mro__</strong>, <strong>__bases__</strong>, and <strong>__name__</strong> are not listed by <strong>dir</strong> either. If the optional object argument is not given, <strong>dir</strong> lists the names in the current scope.</p>
+<p><strong>getattr(object, name[, default])</strong><br>Gets the attribute identified by the name string from the object. This may fetch an attribute from the object’s class or from a superclass. If no such attribute exists, <strong>getattr</strong> raises <strong>AttributeError</strong> or returns the default value, if given.</p>
+<p><strong>hasattr(object, name)</strong><br>Returns <strong>True</strong> if the named attribute exists in the object, or can be somehow fetched through it (by inheritance, for example). The documentation explains: “This is implemented by calling <strong>getattr(object, name)</strong> and seeing whether it raises an <strong>AttributeError</strong> or not.”</p>
+<p><strong>setattr(object, name, value)</strong><br>Assigns the value to the named attribute of object, if the object allows it. This may create a new attribute or overwrite an existing one.</p>
+<p><strong>vars([object])</strong><br>Returns the <strong>__dict__</strong> of object; vars can’t deal with instances of classes that define <strong>__slots__</strong>  and don’t have a <strong>__dict__</strong> (contrast with <strong>dir</strong>, which handles such instances). Without an argument, <strong>vars()</strong> does the same as <strong>locals()</strong>: returns a <strong>dict</strong> representing the local scope.</p>
+<h3 id="Special-Methods-for-Attribute-Handling"><a href="#Special-Methods-for-Attribute-Handling" class="headerlink" title="Special Methods for Attribute Handling"></a>Special Methods for Attribute Handling</h3><p>Attribute access using either dot notation or the built-in functions <strong>getattr</strong>, <strong>hasattr</strong>, and <strong>setattr</strong> trigger the appropriate special methods listed here. Reading and writing attributes directly in the instance <strong>__dict__</strong> does not trigger these special methods— and that’s the usual way to bypass them if needed.</p>
+<p>In other words, assume that the special methods will be retrieved on the class itself, even when the target of the action is an instance. For this reason, special methods are not shadowed by instance attributes with the same name.</p>
+<p>In the following examples, assume there is a class named <strong>Class</strong>, <strong>obj</strong> is an instance of <strong>Class</strong>, and <strong>attr</strong> is an attribute of <strong>obj</strong>.</p>
+<p>For every one of these special methods, it doesn’t matter if the attribute access is done using dot notation or one of the built-in functions listed in “Built-In Functions for Attribute Handling”. For example, both <strong>obj.attr</strong> and <strong>getattr(obj, ‘attr’, 42)</strong> trigger <strong>Class.__getattribute__(obj, ‘attr’)</strong>.</p>
+<p><strong><strong>delattr</strong>(self, name)</strong><br>Always called when there is an attempt to delete an attribute using the <strong>del</strong> statement; e.g., <strong>del obj.attr</strong> triggers <strong>Class.__delattr__(obj, ‘attr’)</strong>.</p>
+<p><strong>__dict__(self)</strong><br>Called when <strong>dir</strong> is invoked on the object, to provide a listing of attributes; e.g.,<br><strong>dir(obj)</strong> triggers <strong>Class.__dict__(obj)</strong>.</p>
+<p><strong>__getattr__(self, name)</strong><br>Called only when an attempt to retrieve the named attribute fails, after the <strong>obj</strong>, <strong>Class</strong>, and its superclasses are searched. The expressions <strong>obj.no_such_attr</strong>, get <strong>attr(obj, ‘.no_such_attr’)</strong>, and <strong>hasattr(obj, ‘.no_such_attr’)</strong> may trigger <strong>Class.__getattr__(obj, ‘.no_such_attr’)</strong>, but only if an attribute by that name cannot be found in <strong>obj</strong> or in <strong>Class</strong> and its superclasses.</p>
+<p><strong>__getattribute__(self, name)</strong><br>Always called when there is an attempt to retrieve the named attribute, except when the attribute sought is a special attribute or method. Dot notation and the <strong>getattr</strong> and <strong>hasattr</strong> built-ins trigger this method. <strong>__getattr__</strong> is only invoked after <strong>__getattribute__</strong>, and only when <strong>__getattribute__</strong> raises <strong>AttributeError</strong>. To retrieve attributes of the instance <strong>obj</strong> without triggering an infinite recursion, implementations of <strong>__getattribute__</strong> should use <strong>super().__getattribute__(obj, name)</strong>.</p>
+<p><strong>__setattr__(self, name, value)</strong><br>Always called when there is an attempt to set the named attribute. Dot notation and the <strong>setattr</strong> built-in trigger this method; e.g., both <strong>obj.attr = 42</strong> and <strong>setattr(obj, ‘attr’, 42)</strong> trigger <strong>Class.__setattr__(obj, ‘attr’, 42)</strong>.</p>
+<p>In practice, because they are unconditionally called and affect practically every attribute access, the  <strong>__getattribute__</strong> and <strong>__setattr__</strong> special methods are harder to use correctly than <strong>__getattr__</strong>—which only handles nonexisting attribute names. Using properties or descriptors is less error prone than defining these special methods.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fluent-python/" rel="tag"><i class="fa fa-tag"></i> fluent python</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/" rel="next" title="C19_Dynamic Attributes and Properties_01">
+                <i class="fa fa-chevron-left"></i> C19_Dynamic Attributes and Properties_01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/C20-Attribute-Descriptors-01/" rel="prev" title="C20_Attribute Descriptors_01">
+                C20_Attribute Descriptors_01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-a-Property-for-Attribute-Validation"><span class="nav-number">1.</span> <span class="nav-text">Using a Property for Attribute Validation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LineItem-Take-1-Class-for-an-Item-in-an-Order"><span class="nav-number">1.1.</span> <span class="nav-text">LineItem Take #1: Class for an Item in an Order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LineItem-Take-2-A-Validating-Property"><span class="nav-number">1.2.</span> <span class="nav-text">LineItem Take #2: A Validating Property</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Proper-Look-at-Properties"><span class="nav-number">2.</span> <span class="nav-text">A Proper Look at Properties</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Properties-Override-Instance-Attributes"><span class="nav-number">2.1.</span> <span class="nav-text">Properties Override Instance Attributes</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Property-Documentation"><span class="nav-number">3.</span> <span class="nav-text">Property Documentation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coding-a-Property-Factory"><span class="nav-number">4.</span> <span class="nav-text">Coding a Property Factory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handling-Attribute-Deletion"><span class="nav-number">5.</span> <span class="nav-text">Handling Attribute Deletion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Essential-Attributes-and-Functions-for-Attribute-Handling"><span class="nav-number">6.</span> <span class="nav-text">Essential Attributes and Functions for Attribute Handling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Special-Attributes-that-Affect-Attribute-Handling"><span class="nav-number">6.1.</span> <span class="nav-text">Special Attributes that Affect Attribute Handling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Built-In-Functions-for-Attribute-Handling"><span class="nav-number">6.2.</span> <span class="nav-text">Built-In Functions for Attribute Handling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Special-Methods-for-Attribute-Handling"><span class="nav-number">6.3.</span> <span class="nav-text">Special Methods for Attribute Handling</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

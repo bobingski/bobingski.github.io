@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C05-functions/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C01-Keys-and-Constraints-Indexes-Relationships-and-ForeignKeyConstraints/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -325,7 +325,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/C05-functions/" itemprop="url">C05_functions </a></h1>
+                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C01-Keys-and-Constraints-Indexes-Relationships-and-ForeignKeyConstraints/" itemprop="url">sqlalchemy_C01_Keys and Constraints_Indexes_Relationships and ForeignKeyConstraints</a></h1>
         
 
         <div class="post-meta">
@@ -337,8 +337,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:38:34-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:23:40-07:00">
+                2018-05-25
               </time>
             
 
@@ -353,8 +353,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:39:02-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:34:03-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -410,11 +410,10 @@
 
       
         
-          <h3 id="Higher-Order-Functions"><a href="#Higher-Order-Functions" class="headerlink" title="Higher-Order Functions"></a>Higher-Order Functions</h3><h4 id="Replacements-for-map-filter-and-reduce"><a href="#Replacements-for-map-filter-and-reduce" class="headerlink" title="Replacements for map, filter, and reduce"></a>Replacements for <strong>map</strong>, <strong>filter</strong>, and <strong>reduce</strong></h4><p>Functional languages commonly offer the <strong>map</strong>, <strong>filter</strong>, and <strong>reduce</strong> higher-order functions<br>(sometimes with different names). A <strong>listcomp</strong> or a <strong>genexp</strong> does the job of <strong>map</strong> and <strong>filter</strong><br>combined, but is more readable.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(fact, range(<span class="number">6</span>)))</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">24</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[fact(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">6</span>)]</span><br><span class="line">[<span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">24</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(factorial, filter(<span class="keyword">lambda</span> n: n % <span class="number">2</span>, range(<span class="number">6</span>))))</span><br><span class="line">[<span class="number">1</span>, <span class="number">6</span>, <span class="number">120</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[factorial(n) <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">6</span>) <span class="keyword">if</span> n % <span class="number">2</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">6</span>, <span class="number">120</span>]</span><br></pre></td></tr></table></figure>
+          <h3 id="Keys-and-Constraints"><a href="#Keys-and-Constraints" class="headerlink" title="Keys and Constraints"></a>Keys and Constraints</h3><p>Keys and constraints are used as a way to ensure that our data meets certain requirements prior to being stored in the database. The objects that represent keys and constraints can be found inside the base SQLAlchemy module, and three of the more common ones can be imported as shown here:<br><code>from sqlalchemy import PrimaryKeyConstraint, UniqueConstraint, CheckConstraint</code><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C05-functions/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/sqlalchemy-C01-Keys-and-Constraints-Indexes-Relationships-and-ForeignKeyConstraints/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -465,7 +464,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C04-bytes-bytesarray-struct-module-memory-views/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C21-Class-Metaprogramming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -484,7 +483,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/C04-bytes-bytesarray-struct-module-memory-views/" itemprop="url">C04_bytes, bytesarray, struct module, memory views</a></h1>
+                <a class="post-title-link" href="/2018/05/25/C21-Class-Metaprogramming/" itemprop="url">C21_Class Metaprogramming</a></h1>
         
 
         <div class="post-meta">
@@ -496,8 +495,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:37:42-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:20:54-07:00">
+                2018-05-25
               </time>
             
 
@@ -512,8 +511,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:38:15-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:21:46-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -569,15 +568,11 @@
 
       
         
-          <p>The Unicode standard explicitly separates the identity of characters from specific byte representations:</p>
-<ul>
-<li>The identity of a character</li>
-<li>The actual bytes that represent a character depend on the encoding in use.</li>
-</ul>
-<p>Although binary sequences are really sequences of integers, their literal notation reflects the fact that ASCII text is often embedded in them. Therefore, three different displays are used, depending on each byte value:<br>
+          <h2 id="A-Class-Factory"><a href="#A-Class-Factory" class="headerlink" title="A Class Factory"></a>A Class Factory</h2><p><strong>_record_factory.py: a simple class factory_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">record_factory</span><span class="params">(cls_name, field_names)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        field_names= field_names.replace(<span class="string">','</span>,<span class="string">' '</span>).split()</span><br><span class="line">    <span class="keyword">except</span> AttributeError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    field_names= tuple(field_names)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        attrs=dict(zip(self.__slots__, args))</span><br><span class="line">        attrs.update(kwargs)</span><br><span class="line">        <span class="keyword">for</span> name, value <span class="keyword">in</span> attrs.items():</span><br><span class="line">            setattr(self, name, value)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> self.__slots__:</span><br><span class="line">            <span class="keyword">yield</span> getattr(self, name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        values=<span class="string">', '</span>.join(<span class="string">'&#123;&#125;=&#123;!r&#125;'</span>.format(*i) <span class="keyword">for</span> i <span class="keyword">in</span> zip(self.__slots__, self))</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;(&#123;&#125;)'</span>.format(self.__class__.__name__, values)</span><br><span class="line"></span><br><span class="line">    cls_attrs=dict(</span><br><span class="line">        __slots__= field_names,</span><br><span class="line">        __init__= __init__,</span><br><span class="line">        __iter__= __iter__,</span><br><span class="line">        __repr__= __repr__</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> type(cls_name, (object,), cls_attrs)</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C04-bytes-bytesarray-struct-module-memory-views/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/C21-Class-Metaprogramming/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -628,7 +623,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C03-set-hash-tables/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -647,7 +642,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/C03-set-hash-tables/" itemprop="url">C03_set, hash tables</a></h1>
+                <a class="post-title-link" href="/2018/05/25/C20-Attribute-Descriptors-02/" itemprop="url">C20_Attribute Descriptors_02</a></h1>
         
 
         <div class="post-meta">
@@ -659,8 +654,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:35:22-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:19:51-07:00">
+                2018-05-25
               </time>
             
 
@@ -675,8 +670,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:36:32-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:20:16-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -732,11 +727,10 @@
 
       
         
-          <h3 id="set-forzenset"><a href="#set-forzenset" class="headerlink" title="set, forzenset"></a>set, forzenset</h3><p>A set is a collection of unique objects. A basic use case is removing duplication:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l = [<span class="string">'spam'</span>, <span class="string">'spam'</span>, <span class="string">'eggs'</span>, <span class="string">'spam'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>set(l)</span><br><span class="line">&#123;<span class="string">'eggs'</span>, <span class="string">'spam'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(set(l))</span><br><span class="line">[<span class="string">'eggs'</span>, <span class="string">'spam'</span>]</span><br></pre></td></tr></table></figure>
+          <h2 id="Overriding-Versus-Nonoverriding-Descriptors"><a href="#Overriding-Versus-Nonoverriding-Descriptors" class="headerlink" title="Overriding Versus Nonoverriding Descriptors"></a>Overriding Versus Nonoverriding Descriptors</h2><p>Recall that there is an important asymmetry in the way Python handles attributes. Reading an attribute through an instance normally returns the attribute defined in the instance, but if there is no such attribute in the instance, a class attribute will be retrieved. On the other hand, assigning to an attribute in an instance normally creates the attribute in the instance, without affecting the class at all.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C03-set-hash-tables/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/C20-Attribute-Descriptors-02/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -787,7 +781,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/re-module-compile-finditer-group-match/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -806,7 +800,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/re-module-compile-finditer-group-match/" itemprop="url">re module_compile, finditer, group, match</a></h1>
+                <a class="post-title-link" href="/2018/05/25/C20-Attribute-Descriptors-01/" itemprop="url">C20_Attribute Descriptors_01</a></h1>
         
 
         <div class="post-meta">
@@ -818,8 +812,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:34:26-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:19:17-07:00">
+                2018-05-25
               </time>
             
 
@@ -834,8 +828,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:36:27-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:19:38-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -891,19 +885,10 @@
 
       
         
-          <p>使用 re 模块有两种方式：</p>
-<ul>
-<li>使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；</li>
-<li>直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找。</li>
-</ul>
-<p>re 模块的一般使用步骤如下：</p>
-<ul>
-<li>使用 compile 函数将正则表达式的字符串形式编译为一个 Pattern 对象</li>
-<li>通过 Pattern 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 Match 对象）</li>
-<li>最后使用 Match 对象提供的属性和方法获得信息，根据需要进行其他的操作
+          <p>Descriptors are a way of reusing the same access logic in multiple attributes. For example, field types in ORMs such as the Django ORM and SQL Alchemy are descriptors, managing the flow of data from the fields in a database record to Python object attributes and vice versa.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/re-module-compile-finditer-group-match/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/C20-Attribute-Descriptors-01/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -954,7 +939,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C03-Generic-Mapping-Types-hashable/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -973,7 +958,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/C03-Generic-Mapping-Types-hashable/" itemprop="url">C03_Generic Mapping Types, hashable</a></h1>
+                <a class="post-title-link" href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/" itemprop="url">C19_Dynamic Attributes and Properties_02</a></h1>
         
 
         <div class="post-meta">
@@ -985,8 +970,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:33:36-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:18:38-07:00">
+                2018-05-25
               </time>
             
 
@@ -1001,8 +986,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:34:04-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:19:00-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -1058,10 +1043,10 @@
 
       
         
-          <h3 id="hashable"><a href="#hashable" class="headerlink" title="hashable"></a>hashable</h3><p>An object is hashable if it has a hash value which never changes during its lifetime (it needs a <strong>hash</strong>()<br>method), and can be compared to other objects (it needs an <strong>eq</strong>() method). Hashable objects which<br>compare equal must have the same hash value.<br>
+          <h2 id="Using-a-Property-for-Attribute-Validation"><a href="#Using-a-Property-for-Attribute-Validation" class="headerlink" title="Using a Property for Attribute Validation"></a>Using a Property for Attribute Validation</h2><p>So far, we have only seen the <strong>@property</strong> decorator used to implement read-only properties. In this section, we will create a read/write property.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C03-Generic-Mapping-Types-hashable/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1112,7 +1097,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C-deque/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1131,7 +1116,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/C-deque/" itemprop="url">C_deque</a></h1>
+                <a class="post-title-link" href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/" itemprop="url">C19_Dynamic Attributes and Properties_01</a></h1>
         
 
         <div class="post-meta">
@@ -1143,8 +1128,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:32:53-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:17:52-07:00">
+                2018-05-25
               </time>
             
 
@@ -1159,8 +1144,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:33:18-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:18:22-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -1216,11 +1201,10 @@
 
       
         
-          <p>Inserting and removing from the left of a list (the 0-index end) is costly because the entire list must be shifted.</p>
-<p>The class collections.deque is a thread-safe double-ended queue designed for fast inserting and removing<br>from both ends. It is also the way to go if you need to keep a list of “last seen items” or something like that, because a deque can be bounded—i.e., created with a maximum length—and then, when it is full, it<br>discards items from the opposite end when you append new ones.<br>
+          <p>Data attributes and methods are collectively known as <strong>attributes</strong> in Python: a method is just an attribute that is <strong>callable</strong>. Besides data attributes and methods, we can also create properties, which can be used to replace a public data attribute with <strong>accessor methods</strong> (i.e., getter/setter), without changing the class interface.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C-deque/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1271,7 +1255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Array-Memory-Views/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C17-Concurrency-with-Futures/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1290,7 +1274,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/C02-Array-Memory-Views/" itemprop="url">C02_Array, Memory Views</a></h1>
+                <a class="post-title-link" href="/2018/05/25/C17-Concurrency-with-Futures/" itemprop="url">C17_Concurrency with Futures(Not finished) </a></h1>
         
 
         <div class="post-meta">
@@ -1302,8 +1286,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:31:57-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:16:17-07:00">
+                2018-05-25
               </time>
             
 
@@ -1318,8 +1302,175 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:32:25-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:17:30-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong><em>flags.py: sequential download script; some functions will be reused by the other scripts</em></strong></p>
+<p>import os<br>import time<br>import sys<br>import requests</p>
+<p>POP20_CC = (‘CN IN US ID BR PK NG BD RU JP ‘<br> ‘MX PH VN ET EG DE IR TR CD FR’).split() </p>
+<p>BASE_URL= ‘<a href="http://flupy.org/data/flags&#39;" target="_blank" rel="noopener">http://flupy.org/data/flags&#39;</a></p>
+<p>DEST_DIR= ‘downloads/‘</p>
+<p>def save_flag(img, filename):<br>    path= os.path.join(DEST_DIR, filename)<br>    with open(path, ‘wb’) as fp:<br>        fp.write(img)</p>
+<p>def get_flag(cc):<br>    url=’{}/{cc}/{cc}.gif’.format(BASE_URL, cc= cc.lower())<br>    resp = requests.get(url)<br>    return resp.content</p>
+<h1 id="Display-a-string-and-flush-sys-stdout-so-we-can-see-progress-in-a-one-line"><a href="#Display-a-string-and-flush-sys-stdout-so-we-can-see-progress-in-a-one-line" class="headerlink" title="Display a string and flush sys.stdout so we can see progress in a one-line"></a>Display a string and flush sys.stdout so we can see progress in a one-line</h1><h1 id="display-this-is-needed-because-Python-normally-waits-for-a-line-break-to-flush"><a href="#display-this-is-needed-because-Python-normally-waits-for-a-line-break-to-flush" class="headerlink" title="display; this is needed because Python normally waits for a line break to flush"></a>display; this is needed because Python normally waits for a line break to flush</h1><h1 id="the-stdout-buffer"><a href="#the-stdout-buffer" class="headerlink" title="the stdout buffer."></a>the stdout buffer.</h1><p>def show(text):<br>    print(text,end= ‘ ‘)<br>    sys.stdout.flush()</p>
+<p>def download_many(cc_list):<br>    for cc in sorted(cc_list):<br>        image= get_flag(cc)<br>        show(cc)<br>        save_flag(image, cc.lower()+’.gif’)<br>    return len(cc_list)</p>
+<p>def main(download_many):<br>    t0=time.time()<br>    count= download_many(POP20_CC)<br>    elapsed= time.time() - t0<br>    msg= ‘\n{} flags downloaded in {:.2f}s’<br>    print(msg.format(count, elapsed))</p>
+<p>if <strong>name</strong>== ‘<strong>main</strong>‘:<br>    main(download_many)</p>
+<h3 id="Downloading-with-concurrent-futures"><a href="#Downloading-with-concurrent-futures" class="headerlink" title="Downloading with concurrent.futures"></a>Downloading with concurrent.futures</h3><p><strong>_flags_threadpool.py: threaded download script using futures.ThreadPoolExecutor_</strong></p>
+<p>from concurrent import futures</p>
+<p>from flags import save_flag, get_flag, show, main</p>
+<p>MAX_WORKERS = 20</p>
+<p>def download_one(cc):<br>    image= get_flag(cc)<br>    show(cc)<br>    save_flag(img, cc.lower()+’.gif’)<br>    return cc</p>
+<p>def download_many(cc_list):<br>    workers= min(MAX_WORKERS, len(cc_list))<br>    with futures.ThreadPoolExecutor(workers) as executor:<br>        res=executor.map(download_one, sorted(cc_list))</p>
+<pre><code>return len(list(res))
+</code></pre><p>if <strong>name</strong>== ‘<strong>main</strong>‘:<br>    main(download_many)</p>
+<h1 id="flags-threadpool-ac-py"><a href="#flags-threadpool-ac-py" class="headerlink" title="flags_threadpool_ac.py"></a>flags_threadpool_ac.py</h1><p>def download_many(cc_list):<br>    cc_list= cc_list[:5]<br>    with futures.ThreadPoolExecutor(max_workers = 3) as executor:<br>        to_do=[]<br>        for cc in sorted(cc_list):<br>            future = executor.submit(download_one, cc)</p>
+<pre><code>        # executor.submit schedules the callable to be executed, and returns a
+        # future representing this pending operation.
+
+        to_do.append(future)
+        msg= &apos;Scheduled for {}: {}&apos;
+        print(msg.format(cc, future))
+
+    results=[]
+    for future in futures.as_completed(to_do):#as_completed yields futures as they are completed.
+        res= future.result() # Get the result of this future.
+        msg=&apos;{} result: {!r}&apos;
+        print(msg.format(future, res))
+        results.append(res)
+return len(results)
+</code></pre><h3 id="Blocking-I-O-and-the-GIL"><a href="#Blocking-I-O-and-the-GIL" class="headerlink" title="Blocking I/O and the GIL"></a>Blocking I/O and the GIL</h3><p>The CPython interpreter is not thread-safe internally, so it has a Global Interpreter Lock<br>(GIL), which allows only one thread at a time to execute Python bytecodes. That’s why<br>a single Python process usually cannot use multiple CPU cores at the same time.</p>
+<p>When we write Python code, we have no control over the GIL, but a built-in function<br>or an extension written in C can release the GIL while running time-consuming tasks.<br>In fact, a Python library coded in C can manage the GIL, launch its own OS threads,<br>and take advantage of all available CPU cores. This complicates the code of the library<br>considerably, and most library authors don’t do it<br>However, all standard library functions that perform blocking I/O release the GIL when<br>waiting for a result from the OS. This means Python programs that are I/O bound can<br>benefit from using threads at the Python level: while one Python thread is waiting for<br>a response from the network, the blocked I/O function releases the GIL so another<br>thread can run.</p>
+<h3 id="Launching-Processes-with-concurrent-futures"><a href="#Launching-Processes-with-concurrent-futures" class="headerlink" title="Launching Processes with concurrent.futures"></a>Launching Processes with concurrent.futures</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C16-Coroutines/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/25/C16-Coroutines/" itemprop="url">C16_Coroutines</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:15:33-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:15:58-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -1375,10 +1526,10 @@
 
       
         
-          <p>An array does not actually hold full-fledged float objects, but only the packed bytes representing their<br>machine values—just like an array in the C language. On the other hand, if you are constantly adding and<br>removing items from the ends of a list as a FIFO or LIFO data structure, a deque (double-ended queue)<br>works faster.<br>
+          <p>We find two main senses for the verb “to yield” in dictionaries: to produce or to give way. Both senses apply in Python when we use the <strong>yield</strong> keyword in a generator. A line such as <strong>yield</strong> item produces a value that is received by the caller of <strong>next(…)</strong>, and it also gives way, suspending the execution of the generator so that the caller may proceed until it’s ready to consume another value by invoking <strong>next()</strong> again. The caller pulls values from the generator.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C02-Array-Memory-Views/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/C16-Coroutines/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1429,7 +1580,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-list-sort-and-the-sorted-Built-In-Function-bisect/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C15-Context-Managers-and-else-Blocks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1448,7 +1599,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/C02-list-sort-and-the-sorted-Built-In-Function-bisect/" itemprop="url">C02_list.sort and the sorted Built-In Function, bisect</a></h1>
+                <a class="post-title-link" href="/2018/05/25/C15-Context-Managers-and-else-Blocks/" itemprop="url">C15_Context Managers and else Blocks</a></h1>
         
 
         <div class="post-meta">
@@ -1460,8 +1611,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:31:00-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:14:42-07:00">
+                2018-05-25
               </time>
             
 
@@ -1476,8 +1627,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:31:36-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:15:12-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -1533,10 +1684,11 @@
 
       
         
-          <h3 id="list-sort-and-sorted"><a href="#list-sort-and-sorted" class="headerlink" title="list.sort and sorted"></a>list.sort and sorted</h3><p>The list.sort method sorts a list in place—that is, without making a copy. It returns None to remind us that it<br>changes the target object, and does not create a new list. This is an important Python API convention:<br>functions or methods that change an object in place should return None to make it clear to the caller that<br>the object itself was changed, and no new object was created.<br>
+          <p>The <strong>with</strong> statement sets up a temporary context and reliably tears it down, under the control of a context manager object. This prevents errors and reduces boilerplate code, making APIs at the same time safer and easier to use. Python programmers are finding lots of uses for with blocks beyond automatic file closing.</p>
+<p>This is no secret, but it is an underappreciated language feature: the <strong>else</strong> clause can be used not only in if statements but also in <strong>for</strong>, <strong>while</strong>, and <strong>try</strong> statements.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C02-list-sort-and-the-sorted-Built-In-Function-bisect/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/C15-Context-Managers-and-else-Blocks/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1587,7 +1739,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Sequence-Assignment/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C14-Iterables-Iterators-and-Generators-02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1606,7 +1758,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/22/C02-Sequence-Assignment/" itemprop="url">C02_Sequence Assignment +=, *=</a></h1>
+                <a class="post-title-link" href="/2018/05/25/C14-Iterables-Iterators-and-Generators-02/" itemprop="url">C14_Iterables, Iterators, and Generators_02</a></h1>
         
 
         <div class="post-meta">
@@ -1618,8 +1770,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:30:11-07:00">
-                2018-04-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:13:47-07:00">
+                2018-05-25
               </time>
             
 
@@ -1634,8 +1786,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:30:42-07:00">
-                2018-04-22
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:14:19-07:00">
+                2018-05-25
               </time>
             
           </span>
@@ -1691,170 +1843,11 @@
 
       
         
-          <p>#The augmented assignment operators += and *= behave very differently depending on the first operand. </p>
-<p>The special method that makes += work is <strong>iadd</strong> (for “in-place addition”). However, if <strong>iadd</strong> is not<br>implemented, Python falls back to calling <strong>add</strong>.<br>
+          <p><strong><em>The ArithmeticProgression class</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArithmeticProgression</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, begin, step, end=None)</span>:</span></span><br><span class="line">        self.begin=begin</span><br><span class="line">        self.step=step</span><br><span class="line">        self.end=end</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#This line produces a result value equal to self.begin, but coerced to </span></span><br><span class="line">        <span class="comment">#the type of the subsequent additions.</span></span><br><span class="line">        result=type(self.begin+self.step)(self.begin)</span><br><span class="line">        forever=self.end <span class="keyword">is</span> <span class="keyword">None</span></span><br><span class="line">        index = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> forever <span class="keyword">or</span> result &lt; self.end:</span><br><span class="line">            <span class="keyword">yield</span> result</span><br><span class="line">            index +=<span class="number">1</span></span><br><span class="line">            result =self.begin + self.step * index</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C02-Sequence-Assignment/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Slice-Objects/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="eustoma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="whistlestop">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/22/C02-Slice-Objects/" itemprop="url">C02_Slice Objects</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:29:13-07:00">
-                2018-04-22
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:29:42-07:00">
-                2018-04-22
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">book notes</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>The notation a :b :c is only valid within [ ] when used as the indexing or subscript operator, and it produces a<br>slice object: slice(a, b, c).<br>To evaluate the expression seq[start:stop:step], Python calls seq.<strong>getitem</strong>(slice(start, stop, step)). </p>
-<h3 id="Assign-to-slices"><a href="#Assign-to-slices" class="headerlink" title="Assign to slices"></a>Assign to slices</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l=list(range(<span class="number">10</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l[<span class="number">2</span>:<span class="number">5</span>]=[<span class="number">20</span>,<span class="number">30</span>] </span><br><span class="line"><span class="comment">#When the target of the assignment is a slice, the right side must be an iterable object, even if it has just one item.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> l[<span class="number">5</span>:<span class="number">7</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/22/C02-Slice-Objects/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/C14-Iterables-Iterators-and-Generators-02/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1896,7 +1889,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1946,7 +1939,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1968,7 +1961,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

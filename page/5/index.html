@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C18-全文本搜索/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C04-bytes-bytesarray-struct-module-memory-views/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -325,7 +325,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C18-全文本搜索/" itemprop="url">C18_全文本搜索</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C04-bytes-bytesarray-struct-module-memory-views/" itemprop="url">C04_bytes, bytesarray, struct module, memory views</a></h1>
         
 
         <div class="post-meta">
@@ -337,8 +337,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:10:04-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:37:42-07:00">
+                2018-04-22
               </time>
             
 
@@ -353,8 +353,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:10:45-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:38:15-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -410,10 +410,15 @@
 
       
         
-          <h3 id="启用"><a href="#启用" class="headerlink" title="启用"></a>启用</h3><p>一般在创建表时启用全文本搜索。CREATE TABLE 语句接受FULLTEXT 子句，它给出被索引列的一个逗号分隔<br>的列表。<br>
+          <p>The Unicode standard explicitly separates the identity of characters from specific byte representations:</p>
+<ul>
+<li>The identity of a character</li>
+<li>The actual bytes that represent a character depend on the encoding in use.</li>
+</ul>
+<p>Although binary sequences are really sequences of integers, their literal notation reflects the fact that ASCII text is often embedded in them. Therefore, three different displays are used, depending on each byte value:<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C18-全文本搜索/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C04-bytes-bytesarray-struct-module-memory-views/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -464,7 +469,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C16-组合查询/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C03-set-hash-tables/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -483,7 +488,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C16-组合查询/" itemprop="url">C16_组合查询</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C03-set-hash-tables/" itemprop="url">C03_set, hash tables</a></h1>
         
 
         <div class="post-meta">
@@ -495,8 +500,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:09:10-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:35:22-07:00">
+                2018-04-22
               </time>
             
 
@@ -511,8 +516,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:09:43-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:36:32-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -568,10 +573,11 @@
 
       
         
-          <p>多数SQL查询都只包含从一个或多个表中返回数据的单条SELECT 语句。MySQL也允许执行多个查询（多条<br>SELECT 语句），并将结果作为单个查询结果集返回。这些组合查询通常称为并（union）或复合查询<br>（compoundquery）<br>
+          <h3 id="set-forzenset"><a href="#set-forzenset" class="headerlink" title="set, forzenset"></a>set, forzenset</h3><p>A set is a collection of unique objects. A basic use case is removing duplication:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l = [<span class="string">'spam'</span>, <span class="string">'spam'</span>, <span class="string">'eggs'</span>, <span class="string">'spam'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>set(l)</span><br><span class="line">&#123;<span class="string">'eggs'</span>, <span class="string">'spam'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(set(l))</span><br><span class="line">[<span class="string">'eggs'</span>, <span class="string">'spam'</span>]</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C16-组合查询/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C03-set-hash-tables/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -622,7 +628,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C16-带聚集函数的联结/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/re-module-compile-finditer-group-match/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -641,7 +647,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C16-带聚集函数的联结/" itemprop="url">C16_带聚集函数的联结</a></h1>
+                <a class="post-title-link" href="/2018/04/22/re-module-compile-finditer-group-match/" itemprop="url">re module_compile, finditer, group, match</a></h1>
         
 
         <div class="post-meta">
@@ -653,8 +659,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:07:58-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:34:26-07:00">
+                2018-04-22
               </time>
             
 
@@ -669,8 +675,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:08:31-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:36:27-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -726,10 +732,19 @@
 
       
         
-          <p>聚集函数用来汇总数据。虽然至今为止聚集函数的所有例子只是从单个表汇总数据，但这些函数也可以与联结一起使用。<br>
+          <p>使用 re 模块有两种方式：</p>
+<ul>
+<li>使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；</li>
+<li>直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找。</li>
+</ul>
+<p>re 模块的一般使用步骤如下：</p>
+<ul>
+<li>使用 compile 函数将正则表达式的字符串形式编译为一个 Pattern 对象</li>
+<li>通过 Pattern 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 Match 对象）</li>
+<li>最后使用 Match 对象提供的属性和方法获得信息，根据需要进行其他的操作
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C16-带聚集函数的联结/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/re-module-compile-finditer-group-match/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -780,7 +795,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C16-INNER-JOIN-LEFT-OUTER-JOIN/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C03-Generic-Mapping-Types-hashable/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -799,7 +814,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C16-INNER-JOIN-LEFT-OUTER-JOIN/" itemprop="url">C16_INNER JOIN, LEFT OUTER JOIN</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C03-Generic-Mapping-Types-hashable/" itemprop="url">C03_Generic Mapping Types, hashable</a></h1>
         
 
         <div class="post-meta">
@@ -811,8 +826,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:06:21-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:33:36-07:00">
+                2018-04-22
               </time>
             
 
@@ -827,8 +842,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:07:29-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:34:04-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -884,10 +899,10 @@
 
       
         
-          <h3 id="自联结"><a href="#自联结" class="headerlink" title="自联结"></a>自联结</h3><p>某物品（其ID为DTNTR ）存在问题，因此想知道生产该物品的供应商生产的其他物品是否也存在这些问<br>题。此查询要求首先找到生产ID为DTNTR 的物品的供应商，然后找出这个供应商生产的其他物品<br>
+          <h3 id="hashable"><a href="#hashable" class="headerlink" title="hashable"></a>hashable</h3><p>An object is hashable if it has a hash value which never changes during its lifetime (it needs a <strong>hash</strong>()<br>method), and can be compared to other objects (it needs an <strong>eq</strong>() method). Hashable objects which<br>compare equal must have the same hash value.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C16-INNER-JOIN-LEFT-OUTER-JOIN/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C03-Generic-Mapping-Types-hashable/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -938,7 +953,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C07-ocr-py-PIL-convert-point用法/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C-deque/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -957,7 +972,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C07-ocr-py-PIL-convert-point用法/" itemprop="url">C07_ocr.py_PIL-convert, point用法</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C-deque/" itemprop="url">C_deque</a></h1>
         
 
         <div class="post-meta">
@@ -969,8 +984,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:05:15-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:32:53-07:00">
+                2018-04-22
               </time>
             
 
@@ -985,8 +1000,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:05:49-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:33:18-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -1042,10 +1057,11 @@
 
       
         
-          <p>对于彩色图像，不管其图像格式是PNG，还是BMP，或者JPG，在PIL中，使用Image模块的open()函数打开后，返回的图像对象的模式都是“RGB”。而对于灰度图像，不管其图像格式是PNG，还是BMP，或者JPG，打开后，其模式为“L”。<br>
+          <p>Inserting and removing from the left of a list (the 0-index end) is costly because the entire list must be shifted.</p>
+<p>The class collections.deque is a thread-safe double-ended queue designed for fast inserting and removing<br>from both ends. It is also the way to go if you need to keep a list of “last seen items” or something like that, because a deque can be bounded—i.e., created with a maximum length—and then, when it is full, it<br>discards items from the opposite end when you append new ones.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C07-ocr-py-PIL-convert-point用法/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C-deque/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1096,7 +1112,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C07-form-py-PIL/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Array-Memory-Views/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1115,7 +1131,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C07-form-py-PIL/" itemprop="url">C07_form.py_PIL</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C02-Array-Memory-Views/" itemprop="url">C02_Array, Memory Views</a></h1>
         
 
         <div class="post-meta">
@@ -1127,8 +1143,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:04:17-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:31:57-07:00">
+                2018-04-22
               </time>
             
 
@@ -1143,8 +1159,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:04:56-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:32:25-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -1200,10 +1216,10 @@
 
       
         
-          <p>PIL (Python Image Library) 是 Python 平台处理图片的事实标准，兼具强大的功能和简洁的 API。PIL 的更新<br>速度很慢，而且存在一些难以配置的问题，不推荐使用；而 Pillow 库则是 PIL 的一个分支，维护和开发活跃，Pillow 兼容 PIL 的绝大多数语法，推荐使用。<br>
+          <p>An array does not actually hold full-fledged float objects, but only the packed bytes representing their<br>machine values—just like an array in the C language. On the other hand, if you are constantly adding and<br>removing items from the ends of a list as a FIFO or LIFO data structure, a deque (double-ended queue)<br>works faster.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C07-form-py-PIL/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C02-Array-Memory-Views/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1254,7 +1270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C06-login-py-glob/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-list-sort-and-the-sorted-Built-In-Function-bisect/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1273,7 +1289,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C06-login-py-glob/" itemprop="url">C06_login.py_glob</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C02-list-sort-and-the-sorted-Built-In-Function-bisect/" itemprop="url">C02_list.sort and the sorted Built-In Function, bisect</a></h1>
         
 
         <div class="post-meta">
@@ -1285,8 +1301,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:03:25-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:31:00-07:00">
+                2018-04-22
               </time>
             
 
@@ -1301,8 +1317,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:03:57-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:31:36-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -1358,11 +1374,10 @@
 
       
         
-          <h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ol>
-<li>glob.glob（pathname), 返回所有匹配的文件路径列表。它只有一个参数pathname，定义了文件路径匹配规则，这里可以是绝对路径，也可以是相对路径。
+          <h3 id="list-sort-and-sorted"><a href="#list-sort-and-sorted" class="headerlink" title="list.sort and sorted"></a>list.sort and sorted</h3><p>The list.sort method sorts a list in place—that is, without making a copy. It returns None to remind us that it<br>changes the target object, and does not create a new list. This is an important Python API convention:<br>functions or methods that change an object in place should return None to make it clear to the caller that<br>the object itself was changed, and no new object was created.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C06-login-py-glob/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C02-list-sort-and-the-sorted-Built-In-Function-bisect/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1413,7 +1428,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C05-search2-py-csv/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Sequence-Assignment/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1432,7 +1447,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C05-search2-py-csv/" itemprop="url">C05_search2.py_csv</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C02-Sequence-Assignment/" itemprop="url">C02_Sequence Assignment +=, *=</a></h1>
         
 
         <div class="post-meta">
@@ -1444,8 +1459,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:02:12-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:30:11-07:00">
+                2018-04-22
               </time>
             
 
@@ -1460,8 +1475,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:02:49-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:30:42-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -1517,10 +1532,11 @@
 
       
         
-          <p>对于大多数的CSV格式的数据读写问题，都可以使用 csv 库。 例如：假设你在一个名叫stocks.csv文件中有一些股票市场数据，就像这样：<br>
+          <p>#The augmented assignment operators += and *= behave very differently depending on the first operand. </p>
+<p>The special method that makes += work is <strong>iadd</strong> (for “in-place addition”). However, if <strong>iadd</strong> is not<br>implemented, Python falls back to calling <strong>add</strong>.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C05-search2-py-csv/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C02-Sequence-Assignment/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1571,7 +1587,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C04-process-test-py-multiprocessing/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Slice-Objects/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1590,7 +1606,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C04-process-test-py-multiprocessing/" itemprop="url">C04_process_test.py_multiprocessing</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C02-Slice-Objects/" itemprop="url">C02_Slice Objects</a></h1>
         
 
         <div class="post-meta">
@@ -1602,8 +1618,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T23:01:05-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:29:13-07:00">
+                2018-04-22
               </time>
             
 
@@ -1618,8 +1634,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:01:50-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:29:42-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -1675,11 +1691,11 @@
 
       
         
-          <blockquote>
-<p> multiprocessing是Python的标准模块，它既可以用来编写多进程，也可以用来编写多线程。如果是多线程的话，用multiprocessing.dummy即可。<br>　　如果每个子进程执行需要消耗的时间非常短（执行+1操作等），这不必使用多进程，因为进程的启动关闭也会耗费资源。<br>
+          <p>The notation a :b :c is only valid within [ ] when used as the indexing or subscript operator, and it produces a<br>slice object: slice(a, b, c).<br>To evaluate the expression seq[start:stop:step], Python calls seq.<strong>getitem</strong>(slice(start, stop, step)). </p>
+<h3 id="Assign-to-slices"><a href="#Assign-to-slices" class="headerlink" title="Assign to slices"></a>Assign to slices</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>l=list(range(<span class="number">10</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l[<span class="number">2</span>:<span class="number">5</span>]=[<span class="number">20</span>,<span class="number">30</span>] </span><br><span class="line"><span class="comment">#When the target of the assignment is a slice, the right side must be an iterable object, even if it has just one item.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> l[<span class="number">5</span>:<span class="number">7</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>l</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C04-process-test-py-multiprocessing/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C02-Slice-Objects/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1730,7 +1746,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C04-threaded-crawler-py-threading/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Tuple-unpacking-namedtuple/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1749,7 +1765,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C04-threaded-crawler-py-threading/" itemprop="url">C04_threaded_crawler.py_threading</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C02-Tuple-unpacking-namedtuple/" itemprop="url">C02_Tuple unpacking, namedtuple</a></h1>
         
 
         <div class="post-meta">
@@ -1761,8 +1777,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T22:59:42-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:27:30-07:00">
+                2018-04-22
               </time>
             
 
@@ -1777,8 +1793,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:00:41-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T06:28:02-07:00">
+                2018-04-22
               </time>
             
           </span>
@@ -1834,14 +1850,11 @@
 
       
         
-          <h3 id="创建threading-Thread的子类来包装一个线程对象"><a href="#创建threading-Thread的子类来包装一个线程对象" class="headerlink" title="创建threading.Thread的子类来包装一个线程对象"></a>创建threading.Thread的子类来包装一个线程对象</h3><blockquote>
-<p>threading.Thread类的使用：</p>
-</blockquote>
-<blockquote>
-<p>1，在自己的线程类的<strong>init</strong>里调用threading.Thread.<strong>init</strong>(self, name = threadname)  Threadname为线程的名字<br>
+          <p>Tuple unpacking works with any iterable object. The only requirement is that the iterable yields exactly one<br>item per variable in the receiving tuple, unless you use a star (*) to capture excess items.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>t=(<span class="number">20</span>,<span class="number">8</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>divmod(t)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: divmod expected <span class="number">2</span> arguments, got <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>divmod(*t)</span><br><span class="line">(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_,filename=os.path.split(<span class="string">'/hom/lubi/.ssh/if.pub'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>filename</span><br><span class="line"><span class="string">'if.pub'</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C04-threaded-crawler-py-threading/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C02-Tuple-unpacking-namedtuple/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1883,7 +1896,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1933,7 +1946,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">83</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1955,7 +1968,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

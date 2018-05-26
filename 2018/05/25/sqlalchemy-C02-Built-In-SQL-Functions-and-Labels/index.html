@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,sqlalchemy," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Two very commonly used database functions are SUM() and COUNT(). To use these functions, we need to import the sqlalchemy.sql.func module where they are found. These functions are wrapped around the">
+<meta name="keywords" content="python,sqlalchemy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlalchemy_C02_Built-In SQL Functions and Labels">
+<meta property="og:url" content="blog.whistlestop.ml/2018/05/25/sqlalchemy-C02-Built-In-SQL-Functions-and-Labels/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Two very commonly used database functions are SUM() and COUNT(). To use these functions, we need to import the sqlalchemy.sql.func module where they are found. These functions are wrapped around the">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-26T05:27:04.207Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sqlalchemy_C02_Built-In SQL Functions and Labels">
+<meta name="twitter:description" content="Two very commonly used database functions are SUM() and COUNT(). To use these functions, we need to import the sqlalchemy.sql.func module where they are found. These functions are wrapped around the">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C02-Built-In-SQL-Functions-and-Labels/"/>
+
+
+
+
+
+  <title>sqlalchemy_C02_Built-In SQL Functions and Labels | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C02-Built-In-SQL-Functions-and-Labels/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sqlalchemy_C02_Built-In SQL Functions and Labels</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:26:16-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:27:04-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> Two very commonly used database functions are <strong>SUM()</strong> and <strong>COUNT()</strong>. To use these functions, we need to import the <strong>sqlalchemy.sql.func</strong> module where they are found. These functions are wrapped around the column(s) on which they are operating.<br><a id="more"></a><br><strong><em>Summing our cookies</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy.sql <span class="keyword">import</span> func</span><br><span class="line">s= select([func.sum(cookies.c.quantity)])</span><br><span class="line">rp= connection.execute(s)</span><br><span class="line">print(rp.scalar())</span><br><span class="line"><span class="comment"># Notice the use of scalar, which will return only the leftmost column in the first record.This results in: 137</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>Counting our inventory records</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s= select([func.count(cookies.c.cookie_name)])</span><br><span class="line">rp= connection.execute(s)</span><br><span class="line">record= rp.first()</span><br><span class="line">print(record.keys())</span><br><span class="line">print(record.count_1) <span class="comment"># The column name is autogenerated and is commonly &lt;func_name&gt;_&lt;position&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>Renaming our count column</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">s= select([func.count(cookies.c.cookie_name).label(<span class="string">'inventory_count'</span>)])</span><br><span class="line">rp= connection.execute(s)</span><br><span class="line">record= rp.first()</span><br><span class="line">print(record.keys())</span><br><span class="line">print(record.inventory_count)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Filtering"><a href="#Filtering" class="headerlink" title="Filtering"></a>Filtering</h3><p>Filtering queries is done by adding <strong>where()</strong> statements just like in SQL. A typical <strong>where()</strong> clause has a column, an operator, and a value or column. It is possible to chain multiple <strong>where()</strong> clauses together, and they will act like ANDs in traditional SQL statements.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s= select([cookies]).where( cookies.c.cookie_name == <span class="string">'chocolate chip'</span>)</span><br><span class="line">rp= connection.execute(s)</span><br><span class="line">record= rp.first()</span><br><span class="line">print(record.items())</span><br><span class="line"><span class="comment"># calling the items() method on the row object, which will give a list of columns and values.</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>Finding names with chocolate in them</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s= select([cookies]).where( cookies.c.cookie_name.like(<span class="string">'%chocolate%'</span>))</span><br><span class="line">rp= connection.execute(s)</span><br><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> rp.fetchall():</span><br><span class="line">    print(record.cookie_name)</span><br></pre></td></tr></table></figure>
+<p><strong><em>String concatenation with +</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">s= select([cookies.c.cookie_name, <span class="string">'SKU-'</span>+ cookies.c.cookie_sku])</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> connection.execute(s): print(row)</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>Inventory value by cookie</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> cast</span><br><span class="line">s= select([</span><br><span class="line"><span class="meta">... </span>    cookies.c.cookie_name,</span><br><span class="line"><span class="meta">... </span>    cast((cookies.c.quantity* cookies.c.unit_cost),Numeric(<span class="number">12</span>,<span class="number">2</span>)).label(<span class="string">'inv_cost'</span>)</span><br><span class="line"><span class="meta">... </span>    ])</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> connection.execute(s): print(<span class="string">'&#123;&#125; - &#123;&#125;'</span>.format(row.cookie_name, row.inv_cost))</span><br></pre></td></tr></table></figure>
+<p><strong><em>Using the and() conjunction</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> and_, or_, not_</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s= select([cookies]).where(</span><br><span class="line"><span class="meta">... </span>    and_(</span><br><span class="line"><span class="meta">... </span>        cookies.c.quantity &gt; <span class="number">23</span>,</span><br><span class="line"><span class="meta">... </span>        cookies.c.unit_cost &lt; <span class="number">0.40</span></span><br><span class="line"><span class="meta">... </span>        )</span><br><span class="line"><span class="meta">... </span>    )</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> connection.execute(s): print(row.cookie_name)</span><br></pre></td></tr></table></figure>
+<p><strong><em>Using the or() conjunction</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> and_, or_, not_</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s= select([cookies]).where(</span><br><span class="line"><span class="meta">... </span>    or_(</span><br><span class="line"><span class="meta">... </span>        cookies.c.quantity.between(<span class="number">10</span>, <span class="number">50</span>),</span><br><span class="line"><span class="meta">... </span>        cookies.c.cookie_name.contains(<span class="string">'chip'</span>)</span><br><span class="line"><span class="meta">... </span>        )</span><br><span class="line"><span class="meta">... </span>    )</span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> connection.execute(s): print(row.cookie_name)</span><br></pre></td></tr></table></figure>
+<h3 id="Updating-Data"><a href="#Updating-Data" class="headerlink" title="Updating Data"></a>Updating Data</h3><p><strong><em>Updating data</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> update</span><br><span class="line">u= update(cookies).where(cookies.c.cookie_name == <span class="string">'chocolate chip'</span>)</span><br><span class="line">u=u.values(quantity=(cookies.c.quantity + <span class="number">120</span>))</span><br><span class="line">result= connection.execute(u)</span><br><span class="line">print(result.rowcount)</span><br><span class="line">s=select([cookies]).where(cookies.c.cookie_name == <span class="string">'chocolate chip'</span>)</span><br><span class="line">result= connection.execute(s).first()</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> result.keys(): print(<span class="string">'&#123;:&gt;20&#125;: &#123;&#125;'</span>.format(key, result[key]))</span><br></pre></td></tr></table></figure></p>
+<h3 id="Deleting-Data"><a href="#Deleting-Data" class="headerlink" title="Deleting Data"></a>Deleting Data</h3><p> <strong><em>Deleting data</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> delete</span><br><span class="line">u=delete(cookies).where(cookies.c.cookie_name == <span class="string">'dark chocolate chip'</span>)</span><br><span class="line">result= connection.execute(u)</span><br><span class="line">print(result.rowcount)</span><br><span class="line"></span><br><span class="line">customer_list = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'username'</span>: <span class="string">'cookiemon'</span>,</span><br><span class="line">        <span class="string">'email_address'</span>: <span class="string">'mon@cookie.com'</span>,</span><br><span class="line">        <span class="string">'phone'</span>: <span class="string">'111-111-1111'</span>,</span><br><span class="line">        <span class="string">'password'</span>: <span class="string">'password'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'username'</span>: <span class="string">'cakeeater'</span>,</span><br><span class="line">        <span class="string">'email_address'</span>: <span class="string">'cakeeater@cake.com'</span>,</span><br><span class="line">        <span class="string">'phone'</span>: <span class="string">'222-222-2222'</span>,</span><br><span class="line">        <span class="string">'password'</span>: <span class="string">'password'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'username'</span>: <span class="string">'pieguy'</span>,</span><br><span class="line">        <span class="string">'email_address'</span>: <span class="string">'guy@pie.com'</span>,</span><br><span class="line">        <span class="string">'phone'</span>: <span class="string">'333-333-3333'</span>,</span><br><span class="line">        <span class="string">'password'</span>: <span class="string">'password'</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line">ins = users.insert()</span><br><span class="line">result = connection.execute(ins, customer_list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Now that we have customers, we can start to enter their orders and line items into the system as well:</span></span><br><span class="line"></span><br><span class="line">ins= insert(orders).values(user_id =<span class="number">1</span>, order_id =<span class="number">1</span>)</span><br><span class="line">result= connection.execute(ins)</span><br><span class="line">ins= insert(line_items)</span><br><span class="line">order_items = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'order_id'</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">'cookie_id'</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">'quantity'</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="string">'extended_cost'</span>: <span class="number">1.00</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'order_id'</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">'cookie_id'</span>: <span class="number">3</span>,</span><br><span class="line">        <span class="string">'quantity'</span>: <span class="number">12</span>,</span><br><span class="line">        <span class="string">'extended_cost'</span>: <span class="number">3.00</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line">result= connection.execute(ins, order_items)</span><br><span class="line">ins= insert(orders).values(user_id =<span class="number">2</span>, order_id = <span class="number">2</span>)</span><br><span class="line">result- connection.execute(ins)</span><br><span class="line">ins=insert(line_items)</span><br><span class="line">order_items = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'order_id'</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="string">'cookie_id'</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">'quantity'</span>: <span class="number">24</span>,</span><br><span class="line">        <span class="string">'extended_cost'</span>: <span class="number">12.00</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="string">'order_id'</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="string">'cookie_id'</span>: <span class="number">4</span>,</span><br><span class="line">        <span class="string">'quantity'</span>: <span class="number">6</span>,</span><br><span class="line">        <span class="string">'extended_cost'</span>: <span class="number">6.00</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line">result= connection.execute(ins, order_items)</span><br></pre></td></tr></table></figure>
+<h3 id="Joins"><a href="#Joins" class="headerlink" title="Joins"></a>Joins</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>columns=[orders.c.order_id,</span><br><span class="line"><span class="meta">... </span>    users.c.username,</span><br><span class="line"><span class="meta">... </span>    users.c.phone,</span><br><span class="line"><span class="meta">... </span>    cookies.c.cookie_name,</span><br><span class="line"><span class="meta">... </span>    line_items.c.quantity,</span><br><span class="line"><span class="meta">... </span>    line_items.c.extended_cost</span><br><span class="line"><span class="meta">... </span>    ]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cookiemon_orders=select(columns)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cookiemon_orders=cookiemon_orders.select_from(</span><br><span class="line"><span class="meta">... </span>    orders.join(users).join(line_items).join(cookies)</span><br><span class="line"><span class="meta">... </span>    ).where(users.c.username == <span class="string">'cookiemon'</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(cookiemon_orders)</span><br><span class="line">SELECT orders.order_id, users.username, users.phone, cookies.cookie_name, line_items.quantity, line_items.extended_cost </span><br><span class="line">FROM orders JOIN users ON users.user_id = orders.user_id JOIN line_items ON orders.order_id = line_items.order_id JOIN cookies ON cookies.cookie_id = line_items.cookie_id </span><br><span class="line">WHERE users.username = :username_1</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><strong><em>using outerjoin to select from multiple tables</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> func</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>columns=[</span><br><span class="line"><span class="meta">... </span>    users.c.username,</span><br><span class="line"><span class="meta">... </span>    func.count(orders.c.order_id)</span><br><span class="line"><span class="meta">... </span>    ]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>all_orders=select(columns).select_from(</span><br><span class="line"><span class="meta">... </span>    users.outerjoin(orders)</span><br><span class="line"><span class="meta">... </span>    ).group_by(users.c.username)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SQLAlchemy knows how to join the users and orders tables because of the foreign key defined in the orders table.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(all_orders)</span><br><span class="line">SELECT users.username, count(orders.order_id) AS count_1 </span><br><span class="line">FROM users LEFT OUTER JOIN orders ON users.user_id = orders.user_id GROUP BY users.username</span><br></pre></td></tr></table></figure>
+<h3 id="Aliases"><a href="#Aliases" class="headerlink" title="Aliases"></a>Aliases</h3><p>When using joins, it is often necessary to refer to a table more than once. In SQL, this is accomplished by using aliases in the query. For instance, suppose we have the following (partial) schema that tracks the reporting structure within an organization:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">employee_table = Table(</span><br><span class="line">    <span class="string">'employee'</span>, metadata,</span><br><span class="line">    Column(<span class="string">'id'</span>, Integer, primary_key=<span class="keyword">True</span>),</span><br><span class="line">    Column(<span class="string">'manager'</span>, <span class="keyword">None</span>, ForeignKey(<span class="string">'employee.id'</span>)),</span><br><span class="line">    Column(<span class="string">'name'</span>, String(<span class="number">255</span>)))</span><br></pre></td></tr></table></figure></p>
+<p>Now suppose we want to select all the employees managed by an employee named Fred. In SQL, we might write the following:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> employee.name</span><br><span class="line"><span class="keyword">FROM</span> employee, employee <span class="keyword">AS</span> manager</span><br><span class="line"><span class="keyword">WHERE</span> employee.manager_id = manager.id</span><br><span class="line">    <span class="keyword">AND</span> manager.name = <span class="string">'Fred'</span></span><br></pre></td></tr></table></figure></p>
+<p>SQLAlchemy also allows the use of aliasing selectables in this type of situation via the <strong>alias()</strong> function or method:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>manager = employee_table.alias(<span class="string">'mgr'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt = select([employee_table.c.name],</span><br><span class="line"><span class="meta">... </span>              and_(employee_table.c.manager_id==manager.c.id,</span><br><span class="line"><span class="meta">... </span>                   manager.c.name==<span class="string">'Fred'</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(stmt)</span><br><span class="line">SELECT employee.name</span><br><span class="line">FROM employee, employee AS mgr</span><br><span class="line">WHERE employee.manager_id = mgr.id AND mgr.name = ?</span><br></pre></td></tr></table></figure>
+<p>SQLAlchemy can also choose the alias name automatically, which is useful for guaranteeing that there are no name collisions:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>manager = employee_table.alias()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt = select([employee_table.c.name],</span><br><span class="line"><span class="meta">... </span>              and_(employee_table.c.manager_id==manager.c.id,</span><br><span class="line"><span class="meta">... </span>                   manager.c.name==<span class="string">'Fred'</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(stmt)</span><br><span class="line">SELECT employee.name</span><br><span class="line">FROM employee, employee AS employee_1</span><br><span class="line">WHERE employee.manager_id = employee_1.id AND employee_1.name = ?</span><br></pre></td></tr></table></figure>
+<h3 id="Grouping"><a href="#Grouping" class="headerlink" title="Grouping"></a>Grouping</h3><p>When using grouping, you need one or more columns to group on and one or more columns that it makes sense to aggregate with counts, sums, etc.</p>
+<p><strong><em>Grouping data</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>columns=[</span><br><span class="line"><span class="meta">... </span>    users.c.username,</span><br><span class="line"><span class="meta">... </span>    func.count(orders.c.order_id)</span><br><span class="line"><span class="meta">... </span>    ]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>all_orders=select(columns).select_from(users.outerjoin(orders)).group_by(</span><br><span class="line"><span class="meta">... </span>    users.c.username</span><br><span class="line"><span class="meta">... </span>    )</span><br></pre></td></tr></table></figure>
+<h3 id="Chaining"><a href="#Chaining" class="headerlink" title="Chaining"></a>Chaining</h3><p><strong><em>Chaining</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">get_orders_by_customer</span><span class="params">(cust_name)</span>:</span></span><br><span class="line"><span class="meta">... </span>    columns=[</span><br><span class="line"><span class="meta">... </span>        orders.c.order_id,</span><br><span class="line"><span class="meta">... </span>        users.c.username,</span><br><span class="line"><span class="meta">... </span>        usere.c.phone,</span><br><span class="line"><span class="meta">... </span>        cookies.c.cookie_name,</span><br><span class="line"><span class="meta">... </span>        line_items.c.quantity.</span><br><span class="line"><span class="meta">... </span>        line_items.c.extended_cost</span><br><span class="line"><span class="meta">... </span>        ]</span><br><span class="line"><span class="meta">... </span>    cust_orders=select(columns).select_from(</span><br><span class="line"><span class="meta">... </span>        users.join(orders).join(line_items).join(cookies)</span><br><span class="line"><span class="meta">... </span>        ).where(</span><br><span class="line"><span class="meta">... </span>            users.c.username == cust_name</span><br><span class="line"><span class="meta">... </span>            )</span><br><span class="line"><span class="meta">... </span>    result= connection.execute(cust_orders).fetchall()</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> result</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><strong><em>Conditional chaining</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">get_orders_by_customer</span><span class="params">(cust_name, shipped=None, details= False)</span>:</span></span><br><span class="line"><span class="meta">... </span>    columns=[</span><br><span class="line"><span class="meta">... </span>        orders.c.order_id,</span><br><span class="line"><span class="meta">... </span>        users.c.username,</span><br><span class="line"><span class="meta">... </span>        users.c.phone</span><br><span class="line"><span class="meta">... </span>        ]</span><br><span class="line"><span class="meta">... </span>    joins=users.join(orders)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> details:</span><br><span class="line"><span class="meta">... </span>        columns.extend([</span><br><span class="line"><span class="meta">... </span>            cookies.c.cookie_name,</span><br><span class="line"><span class="meta">... </span>            line_items.c.quantity,</span><br><span class="line"><span class="meta">... </span>            line_items.c.extended_cost</span><br><span class="line"><span class="meta">... </span>            ])</span><br><span class="line"><span class="meta">... </span>        joins=joins.join(line_items).join(cookies)</span><br><span class="line"><span class="meta">... </span>    cust_orders=select(columns).select_from(joins).where(</span><br><span class="line"><span class="meta">... </span>        users.c.username == cust_name</span><br><span class="line"><span class="meta">... </span>        )</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> shipped <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line"><span class="meta">... </span>        cust_orders=cust_orders.where(orders.c.shipped == shipped)</span><br><span class="line"><span class="meta">... </span>    result= connection.execute(cust_orders).fetchall()</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> result</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Raw-Queries"><a href="#Raw-Queries" class="headerlink" title="Raw Queries"></a>Raw Queries</h3><p>It is also possible to execute raw SQL statements or use raw SQL in part of a SQLAlchemy Core query. It still returns a <strong>ResultProxy</strong>, and you can continue to interact with it just as you would a query built using the SQL Expression syntax of SQLAlchemy Core. </p>
+<p><strong><em>Full raw queries</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result= connection.execute(<span class="string">'select * from orders'</span>).fetchall()</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p><strong><em>Partial text query</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> text</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stmt= select([users]).where(text(<span class="string">'username="cookiemon"'</span>))</span><br><span class="line">print(connection.execute(stmt).fetchall())</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+            <a href="/tags/sqlalchemy/" rel="tag"><i class="fa fa-tag"></i> sqlalchemy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/sqlalchemy-C02-Inserting-Data-Querying-Data/" rel="next" title="sqlalchemy_C02_Inserting Data_Querying Data">
+                <i class="fa fa-chevron-left"></i> sqlalchemy_C02_Inserting Data_Querying Data
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/sqlalchemy-C03-Exceptions-and-Transaction/" rel="prev" title="sqlalchemy_C03_Exceptions and Transaction">
+                sqlalchemy_C03_Exceptions and Transaction <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Filtering"><span class="nav-number">1.</span> <span class="nav-text">Filtering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Updating-Data"><span class="nav-number">2.</span> <span class="nav-text">Updating Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deleting-Data"><span class="nav-number">3.</span> <span class="nav-text">Deleting Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Joins"><span class="nav-number">4.</span> <span class="nav-text">Joins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Aliases"><span class="nav-number">5.</span> <span class="nav-text">Aliases</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grouping"><span class="nav-number">6.</span> <span class="nav-text">Grouping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chaining"><span class="nav-number">7.</span> <span class="nav-text">Chaining</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Raw-Queries"><span class="nav-number">8.</span> <span class="nav-text">Raw Queries</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

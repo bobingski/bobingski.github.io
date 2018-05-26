@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="fluent python,python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Data attributes and methods are collectively known as attributes in Python: a method is just an attribute that is callable. Besides data attributes and methods, we can also create properties, which ca">
+<meta name="keywords" content="fluent python,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C19_Dynamic Attributes and Properties_01">
+<meta property="og:url" content="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Data attributes and methods are collectively known as attributes in Python: a method is just an attribute that is callable. Besides data attributes and methods, we can also create properties, which ca">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-26T05:18:22.230Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C19_Dynamic Attributes and Properties_01">
+<meta name="twitter:description" content="Data attributes and methods are collectively known as attributes in Python: a method is just an attribute that is callable. Besides data attributes and methods, we can also create properties, which ca">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/"/>
+
+
+
+
+
+  <title>C19_Dynamic Attributes and Properties_01 | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C19_Dynamic Attributes and Properties_01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:17:52-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:18:22-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Data attributes and methods are collectively known as <strong>attributes</strong> in Python: a method is just an attribute that is <strong>callable</strong>. Besides data attributes and methods, we can also create properties, which can be used to replace a public data attribute with <strong>accessor methods</strong> (i.e., getter/setter), without changing the class interface.<br><a id="more"></a><br>Besides properties, Python provides a rich API for controlling attribute access and implementing dynamic attributes. The interpreter calls special methods such as <strong>__getattr__</strong> and <strong>__setattr__</strong> to evaluate attribute access using dot notation (e.g.,<strong>obj.attr</strong>). A user-defined class implementing <strong>__getattr__</strong> can implement “virtual attributes” by computing values on the fly whenever somebody tries to read a nonexistent attribute like <strong>obj.no_such_attribute</strong>.</p>
+<h3 id="Data-Wrangling-with-Dynamic-Attributes"><a href="#Data-Wrangling-with-Dynamic-Attributes" class="headerlink" title="Data Wrangling with Dynamic Attributes"></a>Data Wrangling with Dynamic Attributes</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">**_osconfeed.py: downloading osconfeed.json_**</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlopen</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">URL=<span class="string">'http://www.oreilly.com/pub/sc/osconfeed'</span></span><br><span class="line">JSON= <span class="string">'data/osconfeed.json'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(JSON):</span><br><span class="line">        msg= <span class="string">'downloading &#123;&#125; to &#123;&#125;'</span>.format(URL, JSON)</span><br><span class="line">        warnings.warn(msg)</span><br><span class="line">        <span class="keyword">with</span> urlopen(URL) <span class="keyword">as</span> remote, open(JSON, <span class="string">'wb'</span>) <span class="keyword">as</span> local:</span><br><span class="line">            local.write(remote.read())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(JSON) <span class="keyword">as</span> fp:</span><br><span class="line">        <span class="keyword">return</span> json.load(fp)</span><br><span class="line">    <span class="comment"># The json.load function parses a JSON file and returns native Python objects.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>feed = load()</span><br><span class="line"> &gt;&gt;&gt; sorted(feed[<span class="string">'Schedule'</span>].keys())</span><br><span class="line"> [<span class="string">'conferences'</span>, <span class="string">'events'</span>, <span class="string">'speakers'</span>, <span class="string">'venues'</span>]</span><br><span class="line"> &gt;&gt;&gt; <span class="keyword">for</span> key, value <span class="keyword">in</span> sorted(feed[<span class="string">'Schedule'</span>].items()):</span><br><span class="line"> ... print(<span class="string">'&#123;:3&#125; &#123;&#125;'</span>.format(len(value), key))</span><br><span class="line"> ...</span><br><span class="line"><span class="number">1</span> conferences</span><br><span class="line"> <span class="number">484</span> events</span><br><span class="line"> <span class="number">357</span> speakers</span><br><span class="line"> <span class="number">53</span> venues</span><br><span class="line"> &gt;&gt;&gt; feed[<span class="string">'Schedule'</span>][<span class="string">'speakers'</span>][<span class="number">-1</span>][<span class="string">'name'</span>]</span><br><span class="line"> <span class="string">'Carina C. Zona'</span></span><br><span class="line"> &gt;&gt;&gt; feed[<span class="string">'Schedule'</span>][<span class="string">'speakers'</span>][<span class="number">-1</span>][<span class="string">'serial'</span>]</span><br><span class="line"> <span class="number">141590</span></span><br><span class="line"> &gt;&gt;&gt; feed[<span class="string">'Schedule'</span>][<span class="string">'events'</span>][<span class="number">40</span>][<span class="string">'name'</span>]</span><br><span class="line"> <span class="string">'There *Will* Be Bugs'</span></span><br><span class="line"> &gt;&gt;&gt; feed[<span class="string">'Schedule'</span>][<span class="string">'events'</span>][<span class="number">40</span>][<span class="string">'speakers'</span>]</span><br><span class="line"> [<span class="number">3471</span>, <span class="number">5199</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="Exploring-JSON-Like-Data-with-Dynamic-Attributes"><a href="#Exploring-JSON-Like-Data-with-Dynamic-Attributes" class="headerlink" title="Exploring JSON-Like Data with Dynamic Attributes"></a>Exploring JSON-Like Data with Dynamic Attributes</h3><p>The syntax <strong>feed[‘Schedule’][‘events’][40][‘name’]</strong> is cumbersome. In JavaScript, you can get the same value by writing <strong>feed.Schedule.events[40].name</strong>. It’s easy to implement a <strong>dict-like</strong> class that does the same in Python.</p>
+<p>The keystone of the <strong>FrozenJSON</strong> class is the <strong>__getattr__</strong> method, It’s essential to recall that the <strong>__getattr__</strong> special method is only invoked by the interpreter when the usual process fails to retrieve an attribute (i.e., when the named attribute cannot be found in the instance, nor in the class or in its superclasses).</p>
+<p><strong><em>explore0.py: turn a JSON dataset into a FrozenJSON holding nested FrozenJSON objects, lists, and simple types</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> abc</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrozenJson</span>:</span></span><br><span class="line">    <span class="string">''' read-only for navigating a JSON-like object using attribute</span></span><br><span class="line"><span class="string">    notation</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, mapping)</span>:</span></span><br><span class="line">        self.__data= dict(mapping)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getattr__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> hasattr(self.__data, name):</span><br><span class="line">            <span class="keyword">return</span> getattr(self.__data, name)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> FrozenJson.build(self.__data[name])</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build</span><span class="params">(cls, obj)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(obj, abc.Mapping):</span><br><span class="line">            <span class="keyword">return</span> cls(obj)</span><br><span class="line">        <span class="keyword">elif</span> isinstance(obj, abc.MutableSequence):</span><br><span class="line">            <span class="keyword">return</span> [cls.build(item) <span class="keyword">for</span> item <span class="keyword">in</span> obj]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> obj</span><br></pre></td></tr></table></figure>
+<h4 id="The-Invalid-Attribute-Name-Problem"><a href="#The-Invalid-Attribute-Name-Problem" class="headerlink" title="The Invalid Attribute Name Problem"></a>The Invalid Attribute Name Problem</h4><p>The <strong>FrozenJSON</strong> class has a limitation: there is no special handling for attribute names<br>that are Python keywords.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>grad=FrozenJson(&#123;<span class="string">'name'</span>:<span class="string">'Jim'</span>,<span class="string">'class'</span>:<span class="number">1982</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>grad.<span class="keyword">class</span></span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span></span><br><span class="line">    grad.<span class="keyword">class</span></span><br><span class="line">             ^</span><br><span class="line">SyntaxError: invalid syntax</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>getattr(grad, <span class="string">'class'</span>)</span><br><span class="line"><span class="number">1982</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>But the idea of <strong>FrozenJSON</strong> is to provide convenient access to the data, so a better solution is checking whether a key in the mapping given to <strong>FrozenJSON.__init__</strong> is a keyword, and if so, append an <strong>_</strong> to it, so the attribute can be read like this:</p>
+<p> <strong>_explore1.py: append a _ to attribute names that are Python keywords_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> keyword</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, mapping)</span>:</span></span><br><span class="line">        self.__data= &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> mapping.items():</span><br><span class="line">            <span class="keyword">if</span> keyword.iskeyword(key):</span><br><span class="line">                key+=<span class="string">'_'</span></span><br><span class="line">            self.__data[key]=value</span><br><span class="line"></span><br><span class="line"><span class="comment"># A similar problem may arise if a key in the JSON is not a valid Python identifier:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = FrozenJSON(&#123;<span class="string">'2be'</span>:<span class="string">'or not'</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x<span class="number">.2</span>be</span><br><span class="line"> File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span></span><br><span class="line"> x<span class="number">.2</span>be</span><br><span class="line"> ^</span><br><span class="line">SyntaxError: invalid syntax</span><br></pre></td></tr></table></figure>
+<p>Such problematic keys are easy to detect in Python 3 because the <strong>str</strong> class provides the <strong>s.isidentifier()</strong> method, which tells you whether s is a valid Python identifier according to the language grammar.</p>
+<h3 id="Flexible-Object-Creation-with-new"><a href="#Flexible-Object-Creation-with-new" class="headerlink" title="Flexible Object Creation with __new__"></a>Flexible Object Creation with __new__</h3><p>We often refer to<strong>__init__</strong> as the constructor method, but that’s because we adopted jargon from other languages. The special method that actually constructs an instance is <strong>__new__</strong>: it’s a class method (but gets special treatment, so the <strong>@classmethod</strong> decorator is not used), and it must return an instance. That instance will in turn be passed as the first argument <strong>self</strong> of <strong>__init__</strong>. Because <strong>__init__</strong> gets an instance when called, and it’s actually forbidden from returning anything, <strong>__init__</strong> is really an “initializer.” The real constructor is <strong>__new__</strong>—which we rarely need to code because the implementation inherited from <strong>object</strong> suffices.</p>
+<p>The path just described, from <strong>__new__</strong> to <strong>__init__</strong>, is the most common, but not the only one. The <strong>__new__</strong> method can also return an instance of a different class, and when that happens, the interpreter does not call <strong>__init__</strong>.</p>
+<p>In other words, the process of building an object in Python can be summarized with this pseudocode:</p>
+<h1 id="pseudo-code-for-object-construction"><a href="#pseudo-code-for-object-construction" class="headerlink" title="pseudo-code for object construction"></a>pseudo-code for object construction</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">object_maker</span><span class="params">(the_class, some_arg)</span>:</span></span><br><span class="line"> new_object = the_class.__new__(some_arg)</span><br><span class="line"> <span class="keyword">if</span> isinstance(new_object, the_class):</span><br><span class="line"> the_class.__init__(new_object, some_arg)</span><br><span class="line"> <span class="keyword">return</span> new_object</span><br><span class="line"><span class="comment"># the following statements are roughly equivalent</span></span><br><span class="line">x = Foo(<span class="string">'bar'</span>)</span><br><span class="line">x = object_maker(Foo, <span class="string">'bar'</span>)</span><br></pre></td></tr></table></figure>
+<p><strong><em>explore2.py: using new instead of build to construct new objects that may or may not be instances of FrozenJSON</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> abc</span><br><span class="line"><span class="keyword">from</span> keyword <span class="keyword">import</span> iskeyword</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrozenJSON</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, arg)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(arg, abc.Mapping):</span><br><span class="line">            <span class="keyword">return</span> super().__new__(cls)</span><br><span class="line">        <span class="comment"># The default behavior is to delegate to the __new__ of a super class. In</span></span><br><span class="line">        <span class="comment"># this case, we are calling __new__ from the object base class, passing </span></span><br><span class="line">        <span class="comment"># FrozenJSON as the only argument.</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">elif</span> isinstance(arg, abc.MutableSequence):</span><br><span class="line">            <span class="keyword">return</span> [cls(item) <span class="keyword">for</span> item <span class="keyword">in</span> arg]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> arg</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, mapping)</span>:</span></span><br><span class="line">        self.__data=&#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> key, value <span class="keyword">in</span> mapping.items():</span><br><span class="line">            <span class="keyword">if</span> iskeyword(key):</span><br><span class="line">                key+=<span class="string">'_'</span></span><br><span class="line">            self.__data[key]= value</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getattr__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> hasattr(self.__data, name):</span><br><span class="line">            <span class="keyword">return</span> getattr(self.__data, name)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> FrozenJSON(self.__data[name])</span><br></pre></td></tr></table></figure>
+<h3 id="Restructuring-the-OSCON-Feed-with-shelve"><a href="#Restructuring-the-OSCON-Feed-with-shelve" class="headerlink" title="Restructuring the OSCON Feed with shelve"></a>Restructuring the OSCON Feed with shelve</h3><p>The funny name of the standard <strong>shelve</strong> module makes sense when you realize that <strong>pickle</strong> is the name of the Python object serialization format—and of the module that converts objects to/from that format. Because pickle jars are kept in shelves, it makes sense that <strong>shelve</strong> provides <strong>pickle</strong> storage.</p>
+<p>The <strong>shelve.open</strong> high-level function returns a <strong>shelve.Shelf</strong> instance—a simple key-value object database backed by the <strong>dbm</strong> module, with these characteristics:</p>
+<ul>
+<li><strong>shelve.Shelf</strong> subclasses <strong>abc.MutableMapping</strong>, so it provides the essential methods we expect of a mapping type</li>
+<li>In addition, <strong>shelve.Shelf</strong> provides a few other I/O management methods, like <strong>sync</strong> and <strong>close</strong>; it’s also a context manager.</li>
+<li>Keys and values are saved whenever a new value is assigned to a key.</li>
+<li>The keys must be strings.</li>
+<li>The values must be objects that the <strong>pickle</strong> module can handle.</li>
+</ul>
+<p><strong><em>schedule1.py: exploring OSCON schedule data saved to a shelve.Shelf</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">import</span> osconfeed</span><br><span class="line"></span><br><span class="line">DB_NAME= <span class="string">'data/schedule1_db'</span></span><br><span class="line">CONFERENCE= <span class="string">'conference.115'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Record</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, **kwargs)</span>:</span></span><br><span class="line">        self.__dict__.update(kwargs)</span><br><span class="line">        <span class="comment"># a common shortcut to build an instance with attributes created from </span></span><br><span class="line">        <span class="comment"># keyword arguments</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_db</span><span class="params">(db)</span>:</span></span><br><span class="line">    raw_data= osconfeed.load()</span><br><span class="line">    warnings.warn(<span class="string">'loading '</span>+ DB_NAME)</span><br><span class="line">    <span class="keyword">for</span> collection, rec_list <span class="keyword">in</span> raw_data[<span class="string">'Shedule'</span>].items():</span><br><span class="line">        record_type=collection[:<span class="number">-1</span>]</span><br><span class="line">        <span class="comment">#record_type is set to the collection name without the trailing 's'</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> record <span class="keyword">in</span> rec_list:</span><br><span class="line">            key= <span class="string">'&#123;&#125;.&#123;&#125;'</span>.format(record_type, record[<span class="string">'serial'</span>])</span><br><span class="line">            record[<span class="string">'serial'</span>] = key</span><br><span class="line">            db[key]= Record(**record)</span><br></pre></td></tr></table></figure>
+<p><strong><em>Trying out the functionality provided by schedule1.py</em></strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> shelve</span><br><span class="line"> &gt;&gt;&gt; db = shelve.open(DB_NAME)</span><br><span class="line"> &gt;&gt;&gt; <span class="keyword">if</span> CONFERENCE <span class="keyword">not</span> <span class="keyword">in</span> db:</span><br><span class="line"> ... load_db(db)</span><br><span class="line"> ...</span><br><span class="line"> &gt;&gt;&gt; speaker = db[<span class="string">'speaker.3471'</span>]</span><br><span class="line"> &gt;&gt;&gt; type(speaker)</span><br><span class="line"> &lt;<span class="class"><span class="keyword">class</span> '<span class="title">schedule1</span>.<span class="title">Record</span>'&gt;</span></span><br><span class="line"> &gt;&gt;&gt; speaker.name, speaker.twitter</span><br><span class="line"> (<span class="string">'Anna Martelli Ravenscroft'</span>, <span class="string">'annaraven'</span>)</span><br><span class="line"> &gt;&gt;&gt; db.close()</span><br></pre></td></tr></table></figure>
+<p>The <strong>Record.__init__</strong> method illustrates a popular Python hack. Recall that the<br><strong>__dict__</strong> of an object is where its attributes are kept—unless <strong>__slots__</strong> is declared in<br>the class.So, updating an instance <strong>__dict__</strong> with a mapping is a quick way to create a bunch of<br>attributes in that instance.</p>
+<p><strong><em>schedule2.py</em></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">import</span> inspect</span><br><span class="line"><span class="keyword">import</span> osconfeed</span><br><span class="line"></span><br><span class="line">DB_NAME= <span class="string">'data/schedule2_db'</span></span><br><span class="line">CONFERENCE=<span class="string">'conference.115'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Record</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, **kwargs)</span>:</span></span><br><span class="line">        self.__dict__.update(**kwargs)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> isinstance(other, Record):</span><br><span class="line">            <span class="keyword">return</span> self.__dict__== other.__dict__</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">NotImplemented</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MissingDatabaseError</span><span class="params">(RuntimeError)</span>:</span></span><br><span class="line">    <span class="string">'''when a database id required but was not set'''</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DbRecord</span><span class="params">(Record)</span>:</span></span><br><span class="line">    __db = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_db</span><span class="params">(db)</span>:</span> DbRecord.__db = db</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_db</span><span class="params">()</span>:</span> <span class="keyword">return</span> DbRecord.__db</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fetch</span><span class="params">(cls, ident)</span>:</span></span><br><span class="line">        db= cls.get_db()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> db[ident]</span><br><span class="line">        <span class="keyword">except</span> TypeError:</span><br><span class="line">            <span class="keyword">if</span> db <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">                msg= <span class="string">'database not set; call "&#123;&#125;.set_db(my_db)"'</span></span><br><span class="line">                <span class="keyword">raise</span> MissingDatabaseError(msg.format(cls.__name__))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">raise</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> hasattr(self, <span class="string">'serial'</span>):</span><br><span class="line">            cls_name = self.__class__.__name__</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'&lt;&#123;&#125; serial=&#123;!r&#125;&gt;'</span>.format(cls_name, self.serial)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> super().__repr__()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Event</span><span class="params">(DbRecord)</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">venue</span><span class="params">(self)</span>:</span></span><br><span class="line">        key= <span class="string">'venue.&#123;&#125;'</span>.format(self.venue_serial)</span><br><span class="line">        <span class="keyword">return</span> self.__class__.fetch(key)</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">speakers</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'_speaker_objs'</span>):</span><br><span class="line">            spkr_serials= self.__dict__[<span class="string">'speakers'</span>]</span><br><span class="line">            fetch= self.__class__.fetch</span><br><span class="line">            self._speaker_objs=[fetch(<span class="string">'speaker.&#123;&#125;'</span>.format(key)) <span class="keyword">for</span> key <span class="keyword">in</span> spkr_serials]</span><br><span class="line">            <span class="keyword">return</span> self._speaker_objs</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> hasattr(self, <span class="string">'name'</span>):</span><br><span class="line">            cls_name = self.__class__.__name__</span><br><span class="line">            <span class="keyword">return</span> <span class="string">'&lt;&#123;&#125; &#123;!r&#125;&gt;'</span>.format(cls_name, self.name)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> super().__repr__()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_db</span><span class="params">(db)</span>:</span></span><br><span class="line">    raw_data= osconfeed.load()</span><br><span class="line">    warnings.warn(<span class="string">'loading '</span>+DB_NAME)</span><br><span class="line">    <span class="keyword">for</span> collection, rec_list <span class="keyword">in</span> raw_data[<span class="string">'Schedule'</span>].items():</span><br><span class="line">        record_type= collection[:<span class="number">-1</span>]</span><br><span class="line">        cls_name= record_type.capitalize()</span><br><span class="line">        cls= globals().get(cls_name, DbRecord) </span><br><span class="line">        <span class="keyword">if</span> inspect.isclass(cls) <span class="keyword">and</span> issubclass(cls, DbRecord):</span><br><span class="line">            factory= cls</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            factory= DbRecord</span><br><span class="line">        <span class="keyword">for</span> record <span class="keyword">in</span> rec_list:</span><br><span class="line">            key= <span class="string">'&#123;&#125;.&#123;&#125;'</span>.format(record_type, record[<span class="string">'serial'</span>])</span><br><span class="line">            record[<span class="string">'serial'</span>]= key</span><br><span class="line">            db[key]= factory(**record)</span><br></pre></td></tr></table></figure>
+<p> <strong><em>Extract from the doctests of schedule2.py</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>DbRecord.set_db(db)</span><br><span class="line"> &gt;&gt;&gt; event = DbRecord.fetch(<span class="string">'event.33950'</span>)</span><br><span class="line"> &gt;&gt;&gt; event</span><br><span class="line"> &lt;Event <span class="string">'There *Will* Be Bugs'</span>&gt;</span><br><span class="line"> &gt;&gt;&gt; event.venue</span><br><span class="line"> &lt;DbRecord serial=<span class="string">'venue.1449'</span>&gt;</span><br><span class="line"> &gt;&gt;&gt; event.venue.name</span><br><span class="line"> <span class="string">'Portland 251'</span></span><br><span class="line"> &gt;&gt;&gt; <span class="keyword">for</span> spkr <span class="keyword">in</span> event.speakers:</span><br><span class="line"> ... print(<span class="string">'&#123;0.serial&#125;: &#123;0.name&#125;'</span>.format(spkr))</span><br><span class="line"> ...</span><br><span class="line"> speaker<span class="number">.3471</span>: Anna Martelli Ravenscroft</span><br><span class="line"> speaker<span class="number">.5199</span>: Alex Martelli</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fluent-python/" rel="tag"><i class="fa fa-tag"></i> fluent python</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/C17-Concurrency-with-Futures/" rel="next" title="C17_Concurrency with Futures(Not finished) ">
+                <i class="fa fa-chevron-left"></i> C17_Concurrency with Futures(Not finished) 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/" rel="prev" title="C19_Dynamic Attributes and Properties_02">
+                C19_Dynamic Attributes and Properties_02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Wrangling-with-Dynamic-Attributes"><span class="nav-number">1.</span> <span class="nav-text">Data Wrangling with Dynamic Attributes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exploring-JSON-Like-Data-with-Dynamic-Attributes"><span class="nav-number">2.</span> <span class="nav-text">Exploring JSON-Like Data with Dynamic Attributes</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Invalid-Attribute-Name-Problem"><span class="nav-number">2.1.</span> <span class="nav-text">The Invalid Attribute Name Problem</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flexible-Object-Creation-with-new"><span class="nav-number">3.</span> <span class="nav-text">Flexible Object Creation with __new__</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pseudo-code-for-object-construction"><span class="nav-number"></span> <span class="nav-text">pseudo-code for object construction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Restructuring-the-OSCON-Feed-with-shelve"><span class="nav-number">1.</span> <span class="nav-text">Restructuring the OSCON Feed with shelve</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

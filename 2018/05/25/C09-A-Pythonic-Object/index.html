@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="fluent python,python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Object RepresentationsEvery object-oriented language has at least one standard way of getting a string representation fromany object. Python has two:repr()  Return a string representing the object as">
+<meta name="keywords" content="fluent python,python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C09_A Pythonic Object">
+<meta property="og:url" content="blog.whistlestop.ml/2018/05/25/C09-A-Pythonic-Object/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Object RepresentationsEvery object-oriented language has at least one standard way of getting a string representation fromany object. Python has two:repr()  Return a string representing the object as">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-26T05:05:58.595Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C09_A Pythonic Object">
+<meta name="twitter:description" content="Object RepresentationsEvery object-oriented language has at least one standard way of getting a string representation fromany object. Python has two:repr()  Return a string representing the object as">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/05/25/C09-A-Pythonic-Object/"/>
+
+
+
+
+
+  <title>C09_A Pythonic Object | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C09-A-Pythonic-Object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C09_A Pythonic Object</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:05:23-07:00">
+                2018-05-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:05:58-07:00">
+                2018-05-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Object-Representations"><a href="#Object-Representations" class="headerlink" title="Object Representations"></a>Object Representations</h3><p>Every object-oriented language has at least one standard way of getting a string representation from<br>any object. Python has two:<br><strong>repr()</strong></p>
+<ul>
+<li>Return a string representing the object as the developer wants to see it.</li>
+</ul>
+<p><strong>str()</strong></p>
+<ul>
+<li>Return a string representing the object as the user wants to see it.<a id="more"></a>
+There are two additional special methods to support alternative representations of objects:<br><strong>__bytes__</strong> and <strong>__format__</strong>. The <strong>__bytes__</strong> method is analogous to <strong>__str_\</strong><em>: it’s<br>called by <strong>bytes()</strong> to get the object represented as a byte sequence. Regarding **\</em>_format__<strong>,<br>both the built-in function </strong>format()<strong> and the </strong>str.format()** method call it to get string displays of<br>objects using special formatting codes.</li>
+</ul>
+<p><strong>_vector2d_v1.py_</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> array <span class="keyword">import</span> array</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line">    typecode=<span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        self.x = float(x)</span><br><span class="line">        self.y = float(y)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">#__iter__ makes a Vector2d iterable; this is what makes </span></span><br><span class="line">    <span class="comment">#unpacking work (e.g,x, y = my_vector). </span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (i <span class="keyword">for</span> i <span class="keyword">in</span> (self.x, self.y))</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">#because Vector2d is iterable, *self feeds the x and y </span></span><br><span class="line">    <span class="comment">#components to format.</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        class_name= type(self).__name__</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;(&#123;!r&#125;, &#123;!r&#125;)'</span>.format(class_name, *self)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#From an iterable Vector2d, it’s easy to build a tuple </span></span><br><span class="line">    <span class="comment">#for display as an ordered pair.</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> str(tuple(self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bytes__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (bytes([ord(self.typecode)])+</span><br><span class="line">                bytes(array(self.typecode, self))</span><br><span class="line">                )</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__eq__</span><span class="params">(self, other)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> tuple(self) == tuple(other)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> math.hypot(self.x+ self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> bool(abs(self))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#No self argument; instead, the class itself is passed as</span></span><br><span class="line">    <span class="comment">#cls.</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">frombytes</span><span class="params">(cls, octets)</span>:</span></span><br><span class="line">        typecode=chr(octets[<span class="number">0</span>]) <span class="comment">#Read the typecode from the first byte.</span></span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#Create a memoryview from the octets binary sequence and use the </span></span><br><span class="line">        <span class="comment">#typecode to cast it</span></span><br><span class="line">        memv=memoryview(octets[<span class="number">1</span>:].cast(typecode))</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Unpack the memoryview resulting from the cast into the pair of </span></span><br><span class="line">        <span class="comment">#arguments needed for the constructor.</span></span><br><span class="line">        <span class="keyword">return</span> cls(*memv)</span><br></pre></td></tr></table></figure>
+<h3 id="classmethod-Versus-staticmethod"><a href="#classmethod-Versus-staticmethod" class="headerlink" title="classmethod Versus staticmethod"></a>classmethod Versus staticmethod</h3><p><strong>classmethod</strong> changes the way the method is called, so it receives the <strong>class</strong> itself as the first<br>argument, instead of an instance. Its most common use is for alternative constructors, like <strong>frombytes</strong> in<br><strong>_vector2d_v1.py_</strong>.</p>
+<p><strong>staticmethod</strong> decorator changes a method so that it receives no special first argument. In essence, a<br><strong>static</strong> method is just like a plain function that happens to live in a class body, instead of being<br>defined at the module level.</p>
+<h3 id="Formatted-Displays"><a href="#Formatted-Displays" class="headerlink" title="Formatted Displays"></a>Formatted Displays</h3><p>The <strong>format()</strong> built-in function and the <strong>str.format()</strong> method delegate the actual formatting to each<br>type by calling their <strong>.__format__(format_spec)</strong> method. The <strong>format_spec</strong> is a formatting<br>specifier, which is either the second argument in <strong>format(my_obj, format_spec)</strong>, or Whatever appears<br>after the colon in a replacement field delimited with {} inside a format string used with <strong>str.format()</strong>.</p>
+<p>A few built-in types have their own presentation codes in the Format Specification MiniLanguage. For<br>example—among several other codes—the int type supports b and x for base 2 and base 16 output,<br>respectively, while <strong>float</strong> implements f for a fixed-point display and % for a percentage display:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(<span class="number">42</span>, <span class="string">'b'</span>)</span><br><span class="line"><span class="string">'101010'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(<span class="number">2</span>/<span class="number">3</span>, <span class="string">'.1%'</span>)</span><br><span class="line"><span class="string">'66.7%'</span></span><br></pre></td></tr></table></figure>
+<p>The classes in the <strong>datetime</strong> module use the same format codes in the strftime() functions and in their<br><strong>__format__</strong> methods. Here are a couple examples using the <strong>format()</strong> built-in and the<br><strong>str.format()</strong> method:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>now = datetime.now()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(now, <span class="string">'%H:%M:%S'</span>)</span><br><span class="line"><span class="string">'18:49:05'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">"It's now &#123;:%I:%M %p&#125;"</span>.format(now)</span><br><span class="line"><span class="string">"It's now 06:49 PM"</span></span><br></pre></td></tr></table></figure>
+<p>If a class has no <strong>__format__</strong>, the method inherited from object returns <strong>str(my_object)</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; v1 = Vector2d(3, 4)</span><br><span class="line">&gt;&gt;&gt; format(v1)</span><br><span class="line">&apos;(3.0, 4.0)&apos;</span><br><span class="line"></span><br><span class="line">#  if you pass a format specifier, object.__format__ raises TypeError:</span><br><span class="line">&gt;&gt;&gt; format(v1, &apos;.3f&apos;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> ...</span><br><span class="line">TypeError: non-empty format string passed to object.__format</span><br></pre></td></tr></table></figure>
+<p><strong><em>Vector2d.format method, now with polar coordinates</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">angle</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> math.atan2(self.y, self.x)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__format__</span><span class="params">(self, fmt_spec=<span class="string">''</span>)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> fmt_spec.endswith(<span class="string">'p'</span>):</span><br><span class="line">        fmt_spec=fmt_spec[:<span class="number">-1</span>]</span><br><span class="line">        coords=(abs(self), self.angle())</span><br><span class="line">        outer_fmt=<span class="string">'&lt;&#123;&#125; &#123;&#125;&gt;'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        coords=self</span><br><span class="line">        outer_fmt=<span class="string">'(&#123;&#125;, &#123;&#125;)'</span></span><br><span class="line">    components=(format(c, fmt_spec) <span class="keyword">for</span> c <span class="keyword">in</span> self)</span><br><span class="line">    <span class="keyword">return</span> outer_fmt.format(*components)</span><br></pre></td></tr></table></figure></p>
+<h3 id="A-Hashable-Vector2d"><a href="#A-Hashable-Vector2d" class="headerlink" title="A Hashable Vector2d"></a>A Hashable Vector2d</h3><p><strong>Vector2d</strong> instances are unhashable, so we can’t put them in a <strong>set</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hash(v1)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> ...</span><br><span class="line">TypeError: unhashable type: <span class="string">'Vector2d'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>set([v1])</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> ...</span><br><span class="line">TypeError: unhashable type: <span class="string">'Vector2d'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector2d</span>:</span></span><br><span class="line">    typecode=<span class="string">'d'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#Use exactly two leading underscores to make an attribute </span></span><br><span class="line">    <span class="comment">#private</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,x,y)</span>:</span></span><br><span class="line">        self.__x=float(x)</span><br><span class="line">        self.__y=float(y)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#The @property decorator marks the getter method of a </span></span><br><span class="line">    <span class="comment">#property.</span></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">x</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__x</span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">y</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__y</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (i <span class="keyword">for</span> i <span class="keyword">in</span> (self.x, self.y))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__hash__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> hash(self.x) ^ hash(self.y)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v2 = Vector2d(<span class="number">3.1</span>, <span class="number">4.2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>hash(v1), hash(v2)</span><br><span class="line">(<span class="number">7</span>, <span class="number">384307168202284039</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>set([v1, v2])</span><br><span class="line">&#123;Vector2d(<span class="number">3.1</span>, <span class="number">4.2</span>), Vector2d(<span class="number">3.0</span>, <span class="number">4.0</span>)&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Private-and-“Protected”-Attributes-in-Python"><a href="#Private-and-“Protected”-Attributes-in-Python" class="headerlink" title="Private and “Protected” Attributes in Python"></a>Private and “Protected” Attributes in Python</h3><p>Consider this scenario: someone wrote a class named <strong>Dog</strong> that uses a <strong>mood</strong> instance attribute internally, without exposing it. You need to subclass <strong>Dog</strong> as <strong>Beagle</strong>. If you create your own <strong>mood</strong> instance attribute without being aware of the name clash, you will clobber the <strong>mood</strong> attribute used by the methods inherited from <strong>Dog</strong>. This would be a pain to debug.</p>
+<p>To prevent this, if you name an instance attribute in the form <strong>__mood</strong> (two leading underscores and<br>zero or at most one trailing underscore), Python stores the name in the instance <strong>__dict__</strong> prefixed<br>with a leading underscore and the class name, so in the <strong>Dog</strong> class,<strong>__mood</strong> becomes<br><strong>_Dog__mood</strong>, and in <strong>Beagle</strong> it’s <strong>_Beagle__mood</strong>. This language feature goes by the<br>lovely name of <strong>name mangling</strong>.</p>
+<p>The single underscore prefix has no special meaning to the Python interpreter when used in attribute<br>names, but it’s a very strong convention among Python programmers that you should not access such<br>attributes from outside the class.</p>
+<h3 id="Saving-Space-with-the-slots-Class-Attribute"><a href="#Saving-Space-with-the-slots-Class-Attribute" class="headerlink" title="Saving Space with the slots Class Attribute"></a>Saving Space with the <strong>slots</strong> Class Attribute</h3><p>By default, Python stores <strong>instance attributes</strong> in a per-instance <strong>dict</strong> named <strong>__dict__</strong>.If you<br>are dealing with millions of instances with few attributes, the <strong>__slots__</strong> class attribute can save a<br>lot of memory, by letting the interpreter store the instance attributes in a <strong>tuple</strong> instead of a <strong>dict</strong>.</p>
+<p>A <strong>__slots__</strong> attribute inherited from a superclass has no effect. Python only takes into account<br><strong>__slots__</strong> attributes defined in each class individually.</p>
+<p>By defining <strong>__slots__</strong> in the class, you are telling the interpreter: “These are all the instance<br>attributes in this class.” Python then stores them in a tuple-like structure in each instance, avoiding the<br>memory overhead of the per-instance<strong>_\dict__</strong>. This can make a huge difference in memory usage if<br>your have millions of instances active at the same time.</p>
+<p>The <strong>__weakref__</strong> attribute is necessary for an object to support weak references. That attribute is<br>present by default in instances of user-defined classes. However, if the class defines <strong>__slots__</strong>, and<br>you need the instances to be targets of weak references, then you need to include <strong>__weakref__</strong><br>among the attributes named in <strong>__slots__</strong>.</p>
+<p>To summarize, <strong>__slots__</strong> may provide significant memory savings if properly used, but there are a<br>few caveats:</p>
+<ul>
+<li>You must remember to redeclare <strong>__slots__</strong> in each subclass, because the inherited attribute is ignored by the interpreter.</li>
+<li>Instances will only be able to have the attributes listed in <strong>__slots__</strong>, unless you include ‘<strong>_\dict__</strong>‘ in <strong>__slots__</strong> (but doing so may negate the memory savings).</li>
+<li>Instances cannot be targets of weak references unless you remember to include ‘<strong>__weakref__</strong>‘ in <strong>__slots__</strong>.</li>
+</ul>
+<h3 id="Overriding-Class-Attributes"><a href="#Overriding-Class-Attributes" class="headerlink" title="Overriding Class Attributes"></a>Overriding Class Attributes</h3><p>A distinctive feature of Python is how <strong>class attributes</strong> can be used as default values for <strong>instance<br>attributes</strong>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> vector2d_v3 <span class="keyword">import</span> Vector2d</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector2d(<span class="number">1.1</span>, <span class="number">2.2</span>) <span class="comment">#Set typecode to 'f' in the v1 instance.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpd = bytes(v1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpd</span><br><span class="line"><span class="string">b'd\x9a\x99\x99\x99\x99\x99\xf1?\x9a\x99\x99\x99\x99\x99\x01@'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(dumpd) <span class="comment">#</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1.typecode = <span class="string">'f'</span> <span class="comment">#</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpf = bytes(v1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dumpf</span><br><span class="line"><span class="string">b'f\xcd\xcc\x8c?\xcd\xcc\x0c@'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(dumpf) <span class="comment">#</span></span><br><span class="line"><span class="number">9</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Vector2d.typecode is unchanged; only the v1 instance uses typecode 'f'.</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Vector2d.typecode <span class="comment">#</span></span><br><span class="line"><span class="string">'d'</span></span><br></pre></td></tr></table></figure>
+<p>If you want to change a <strong>class attribute</strong> you must set it on the class directly, not through an<br><strong>instance</strong>. You could change the default typecode for all instances (that don’t have their own<br>typecode) by doing this:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Vector2d.typecode = ‘f’</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong><em>The ShortVector2d is a subclass of Vector2d, which only overwrites the default typecode</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> vector2d_v3 <span class="keyword">import</span> Vector2d</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ShortVector2d</span><span class="params">(Vector2d)</span>:</span> <span class="comment">#</span></span><br><span class="line"><span class="meta">... </span>typecode = <span class="string">'f'</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sv = ShortVector2d(<span class="number">1</span>/<span class="number">11</span>, <span class="number">1</span>/<span class="number">27</span>) <span class="comment">#</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sv</span><br><span class="line">ShortVector2d(<span class="number">0.09090909090909091</span>, <span class="number">0.037037037037037035</span>) <span class="comment">#</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(bytes(sv)) <span class="comment">#</span></span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fluent-python/" rel="tag"><i class="fa fa-tag"></i> fluent python</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/C08-Object-References-Mutability-and-Recycling-02/" rel="next" title="C08_Object References, Mutability, and Recycling_02">
+                <i class="fa fa-chevron-left"></i> C08_Object References, Mutability, and Recycling_02
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/C10-Sequence-Hacking-Hashing-and-Slicing/" rel="prev" title="C10_Sequence Hacking, Hashing, and Slicing">
+                C10_Sequence Hacking, Hashing, and Slicing <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-Representations"><span class="nav-number">1.</span> <span class="nav-text">Object Representations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#classmethod-Versus-staticmethod"><span class="nav-number">2.</span> <span class="nav-text">classmethod Versus staticmethod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Formatted-Displays"><span class="nav-number">3.</span> <span class="nav-text">Formatted Displays</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Hashable-Vector2d"><span class="nav-number">4.</span> <span class="nav-text">A Hashable Vector2d</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Private-and-“Protected”-Attributes-in-Python"><span class="nav-number">5.</span> <span class="nav-text">Private and “Protected” Attributes in Python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Saving-Space-with-the-slots-Class-Attribute"><span class="nav-number">6.</span> <span class="nav-text">Saving Space with the slots Class Attribute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overriding-Class-Attributes"><span class="nav-number">7.</span> <span class="nav-text">Overriding Class Attributes</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
