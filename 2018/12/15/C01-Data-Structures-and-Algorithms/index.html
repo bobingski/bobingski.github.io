@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="fluent python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Unpacking a Sequence into Separate VariablesUnpacking actually works with any object that happens to be iterable, not just tuples or lists. This includes strings, files, iterators, and generators. For">
+<meta name="keywords" content="fluent python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C01_Data_Structures_and_Algorithms">
+<meta property="og:url" content="blog.whistlestop.ml/2018/12/15/C01-Data-Structures-and-Algorithms/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Unpacking a Sequence into Separate VariablesUnpacking actually works with any object that happens to be iterable, not just tuples or lists. This includes strings, files, iterators, and generators. For">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-15T11:08:45.900Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C01_Data_Structures_and_Algorithms">
+<meta name="twitter:description" content="Unpacking a Sequence into Separate VariablesUnpacking actually works with any object that happens to be iterable, not just tuples or lists. This includes strings, files, iterators, and generators. For">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/12/15/C01-Data-Structures-and-Algorithms/"/>
+
+
+
+
+
+  <title>C01_Data_Structures_and_Algorithms | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C01-Data-Structures-and-Algorithms/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C01_Data_Structures_and_Algorithms</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:41:16+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:08:45+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Unpacking-a-Sequence-into-Separate-Variables"><a href="#Unpacking-a-Sequence-into-Separate-Variables" class="headerlink" title="Unpacking a Sequence into Separate Variables"></a>Unpacking a Sequence into Separate Variables</h2><p>Unpacking actually works with any object that happens to be iterable, not just tuples or lists. This includes strings, files, iterators, and generators. For example:<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>p=(<span class="number">4</span>,<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x,y=p</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s=<span class="string">'Hello'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a,b,c,d,e=s</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line"><span class="string">'H'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line"><span class="string">'e'</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Unpacking-Elements-from-Iterables-of-Arbitrary-Length"><a href="#Unpacking-Elements-from-Iterables-of-Arbitrary-Length" class="headerlink" title="Unpacking Elements from Iterables of Arbitrary Length"></a>Unpacking Elements from Iterables of Arbitrary Length</h2><p>You need to unpack N elements from an <strong>iterable</strong>, but the iterable may be longer than N elements, causing a “too many values to unpack” exception.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>record = (<span class="string">'Dave'</span>, <span class="string">'dave@example.com'</span>, <span class="string">'773-555-1212'</span>, <span class="string">'847-555-1212'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>name,email,*phone= record</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>phone</span><br><span class="line">[<span class="string">'773-555-1212'</span>, <span class="string">'847-555-1212'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>It’s worth noting that the <strong>phone</strong> variable will always be a list, regardless of how many phone numbers are unpacked (including <strong>none</strong>). </p>
+<p>The starred variable can also be the first one in the list. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>*trailing, current=[<span class="number">10</span>,<span class="number">9</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>trailing</span><br><span class="line">[<span class="number">10</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>current</span><br><span class="line"><span class="number">5</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Keeping-the-Last-N-Items"><a href="#Keeping-the-Last-N-Items" class="headerlink" title="Keeping the Last N Items"></a>Keeping the Last N Items</h2><p>Using <strong>deque(maxlen=N)</strong> creates a fixed-sized queue. When new items are added and the queue is full, the oldest item is automatically removed.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(lines, pattern, history=<span class="number">5</span>)</span>:</span></span><br><span class="line"><span class="meta">... </span>    previous_lines=deque(maxlen=history)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">if</span> pattern <span class="keyword">in</span> line:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">yield</span> license, previous_lines</span><br><span class="line"><span class="meta">... </span>        previous_lines.append(line)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>More generally, a <strong>deque</strong> can be used whenever you need a simple queue structure. If you don’t give it a maximum size, you get an unbounded queue that lets you append and pop items on either end.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>q=deque()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.append(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.append(<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q</span><br><span class="line">deque([<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q.appendleft(<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>q</span><br><span class="line">deque([<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Finding-the-Largest-or-Smallest-N-Items"><a href="#Finding-the-Largest-or-Smallest-N-Items" class="headerlink" title="Finding the Largest or Smallest N Items"></a>Finding the Largest or Smallest N Items</h2><p>You want to make a list of the largest or smallest N items in a collection. The <strong>heapq</strong> module has two functions—<strong>nlargest()</strong> and <strong>nsmallest()</strong>—that do exactly what you want.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> heapq</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>nums = [<span class="number">1</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">23</span>, <span class="number">7</span>, <span class="number">-4</span>, <span class="number">18</span>, <span class="number">23</span>, <span class="number">42</span>, <span class="number">37</span>, <span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>heapq.nlargest(<span class="number">3</span>, nums)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>heapq.nlargest(<span class="number">3</span>, nums)</span><br><span class="line">[<span class="number">42</span>, <span class="number">37</span>, <span class="number">23</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>heapq.nsmallest(<span class="number">3</span>, nums)</span><br><span class="line">[<span class="number">-4</span>, <span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>portfolio = [</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'name'</span>: <span class="string">'IBM'</span>, <span class="string">'shares'</span>: <span class="number">100</span>, <span class="string">'price'</span>: <span class="number">91.1</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'name'</span>: <span class="string">'AAPL'</span>, <span class="string">'shares'</span>: <span class="number">50</span>, <span class="string">'price'</span>: <span class="number">543.22</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'name'</span>: <span class="string">'FB'</span>, <span class="string">'shares'</span>: <span class="number">200</span>, <span class="string">'price'</span>: <span class="number">21.09</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'name'</span>: <span class="string">'HPQ'</span>, <span class="string">'shares'</span>: <span class="number">35</span>, <span class="string">'price'</span>: <span class="number">31.75</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'name'</span>: <span class="string">'YHOO'</span>, <span class="string">'shares'</span>: <span class="number">45</span>, <span class="string">'price'</span>: <span class="number">16.35</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'name'</span>: <span class="string">'ACME'</span>, <span class="string">'shares'</span>: <span class="number">75</span>, <span class="string">'price'</span>: <span class="number">115.65</span>&#125;</span><br><span class="line"><span class="meta">... </span>]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cheap=heapq.nsmallest(<span class="number">3</span>, portfolio, key=<span class="keyword">lambda</span> s:s[<span class="string">'price'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cheap</span><br><span class="line">[&#123;<span class="string">'name'</span>: <span class="string">'YHOO'</span>, <span class="string">'price'</span>: <span class="number">16.35</span>, <span class="string">'shares'</span>: <span class="number">45</span>&#125;, &#123;<span class="string">'name'</span>: <span class="string">'FB'</span>, <span class="string">'price'</span>: <span class="number">21.09</span>, <span class="string">'shares'</span>: <span class="number">200</span>&#125;, &#123;<span class="string">'name'</span>: <span class="string">'HPQ'</span>, <span class="string">'price'</span>: <span class="number">31.</span></span><br><span class="line">```<span class="number">75</span>, <span class="string">'shares'</span>: <span class="number">35</span>&#125;]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>If you are looking for the N smallest or largest items and N is small compared to the overall size of the collection, these functions provide superior performance. Underneath the covers, they work by first converting the data into a list where items are ordered as a heap. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>nums</span><br><span class="line">[<span class="number">1</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">23</span>, <span class="number">7</span>, <span class="number">-4</span>, <span class="number">18</span>, <span class="number">23</span>, <span class="number">42</span>, <span class="number">37</span>, <span class="number">2</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>heap=list(nums)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>heapq.heapify(heap)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>heap</span><br><span class="line">[<span class="number">-4</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">23</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">18</span>, <span class="number">23</span>, <span class="number">42</span>, <span class="number">37</span>, <span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+<p>The most important feature of a heap is that <strong>heap[0]</strong> is always the smallest item. Moreover, subsequent items can be easily found using the <strong>heapq.heappop()</strong> method.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; heapq.heappop(heap)</span><br><span class="line">-4</span><br><span class="line">&gt;&gt;&gt; heapq.heappop(heap)</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>The <strong>nlargest()</strong> and <strong>nsmallest()</strong> functions are most appropriate if you are trying to find a relatively small number of items. If you are simply trying to find the single smallest or largest item (N=1), it is faster to use <strong>min()</strong> and <strong>max().</strong> Similarly, if N is about the same size as the collection itself, it is usually faster to sort it first and take a slice (i.e., use <strong>sorted(items)[:N]</strong> or <strong>sorted(items)[-N:]</strong>). </p>
+<h2 id="Mapping-Keys-to-Multiple-Values-in-a-Dictionary"><a href="#Mapping-Keys-to-Multiple-Values-in-a-Dictionary" class="headerlink" title="Mapping Keys to Multiple Values in a Dictionary"></a>Mapping Keys to Multiple Values in a Dictionary</h2><p>You want to make a dictionary that maps keys to more than one value.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d= defaultdict(list)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">defaultdict(&lt;class 'list'&gt;, &#123;&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'a'</span>].append(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'b'</span>].append(<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">defaultdict(&lt;class 'list'&gt;, &#123;'b': [2], 'a': [1]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d= defaultdict(set)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'a'</span>]</span><br><span class="line">set()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'a'</span>].add(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'a'</span>].add(<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'b'</span>].add(<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">defaultdict(&lt;class 'set'&gt;, &#123;'b': &#123;4&#125;, 'a': &#123;1, 2&#125;&#125;)</span><br></pre></td></tr></table></figure>
+<p>One caution with <strong>defaultdict</strong> is that it will automatically create dictionary entries for keys accessed later on (even if they aren’t currently found in the dictionary). If you don’t want this behavior, you might use <strong>setdefault()</strong> on an ordinary dictionary instead. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>d=&#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d.setdefault(<span class="string">'a'</span>,[]).append(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">&#123;<span class="string">'a'</span>: [<span class="number">1</span>]&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d.setdefault(<span class="string">'b'</span>,[]).append(<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>d</span><br><span class="line">&#123;<span class="string">'b'</span>: [<span class="number">2</span>], <span class="string">'a'</span>: [<span class="number">1</span>]&#125;</span><br></pre></td></tr></table></figure>
+<p>In principle, constructing a multivalued dictionary is simple. However, initialization of the first value can be messy if you try to do it yourself. For example, you might have code that looks like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>d=&#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> key , value <span class="keyword">in</span> pairs:</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> key <span class="keyword">not</span> <span class="keyword">in</span> pairs:</span><br><span class="line"><span class="meta">... </span>        d[key]=[]</span><br><span class="line"><span class="meta">... </span>    d[key].append(value)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Using a <strong>defaultdict</strong> simply leads to much cleaner code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>d=defaultdict(list)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> key, value <span class="keyword">in</span> pairs:</span><br><span class="line"><span class="meta">... </span>    d[key].append(value)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="Naming-a-Slice"><a href="#Naming-a-Slice" class="headerlink" title="Naming a Slice"></a>Naming a Slice</h2><p>As a general rule, writing code with a lot of hardcoded index values leads to a readability and maintenance mess. In general, the built-in <strong>slice()</strong> creates a slice object that can be used anywhere a slice is allowed. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>items = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a=slice(<span class="number">2</span>,<span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items[a]</span><br><span class="line">[<span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items[a]=[<span class="number">10</span>,<span class="number">11</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> items[a]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>items</span><br><span class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a=slice(<span class="number">10</span>, <span class="number">50</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.start, a.stop, a.step</span><br><span class="line">(<span class="number">10</span>, <span class="number">50</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s=<span class="string">'HelloWorld'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.indices(len(s))</span><br><span class="line">(<span class="number">10</span>, <span class="number">10</span>, <span class="number">2</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Determining-the-Most-Frequently-Occurring-Items-in-a-Sequence"><a href="#Determining-the-Most-Frequently-Occurring-Items-in-a-Sequence" class="headerlink" title="Determining the Most Frequently Occurring Items in a Sequence"></a>Determining the Most Frequently Occurring Items in a Sequence</h2><p><strong>Counter</strong> objects are a tremendously useful tool for almost any kind of problem where you need to tabulate and count data.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>words = [</span><br><span class="line"><span class="meta">... </span> <span class="string">'look'</span>, <span class="string">'into'</span>, <span class="string">'my'</span>, <span class="string">'eyes'</span>, <span class="string">'look'</span>, <span class="string">'into'</span>, <span class="string">'my'</span>, <span class="string">'eyes'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'the'</span>, <span class="string">'eyes'</span>, <span class="string">'the'</span>, <span class="string">'eyes'</span>, <span class="string">'the'</span>, <span class="string">'eyes'</span>, <span class="string">'not'</span>, <span class="string">'around'</span>, <span class="string">'the'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'eyes'</span>, <span class="string">"don't"</span>, <span class="string">'look'</span>, <span class="string">'around'</span>, <span class="string">'the'</span>, <span class="string">'eyes'</span>, <span class="string">'look'</span>, <span class="string">'into'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'my'</span>, <span class="string">'eyes'</span>, <span class="string">"you're"</span>, <span class="string">'under'</span></span><br><span class="line"><span class="meta">... </span>]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> Counter </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>word_counts= Counter(words)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>top_three= word_counts.most_common(<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>top_three</span><br><span class="line">[(<span class="string">'eyes'</span>, <span class="number">8</span>), (<span class="string">'the'</span>, <span class="number">5</span>), (<span class="string">'look'</span>, <span class="number">4</span>)]</span><br></pre></td></tr></table></figure></p>
+<p><strong>Counter</strong> objects can be fed any sequence of hashable input items. Under the covers, a Counter is a dictionary that maps the items to the number of occurrences. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>word_counts[<span class="string">'eyes'</span>]</span><br><span class="line"><span class="number">8</span></span><br></pre></td></tr></table></figure>
+<p>If you want to increment the count manually, simply use addition:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>morewords = [<span class="string">'why'</span>,<span class="string">'are'</span>,<span class="string">'you'</span>,<span class="string">'not'</span>,<span class="string">'looking'</span>,<span class="string">'in'</span>,<span class="string">'my'</span>,<span class="string">'eyes'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> w <span class="keyword">in</span> morewords:</span><br><span class="line"><span class="meta">... </span>    word_counts[w]+=<span class="number">1</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>word_counts[<span class="string">'eyes'</span>]</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>Or, alternatively, you could use the <strong>update()</strong> method:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>word_counts.update(morewords) </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>word_counts[<span class="string">'eyes'</span>]</span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>A little-known feature of <strong>Counter</strong> instances is that they can be easily combined using various mathematical operations. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = Counter(words)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = Counter(morewords)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">Counter(&#123;<span class="string">'eyes'</span>: <span class="number">8</span>, <span class="string">'the'</span>: <span class="number">5</span>, <span class="string">'look'</span>: <span class="number">4</span>, <span class="string">'into'</span>: <span class="number">3</span>, <span class="string">'my'</span>: <span class="number">3</span>, <span class="string">'around'</span>: <span class="number">2</span>, <span class="string">"don't"</span>: <span class="number">1</span>, <span class="string">'under'</span>: <span class="number">1</span>, <span class="string">"you're"</span>: <span class="number">1</span>, <span class="string">'not'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line">Counter(&#123;<span class="string">'are'</span>: <span class="number">1</span>, <span class="string">'looking'</span>: <span class="number">1</span>, <span class="string">'in'</span>: <span class="number">1</span>, <span class="string">'you'</span>: <span class="number">1</span>, <span class="string">'eyes'</span>: <span class="number">1</span>, <span class="string">'not'</span>: <span class="number">1</span>, <span class="string">'my'</span>: <span class="number">1</span>, <span class="string">'why'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a+b</span><br><span class="line">Counter(&#123;<span class="string">'eyes'</span>: <span class="number">9</span>, <span class="string">'the'</span>: <span class="number">5</span>, <span class="string">'my'</span>: <span class="number">4</span>, <span class="string">'look'</span>: <span class="number">4</span>, <span class="string">'into'</span>: <span class="number">3</span>, <span class="string">'around'</span>: <span class="number">2</span>, <span class="string">'not'</span>: <span class="number">2</span>, <span class="string">'are'</span>: <span class="number">1</span>, <span class="string">'you'</span>: <span class="number">1</span>, <span class="string">"don't"</span>: <span class="number">1</span>, <span class="string">'under'</span>: <span class="number">1</span>, <span class="string">"you're"</span>: <span class="number">1</span>, <span class="string">'why'</span>: <span class="number">1</span>, <span class="string">'looking'</span>: <span class="number">1</span>, <span class="string">'in'</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a-b</span><br><span class="line">Counter(&#123;<span class="string">'eyes'</span>: <span class="number">7</span>, <span class="string">'the'</span>: <span class="number">5</span>, <span class="string">'look'</span>: <span class="number">4</span>, <span class="string">'into'</span>: <span class="number">3</span>, <span class="string">'around'</span>: <span class="number">2</span>, <span class="string">'my'</span>: <span class="number">2</span>, <span class="string">"you're"</span>: <span class="number">1</span>, <span class="string">"don't"</span>: <span class="number">1</span>, <span class="string">'under'</span>: <span class="number">1</span>&#125;)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Sorting-a-List-of-Dictionaries-by-a-Common-Key"><a href="#Sorting-a-List-of-Dictionaries-by-a-Common-Key" class="headerlink" title="Sorting a List of Dictionaries by a Common Key"></a>Sorting a List of Dictionaries by a Common Key</h2><p>You have a list of dictionaries and you would like to sort the entries according to one or more of the dictionary values. Sorting this type of structure is easy using the operator module’s <strong>itemgetter</strong> function.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows = [</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'fname'</span>: <span class="string">'Brian'</span>, <span class="string">'lname'</span>: <span class="string">'Jones'</span>, <span class="string">'uid'</span>: <span class="number">1003</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'fname'</span>: <span class="string">'David'</span>, <span class="string">'lname'</span>: <span class="string">'Beazley'</span>, <span class="string">'uid'</span>: <span class="number">1002</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'fname'</span>: <span class="string">'John'</span>, <span class="string">'lname'</span>: <span class="string">'Cleese'</span>, <span class="string">'uid'</span>: <span class="number">1001</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'fname'</span>: <span class="string">'Big'</span>, <span class="string">'lname'</span>: <span class="string">'Jones'</span>, <span class="string">'uid'</span>: <span class="number">1004</span>&#125;</span><br><span class="line"><span class="meta">... </span>]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> operator <span class="keyword">import</span> itemgetter</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows_by_fname=sorted(rows, key= itemgetter(<span class="string">'fname'</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows_by_uid= sorted(rows,key= itemgetter(<span class="string">'uid'</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows_by_fname</span><br><span class="line">[&#123;<span class="string">'uid'</span>: <span class="number">1004</span>, <span class="string">'fname'</span>: <span class="string">'Big'</span>, <span class="string">'lname'</span>: <span class="string">'Jones'</span>&#125;, &#123;<span class="string">'uid'</span>: <span class="number">1003</span>, <span class="string">'fname'</span>: <span class="string">'Brian'</span>, <span class="string">'lname'</span>: <span class="string">'Jones'</span>&#125;, &#123;<span class="string">'uid'</span>: <span class="number">1002</span>, <span class="string">'fname'</span>: <span class="string">'David'</span>, <span class="string">'lname'</span>: <span class="string">'Beazley'</span>&#125;, &#123;<span class="string">'uid'</span>: <span class="number">1001</span>, <span class="string">'fname'</span>: <span class="string">'John'</span>, <span class="string">'lname'</span>: <span class="string">'Cleese'</span>&#125;]</span><br></pre></td></tr></table></figure>
+<p>The <strong>itemgetter()</strong> function can also accept multiple keys. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a=itemgetter(<span class="string">'lname'</span>, <span class="string">'fname'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a(rows[<span class="number">1</span>])</span><br><span class="line">(<span class="string">'Beazley'</span>, <span class="string">'David'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows_by_lfname = sorted(rows, key=itemgetter(<span class="string">'lname'</span>,<span class="string">'fname'</span>))</span><br></pre></td></tr></table></figure>
+<p>The <strong>operator.itemgetter()</strong> function takes as arguments the lookup indices used to extract the desired values from the records in rows. It can be a dictionary key name, a numeric list element, or any value that can be fed to an object’s <strong>__getitem__()</strong> method. If you give multiple indices to <strong>itemgetter()</strong>, the callable it produces will return a tuple with all of the elements in it, and <strong>sorted()</strong> will order the output according to the sorted order of the tuples. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>min(rows, key=itemgetter(<span class="string">'uid'</span>))</span><br><span class="line">&#123;<span class="string">'fname'</span>: <span class="string">'John'</span>, <span class="string">'lname'</span>: <span class="string">'Cleese'</span>, <span class="string">'uid'</span>: <span class="number">1001</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>max(rows, key=itemgetter(<span class="string">'uid'</span>))</span><br><span class="line">&#123;<span class="string">'fname'</span>: <span class="string">'Big'</span>, <span class="string">'lname'</span>: <span class="string">'Jones'</span>, <span class="string">'uid'</span>: <span class="number">1004</span>&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Sorting-Objects-Without-Native-Comparison-Support"><a href="#Sorting-Objects-Without-Native-Comparison-Support" class="headerlink" title="Sorting Objects Without Native Comparison Support"></a>Sorting Objects Without Native Comparison Support</h2><p>You want to sort objects of the same class, but they don’t natively support comparison operations.The built-in <strong>sorted()</strong> function takes a <strong>key</strong> argument that can be passed a <strong>callable</strong> that will return some value in the object that sorted will use to compare the objects. For example, if you have a sequence of <strong>User</strong> instances in your application, and you want to sort them by their <strong>user_id</strong> attribute, you would supply a <strong>callable</strong> that takes a <strong>User</strong> instance as input and returns the <strong>user_id</strong>. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; <span class="class"><span class="keyword">class</span> <span class="title">User</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, user_id)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.user_id= user_id</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="string">'User (&#123;&#125;)'</span>.format(self.user_id)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>users=[User(<span class="number">1</span>), User(<span class="number">3</span>), User(<span class="number">99</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sorted(users, key= <span class="keyword">lambda</span> u:u.user_id)</span><br><span class="line">[User (<span class="number">1</span>), User (<span class="number">3</span>), User (<span class="number">99</span>)]</span><br></pre></td></tr></table></figure>
+<p>Instead of using lambda, an alternative approach is to use <strong>operator.attrgetter()</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span>  operator <span class="keyword">import</span> attrgetter</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sorted(users, key= attrgetter(<span class="string">'user_id'</span>))</span><br><span class="line">[User (<span class="number">1</span>), User (<span class="number">3</span>), User (<span class="number">99</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>min(users, key= attrgetter(<span class="string">'user_id'</span>))</span><br><span class="line">User (<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>The choice of whether or not to use <strong>lambda</strong> or <strong>attrgetter()</strong> may be one of personal preference. However, <strong>attrgetter()</strong> is often a tad bit faster and also has the added feature of allowing multiple fields to be extracted simultaneously. This is analogous to the use of <strong>operator.itemgetter()</strong> for dictionaries. </p>
+<h2 id="Grouping-Records-Together-Based-on-a-Field"><a href="#Grouping-Records-Together-Based-on-a-Field" class="headerlink" title="Grouping Records Together Based on a Field"></a>Grouping Records Together Based on a Field</h2><p>You have a sequence of dictionaries or instances and you want to iterate over the data in groups based on the value of a particular field, such as date.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows = [</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'address'</span>: <span class="string">'5412 N CLARK'</span>, <span class="string">'date'</span>: <span class="string">'07/01/2012'</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'address'</span>: <span class="string">'5148 N CLARK'</span>, <span class="string">'date'</span>: <span class="string">'07/04/2012'</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'address'</span>: <span class="string">'5800 E 58TH'</span>, <span class="string">'date'</span>: <span class="string">'07/02/2012'</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'address'</span>: <span class="string">'2122 N CLARK'</span>, <span class="string">'date'</span>: <span class="string">'07/03/2012'</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'address'</span>: <span class="string">'5645 N RAVENSWOOD'</span>, <span class="string">'date'</span>: <span class="string">'07/02/2012'</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'address'</span>: <span class="string">'1060 W ADDISON'</span>, <span class="string">'date'</span>: <span class="string">'07/02/2012'</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'address'</span>: <span class="string">'4801 N BROADWAY'</span>, <span class="string">'date'</span>: <span class="string">'07/01/2012'</span>&#125;,</span><br><span class="line"><span class="meta">... </span> &#123;<span class="string">'address'</span>: <span class="string">'1039 W GRANVILLE'</span>, <span class="string">'date'</span>: <span class="string">'07/04/2012'</span>&#125;,</span><br><span class="line"><span class="meta">... </span>]</span><br></pre></td></tr></table></figure>
+<p>To do it, first sort by the desired field (in this case, date) and then use <strong>itertools.groupby()</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> operator <span class="keyword">import</span> itemgetter</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> itertools <span class="keyword">import</span> groupby</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rows.sort(key=itemgetter(<span class="string">'date'</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> date, items <span class="keyword">in</span> groupby(rows,key= itemgetter(<span class="string">'date'</span>)):</span><br><span class="line"><span class="meta">... </span>    print(date)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> i <span class="keyword">in</span> items:</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">' '</span>, i)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="number">07</span>/<span class="number">01</span>/<span class="number">2012</span></span><br><span class="line">  &#123;<span class="string">'address'</span>: <span class="string">'5412 N CLARK'</span>, <span class="string">'date'</span>: <span class="string">'07/01/2012'</span>&#125;</span><br><span class="line">  &#123;<span class="string">'address'</span>: <span class="string">'4801 N BROADWAY'</span>, <span class="string">'date'</span>: <span class="string">'07/01/2012'</span>&#125;</span><br><span class="line"><span class="number">07</span>/<span class="number">02</span>/<span class="number">2012</span></span><br><span class="line">  &#123;<span class="string">'address'</span>: <span class="string">'5800 E 58TH'</span>, <span class="string">'date'</span>: <span class="string">'07/02/2012'</span>&#125;</span><br><span class="line">  &#123;<span class="string">'address'</span>: <span class="string">'5645 N RAVENSWOOD'</span>, <span class="string">'date'</span>: <span class="string">'07/02/2012'</span>&#125;</span><br><span class="line">  &#123;<span class="string">'address'</span>: <span class="string">'1060 W ADDISON'</span>, <span class="string">'date'</span>: <span class="string">'07/02/2012'</span>&#125;</span><br><span class="line"><span class="number">07</span>/<span class="number">03</span>/<span class="number">2012</span></span><br><span class="line">  &#123;<span class="string">'address'</span>: <span class="string">'2122 N CLARK'</span>, <span class="string">'date'</span>: <span class="string">'07/03/2012'</span>&#125;</span><br><span class="line"><span class="number">07</span>/<span class="number">04</span>/<span class="number">2012</span></span><br><span class="line">  &#123;<span class="string">'address'</span>: <span class="string">'5148 N CLARK'</span>, <span class="string">'date'</span>: <span class="string">'07/04/2012'</span>&#125;</span><br><span class="line">  &#123;<span class="string">'address'</span>: <span class="string">'1039 W GRANVILLE'</span>, <span class="string">'date'</span>: <span class="string">'07/04/2012'</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>The <strong>groupby()</strong> function works by scanning a sequence and finding sequential “runs” of identical values (or values returned by the given <strong>key</strong> function). On each iteration, it returns the value along with an iterator that produces all of the items in a group with the same value.</p>
+<p>An important preliminary step is sorting the data according to the field of interest. Since <strong>groupby()</strong> only examines consecutive items, failing to sort first won’t group the records as you want.</p>
+<p>If your goal is to simply group the data together by dates into a large data structure that allows random access, you may have better luck using <strong>defaultdict()</strong> to build a multidict.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;&gt;&gt; from collections import defaultdict</span><br><span class="line">&gt;&gt;&gt; rows_by_date= defaultdict(list)</span><br><span class="line">&gt;&gt;&gt; for row in rows:</span><br><span class="line">...     rows_by_date[row[&apos;date&apos;]].append(row)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<h2 id="Filtering-Sequence-Elements"><a href="#Filtering-Sequence-Elements" class="headerlink" title="Filtering Sequence Elements"></a>Filtering Sequence Elements</h2><p>The easiest way to filter sequence data is often to use a <strong>list</strong> comprehension. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>mylist = [<span class="number">1</span>, <span class="number">4</span>, <span class="number">-5</span>, <span class="number">10</span>, <span class="number">-7</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">-1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[n <span class="keyword">for</span> n <span class="keyword">in</span> mylist <span class="keyword">if</span> n &gt; <span class="number">0</span>]</span><br><span class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">10</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[n <span class="keyword">for</span> n <span class="keyword">in</span> mylist <span class="keyword">if</span> n &lt; <span class="number">0</span>]</span><br><span class="line">[<span class="number">-5</span>, <span class="number">-7</span>, <span class="number">-1</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Sometimes, the filtering criteria cannot be easily expressed in a list comprehension or generator expression. For example, suppose that the filtering process involves exception handling or some other complicated detail. For this, put the filtering code into its own function and use the built-in <strong>filter()</strong> function. <strong>filter()</strong> creates an iterator. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">is_int</span><span class="params">(val)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>        x=int(val)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">except</span> ValueError:</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ivals= list(filter(is_int, values))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>ivals</span><br><span class="line">[<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'-3'</span>, <span class="string">'4'</span>, <span class="string">'5'</span>]</span><br></pre></td></tr></table></figure>
+<p>Another notable filtering tool is <strong>itertools.compress()</strong>, which takes an iterable and an accompanying <strong>Boolean</strong> selector sequence as input. As output, it gives you all of the items in the iterable where the corresponding element in the selector is <strong>True</strong>. This can be useful if you’re trying to apply the results of filtering one sequence to another related sequence. For example, suppose you have the following two columns of data:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>addresses = [</span><br><span class="line"><span class="meta">... </span> <span class="string">'5412 N CLARK'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'5148 N CLARK'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'5800 E 58TH'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'2122 N CLARK'</span></span><br><span class="line"><span class="meta">... </span> <span class="string">'5645 N RAVENSWOOD'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'1060 W ADDISON'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'4801 N BROADWAY'</span>,</span><br><span class="line"><span class="meta">... </span> <span class="string">'1039 W GRANVILLE'</span>,</span><br><span class="line"><span class="meta">... </span>]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>counts = [ <span class="number">0</span>, <span class="number">3</span>, <span class="number">10</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> itertools <span class="keyword">import</span> compress</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>more5=[n &gt; <span class="number">5</span> <span class="keyword">for</span> n <span class="keyword">in</span> counts]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(compress(addresses, more5))</span><br><span class="line">[<span class="string">'5800 E 58TH'</span>, <span class="string">'4801 N BROADWAY'</span>, <span class="string">'1039 W GRANVILLE'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>more5</span><br><span class="line">[<span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="keyword">False</span>, <span class="keyword">False</span>, <span class="keyword">True</span>, <span class="keyword">True</span>, <span class="keyword">False</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Mapping-Names-to-Sequence-Elements"><a href="#Mapping-Names-to-Sequence-Elements" class="headerlink" title="Mapping Names to Sequence Elements"></a>Mapping Names to Sequence Elements</h2><p>You have code that accesses list or tuple elements by position, but this makes the code somewhat difficult to read at times. You’d also like to be less dependent on position in the structure, by accessing the elements by name. <strong>collections.namedtuple()</strong> provides these benefits.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Subcriber= namedtuple(<span class="string">'Subcriber'</span>, [<span class="string">'addr'</span>,<span class="string">'joined'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sub= Subcriber(<span class="string">'a@b.com'</span>, <span class="string">'2012-09-23'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sub</span><br><span class="line">Subcriber(addr=<span class="string">'a@b.com'</span>, joined=<span class="string">'2012-09-23'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sub.addr</span><br><span class="line"><span class="string">'a@b.com'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(sub)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>addr, joined= sub</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>addr, joined</span><br><span class="line">(<span class="string">'a@b.com'</span>, <span class="string">'2012-09-23'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>A major use case for named tuples is decoupling your code from the position of the elements it manipulates.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Stock = namedtuple(<span class="string">'Stock'</span>, [<span class="string">'name'</span>, <span class="string">'shares'</span>, <span class="string">'price'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">compute_cost</span><span class="params">(records)</span>:</span></span><br><span class="line"><span class="meta">... </span>    total=<span class="number">0.0</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> rec <span class="keyword">in</span> records:</span><br><span class="line"><span class="meta">... </span>       s=Stock(*rec)</span><br><span class="line"><span class="meta">... </span>       total+= s.shares * s.price</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> total</span><br></pre></td></tr></table></figure>
+<p>One possible use of a <strong>namedtuple</strong> is as a replacement for a dictionary, which requires more space to store. Thus, if you are building large data structures involving dictionaries, use of a <strong>namedtuple</strong> will be more efficient. However, be aware that unlike a dictionary, a <strong>namedtuple</strong> is immutable.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = Stock(<span class="string">'ACME'</span>, <span class="number">100</span>, <span class="number">123.45</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line">Stock(name=<span class="string">'ACME'</span>, shares=<span class="number">100</span>, price=<span class="number">123.45</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.shares = <span class="number">75</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">AttributeError: can<span class="string">'t set attribute</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>If you need to change any of the attributes, it can be done using the <strong>_replace()</strong> method of a <strong>namedtuple</strong> instance.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s=s._replace(shares= <span class="number">75</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line">Stock(name=<span class="string">'ACME'</span>, shares=<span class="number">75</span>, price=<span class="number">123.45</span>)</span><br></pre></td></tr></table></figure>
+<p>A subtle use of the <strong>_replace()</strong> method is that it can be a convenient way to populate named tuples that have optional or missing fields. To do this, you make a prototype tuple containing the default values and then use <strong>_replace()</strong> to create new instances with values replaced. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>stock= namedtuple(<span class="string">'Stock'</span>, [<span class="string">'name'</span>, <span class="string">'shares'</span>,<span class="string">'price'</span>,<span class="string">'date'</span>,<span class="string">'time'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>stock_prototype= stock(<span class="string">''</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="keyword">None</span>, <span class="keyword">None</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">dict_to_stock</span><span class="params">(s)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> stock_prototype._replace(**s)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = &#123;<span class="string">'name'</span>: <span class="string">'ACME'</span>, <span class="string">'shares'</span>: <span class="number">100</span>, <span class="string">'price'</span>: <span class="number">123.45</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dict_to_stock(a)</span><br><span class="line">Stock(name=<span class="string">'ACME'</span>, shares=<span class="number">100</span>, price=<span class="number">123.45</span>, date=<span class="keyword">None</span>, time=<span class="keyword">None</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = &#123;<span class="string">'name'</span>: <span class="string">'ACME'</span>, <span class="string">'shares'</span>: <span class="number">100</span>, <span class="string">'price'</span>: <span class="number">123.45</span>, <span class="string">'date'</span>: <span class="string">'12/17/2012'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dict_to_stock(b)</span><br><span class="line">Stock(name=<span class="string">'ACME'</span>, shares=<span class="number">100</span>, price=<span class="number">123.45</span>, date=<span class="string">'12/17/2012'</span>, time=<span class="keyword">None</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Combining-Multiple-Mappings-into-a-Single-Mapping"><a href="#Combining-Multiple-Mappings-into-a-Single-Mapping" class="headerlink" title="Combining Multiple Mappings into a Single Mapping"></a>Combining Multiple Mappings into a Single Mapping</h2><p>Suppose you have two dictionaries:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;<span class="string">'x'</span>: <span class="number">1</span>, <span class="string">'z'</span>: <span class="number">3</span> &#125;</span><br><span class="line">b = &#123;<span class="string">'y'</span>: <span class="number">2</span>, <span class="string">'z'</span>: <span class="number">4</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>Now suppose you want to perform lookups where you have to check both dictionaries (e.g., first checking in <strong>a</strong> and then in <strong>b</strong> if not found). An easy way to do this is to use the <strong>ChainMap</strong> class from the <strong>collections</strong> module. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> ChainMap</span><br><span class="line">c = ChainMap(a,b)</span><br><span class="line">print(c[<span class="string">'x'</span>]) <span class="comment"># Outputs 1 (from a)</span></span><br><span class="line">print(c[<span class="string">'y'</span>]) <span class="comment"># Outputs 2 (from b)</span></span><br><span class="line">print(c[<span class="string">'z'</span>]) <span class="comment"># Outputs 3 (from a)</span></span><br></pre></td></tr></table></figure>
+<p>If there are duplicate keys, the values from the first mapping get used. Thus, the entry <strong>c[‘z’]</strong> in the example would always refer to the value in dictionary <strong>a</strong>, not the value in dictionary <strong>b</strong>.</p>
+<p>Operations that mutate the mapping always affect the first mapping listed. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(c)</span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(c.keys())</span><br><span class="line">[<span class="string">'x'</span>, <span class="string">'y'</span>, <span class="string">'z'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(c.values())</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c[<span class="string">'z'</span>] = <span class="number">10</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c[<span class="string">'w'</span>] = <span class="number">40</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> c[<span class="string">'x'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">&#123;<span class="string">'w'</span>: <span class="number">40</span>, <span class="string">'z'</span>: <span class="number">10</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> c[<span class="string">'y'</span>]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">...</span><br><span class="line">KeyError: <span class="string">"Key not found in the first mapping: 'y'"</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = &#123;<span class="string">'x'</span>: <span class="number">1</span>, <span class="string">'z'</span>: <span class="number">3</span> &#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = &#123;<span class="string">'y'</span>: <span class="number">2</span>, <span class="string">'z'</span>: <span class="number">4</span> &#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>merged = ChainMap(a, b)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>merged[<span class="string">'x'</span>]</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[<span class="string">'x'</span>] = <span class="number">42</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>merged[<span class="string">'x'</span>] <span class="comment"># Notice change to merged dicts</span></span><br><span class="line"><span class="number">42</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/fluent-python/" rel="tag"><i class="fa fa-tag"></i> fluent python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/python-time-datetime/" rel="next" title="python_time_datetime">
+                <i class="fa fa-chevron-left"></i> python_time_datetime
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/C02-Strings-and-Text/" rel="prev" title="C02_Strings_and_Text">
+                C02_Strings_and_Text <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unpacking-a-Sequence-into-Separate-Variables"><span class="nav-number">1.</span> <span class="nav-text">Unpacking a Sequence into Separate Variables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unpacking-Elements-from-Iterables-of-Arbitrary-Length"><span class="nav-number">2.</span> <span class="nav-text">Unpacking Elements from Iterables of Arbitrary Length</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Keeping-the-Last-N-Items"><span class="nav-number">3.</span> <span class="nav-text">Keeping the Last N Items</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Finding-the-Largest-or-Smallest-N-Items"><span class="nav-number">4.</span> <span class="nav-text">Finding the Largest or Smallest N Items</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mapping-Keys-to-Multiple-Values-in-a-Dictionary"><span class="nav-number">5.</span> <span class="nav-text">Mapping Keys to Multiple Values in a Dictionary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Naming-a-Slice"><span class="nav-number">6.</span> <span class="nav-text">Naming a Slice</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Determining-the-Most-Frequently-Occurring-Items-in-a-Sequence"><span class="nav-number">7.</span> <span class="nav-text">Determining the Most Frequently Occurring Items in a Sequence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sorting-a-List-of-Dictionaries-by-a-Common-Key"><span class="nav-number">8.</span> <span class="nav-text">Sorting a List of Dictionaries by a Common Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sorting-Objects-Without-Native-Comparison-Support"><span class="nav-number">9.</span> <span class="nav-text">Sorting Objects Without Native Comparison Support</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grouping-Records-Together-Based-on-a-Field"><span class="nav-number">10.</span> <span class="nav-text">Grouping Records Together Based on a Field</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filtering-Sequence-Elements"><span class="nav-number">11.</span> <span class="nav-text">Filtering Sequence Elements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mapping-Names-to-Sequence-Elements"><span class="nav-number">12.</span> <span class="nav-text">Mapping Names to Sequence Elements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-Multiple-Mappings-into-a-Single-Mapping"><span class="nav-number">13.</span> <span class="nav-text">Combining Multiple Mappings into a Single Mapping</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

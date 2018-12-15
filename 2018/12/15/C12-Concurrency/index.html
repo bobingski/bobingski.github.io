@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Starting and Stopping ThreadsThe threading library can be used to execute any Python callable in its own thread. To do this, you create a Thread instance and supply the callable that you wish to execu">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C12_Concurrency">
+<meta property="og:url" content="blog.whistlestop.ml/2018/12/15/C12-Concurrency/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Starting and Stopping ThreadsThe threading library can be used to execute any Python callable in its own thread. To do this, you create a Thread instance and supply the callable that you wish to execu">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-15T11:12:16.374Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C12_Concurrency">
+<meta name="twitter:description" content="Starting and Stopping ThreadsThe threading library can be used to execute any Python callable in its own thread. To do this, you create a Thread instance and supply the callable that you wish to execu">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/12/15/C12-Concurrency/"/>
+
+
+
+
+
+  <title>C12_Concurrency | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C12-Concurrency/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C12_Concurrency</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:48:09+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:16+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Starting-and-Stopping-Threads"><a href="#Starting-and-Stopping-Threads" class="headerlink" title="Starting and Stopping Threads"></a>Starting and Stopping Threads</h2><p>The threading library can be used to execute any Python callable in its own thread. To do this, you create a <strong>Thread</strong> instance and supply the callable that you wish to execute as a target.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> time</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">countdown</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'T-minus'</span>, n)</span><br><span class="line"><span class="meta">... </span>        n-= <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>        time.sleep(<span class="number">3</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t= Thread(target= countdown, args=(<span class="number">10</span>,))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t.start()</span><br></pre></td></tr></table></figure>
+<a id="more"></a> 
+<p>When you create a thread instance, it doesn’t start executing until you invoke its <strong>start()</strong> method (which invokes the target function with the arguments you supplied).</p>
+<p>Threads are executed in their own system-level thread (e.g., a POSIX thread or Windows threads) that is fully managed by the host operating system. Once started, threads run independently until the target function returns. You can query a thread instance to see if it’s still running:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> t.is_alive():</span><br><span class="line">    print(<span class="string">'Still running'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'Completed'</span>)</span><br></pre></td></tr></table></figure>
+<p>You can also request to join with a thread, which waits for it to terminate:</p>
+<p><code>t.join()</code></p>
+<p>The interpreter remains running until all threads terminate. For long-running threads or background tasks that run forever, you should consider making the thread daemonic.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t = Thread(target=countdown, args=(<span class="number">10</span>,), daemon=<span class="keyword">True</span>)</span><br><span class="line">t.start()</span><br></pre></td></tr></table></figure>
+<p>Daemonic threads can’t be joined. However, they are destroyed automatically when the main thread terminates.</p>
+<p>Beyond the two operations shown, there aren’t many other things you can do with threads. For example, there are no operations to terminate a thread, signal a thread, adjust its scheduling, or perform any other high-level operations. If you want these features, you need to build them yourself.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">CountdowmTask</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self._running= <span class="keyword">True</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">terminate</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self._running= <span class="keyword">False</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self, n)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">while</span> self._running <span class="keyword">and</span> n &gt; <span class="number">0</span>:</span><br><span class="line"><span class="meta">... </span>            print(<span class="string">'T-minus'</span>, n)</span><br><span class="line"><span class="meta">... </span>            n-= <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>            time.sleep(<span class="number">2</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c= CountdowmTask()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t= Thread(target= c.run, args=(<span class="number">10</span>, ))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t.start()</span><br><span class="line">T-minus <span class="number">10</span></span><br><span class="line">T-minus <span class="number">9</span></span><br><span class="line">T-minus <span class="number">8</span></span><br><span class="line">T-minus <span class="number">7</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.terminate() <span class="comment"># Signal termination</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t.join() <span class="comment"># Wait for actual termination (if needed)</span></span><br></pre></td></tr></table></figure>
+<p>Due to a global interpreter lock (GIL), Python threads are restricted to an execution model that only allows one thread to execute in the interpreter at any given time. For this reason, Python threads should generally not be used for computationally intensive tasks where you are trying to achieve parallelism on multiple CPUs. They are much better suited for I/O handling and handling concurrent execution in code that performs blocking operations (e.g., waiting for I/O, waiting for results from a database, etc.).</p>
+<p>Sometimes you will see threads defined via inheritance from the <strong>Thread</strong> class.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">CountdownThread</span><span class="params">(Thread)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, n)</span>:</span></span><br><span class="line"><span class="meta">... </span>        super().__init__()</span><br><span class="line"><span class="meta">... </span>        self.n= n</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">while</span> self.n &gt; <span class="number">0</span>:</span><br><span class="line"><span class="meta">... </span>            print(<span class="string">'T-minus'</span>, self.n)</span><br><span class="line"><span class="meta">... </span>            self.n-= <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>            time.sleep(<span class="number">3</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c=CountdownThread(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.start()</span><br></pre></td></tr></table></figure>
+<h2 id="Determining-If-a-Thread-Has-Started"><a href="#Determining-If-a-Thread-Has-Started" class="headerlink" title="Determining If a Thread Has Started"></a>Determining If a Thread Has Started</h2><p>You’ve launched a thread, but want to know when it actually starts running. A key feature of threads is that they execute independently and nondeterministically. This can present a tricky synchronization problem if other threads in the program need to know if a thread has reached a certain point in its execution before carrying out further operations. To solve such problems, use the <strong>Event</strong> object from the threading library.</p>
+<p><strong>Event</strong> instances are similar to a “sticky” flag that allows threads to wait for something to happen. Initially, an event is set to 0. If the event is unset and a thread waits on the event, it will block (i.e., go to sleep) until the event gets set. A thread that sets the event will wake up all of the threads that happen to be waiting (if any). If a thread waits on an event that has already been set, it merely moves on, continuing to execute.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread, Event</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># Code to execute in an independent thread</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countdown</span><span class="params">(n, started_evt)</span>:</span></span><br><span class="line">    print(<span class="string">'countdown starting'</span>)</span><br><span class="line">    started_evt.set()</span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">'T-minus'</span>, n)</span><br><span class="line">        n -= <span class="number">1</span></span><br><span class="line">        time.sleep(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create the event object that will be used to signal startup</span></span><br><span class="line">started_evt = Event()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Launch the thread and pass the startup event</span></span><br><span class="line">print(<span class="string">'Launching countdown'</span>)</span><br><span class="line">t = Thread(target=countdown, args=(<span class="number">10</span>,started_evt))</span><br><span class="line">t.start()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wait for the thread to start</span></span><br><span class="line">started_evt.wait()</span><br><span class="line">print(<span class="string">'countdown is running'</span>)</span><br></pre></td></tr></table></figure>
+<p>Event objects are best used for one-time events. That is, you create an event, threads wait for the event to be set, and once set, the Event is discarded. Although it is possible to clear an event using its clear() method, safely clearing an event and waiting for it to be set again is tricky to coordinate, and can lead to missed events, deadlock, or other problems .</p>
+<p>If a thread is going to repeatedly signal an event over and over, you’re probably better off using a <strong>Condition</strong> object instead. For example, this code implements a periodic timer that other threads can monitor to see whenever the timer expires:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PeriodicTimer</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, interval)</span>:</span></span><br><span class="line">        self._interval= interval</span><br><span class="line">        self._flag= <span class="number">0</span></span><br><span class="line">        self._cv= threading.Condition()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">        t= threading.Thread(target= self.run)</span><br><span class="line">        t.daemon= <span class="keyword">True</span></span><br><span class="line">        t.start()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            time.sleep(self._interval)</span><br><span class="line">            <span class="keyword">with</span> self._cv:</span><br><span class="line">                self._flag^= <span class="number">1</span></span><br><span class="line">                self._cv.notify_all()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wait_for_tick</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> self._cv:</span><br><span class="line">            last_flag= self._flag</span><br><span class="line">            <span class="keyword">while</span> last_flag == self._flag:</span><br><span class="line">                self._cv.wait()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example use of the timer</span></span><br><span class="line">ptimer= PeriodicTimer(<span class="number">5</span>)                </span><br><span class="line">ptimer.start()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Two threads that synchronize on the timer</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countdown</span><span class="params">(nticks)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> nticks &gt; <span class="number">0</span>:</span><br><span class="line">        ptimer.wait_for_tick()</span><br><span class="line">        print(<span class="string">'T-minus'</span>, nticks)</span><br><span class="line">        nticks-=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countup</span><span class="params">(last)</span>:</span></span><br><span class="line">    n= <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> n &lt; last:</span><br><span class="line">        ptimer.wait_for_tick()</span><br><span class="line">        print(<span class="string">'Counting'</span>, n)</span><br><span class="line">        n+= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">threading.Thread(target= countdown, args=(<span class="number">10</span>,)).start()</span><br><span class="line">threading.Thread(target= countup, args=(<span class="number">5</span>,)).start()</span><br></pre></td></tr></table></figure>
+<p>A critical feature of <strong>Event</strong> objects is that they wake all waiting threads. If you are writing a program where you only want to wake up a single waiting thread, it is probably better to use a <strong>Semaphore</strong> or <strong>Condition</strong> object instead.</p>
+<p>For example, consider this code involving semaphores:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">worker</span><span class="params">(n, sema)</span>:</span></span><br><span class="line"><span class="meta">... </span>    sema.acquire()</span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'Working'</span>, n)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sema= threading.Semaphore(<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>nworkers= <span class="number">10</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> n <span class="keyword">in</span> range(nworkers):</span><br><span class="line"><span class="meta">... </span>    t= threading.Thread(target= worker, args=(n, sema,))</span><br><span class="line"><span class="meta">... </span>    t.start()</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>If you run this, a pool of threads will start, but nothing happens because they’re all blocked waiting to acquire the semaphore. Each time the semaphore is released, only one worker will wake up and run. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>sema.release()</span><br><span class="line">Working <span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sema.release()</span><br><span class="line">Working <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sema.release()</span><br><span class="line">Working <span class="number">2</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Communicating-Between-Threads"><a href="#Communicating-Between-Threads" class="headerlink" title="Communicating Between Threads"></a>Communicating Between Threads</h2><p>You have multiple threads in your program and you want to safely communicate or exchange data between them. Perhaps the safest way to send data from one thread to another is to use a <strong>Queue</strong> from the queue library. To do this, you create a <strong>Queue</strong> instance that is shared by the threads. Threads then use <strong>put()</strong> or <strong>get()</strong> operations to add or remove items from the queue.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> queue <span class="keyword">import</span> Queue</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="comment"># A thread that produces data</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">producer</span><span class="params">(out_q)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        <span class="comment"># Produce some data</span></span><br><span class="line">        ...</span><br><span class="line">        out_q.put(data)</span><br><span class="line"><span class="comment"># A thread that consumes data</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">consumer</span><span class="params">(in_q)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        <span class="comment"># Get some data</span></span><br><span class="line">        data = in_q.get()</span><br><span class="line">        <span class="comment"># Process the data</span></span><br><span class="line">        ...</span><br><span class="line"><span class="comment"># Create the shared queue and launch both threads</span></span><br><span class="line">q = Queue()</span><br><span class="line">t1 = Thread(target=consumer, args=(q,))</span><br><span class="line">t2 = Thread(target=producer, args=(q,))</span><br><span class="line">t1.start()</span><br><span class="line">t2.start()</span><br></pre></td></tr></table></figure>
+<p><strong>Queue</strong> instances already have all of the required locking, so they can be safely shared by as many threads as you wish.</p>
+<p>Although queues are the most common thread communication mechanism, you can build your own data structures as long as you add the required locking and synchronization. The most common way to do this is to wrap your data structures with a condition variable. For example, here is how you might build a thread-safe priority queue.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq </span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PriorityQueue</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._queue= []</span><br><span class="line">        self._count= <span class="number">0</span></span><br><span class="line">        self._cv= threading.Condition()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self,item, priority)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> self._cv:</span><br><span class="line">            heapq.heappush(self._queue, (-priority, self._count, item))</span><br><span class="line">            self._count+= <span class="number">1</span></span><br><span class="line">            self._cv.notify()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> self._cv:</span><br><span class="line">            <span class="keyword">while</span> len(self._queue) == <span class="number">0</span>:</span><br><span class="line">                self._cv.wait()</span><br><span class="line">            <span class="keyword">return</span> heapq.heappop(self._queue)[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<p>Thread communication with a queue is a one-way and nondeterministic process. In general, there is no way to know when the receiving thread has actually received a message and worked on it. However, <strong>Queue</strong> objects do provide some basic completion features, as illustrated by the <strong>task_done()</strong> and <strong>join()</strong> methods.</p>
+<h2 id="Locking-Critical-Sections"><a href="#Locking-Critical-Sections" class="headerlink" title="Locking Critical Sections"></a>Locking Critical Sections</h2><p>To make mutable objects safe to use by multiple threads, use Lock objects in the <strong>threading</strong> library.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SharedCounter</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, initial_value= <span class="number">0</span>)</span>:</span></span><br><span class="line">        self._value= initial_value</span><br><span class="line">        self._value_lock = threading.Lock()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">incr</span><span class="params">(self, delta= <span class="number">1</span>)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> self._value_lock:</span><br><span class="line">            self._value+= delta</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decr</span><span class="params">(self, delta= <span class="number">1</span>)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> self._value_lock:</span><br><span class="line">            self._value-= delta</span><br></pre></td></tr></table></figure>
+<p>A <strong>Lock</strong> guarantees mutual exclusion when used with the <strong>with</strong> statement—that is, only one thread is allowed to execute the block of statements under the with statement at a time. The <strong>with</strong> statement acquires the lock for the duration of the indented statements and releases the lock when control flow exits the indented block.</p>
+<p>In the threading library, you’ll find other synchronization primitives, such as <strong>RLock</strong> and <strong>Semaphore</strong> objects. As a general rule of thumb, these are more special purpose and should not be used for simple locking of mutable state. An <strong>RLock</strong> or re-entrant lock object is a lock that can be acquired multiple times by the same thread. It is primarily used to implement code based locking or synchronization based on a construct known as a “monitor.” With this kind of locking, only one thread is allowed to use an entire function or the methods of a class while the lock is held. For example, you could implement the <strong>SharedCounter</strong> class like this:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SharedCounter</span>:</span></span><br><span class="line">    _lock= threading.RLock()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, initial_value= <span class="number">0</span>)</span>:</span></span><br><span class="line">        self._value= initial_value</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">incr</span><span class="params">(self, delta= <span class="number">1</span>)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> SharedCounter._lock:</span><br><span class="line">            self._value+= delta</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decr</span><span class="params">(self, delta= <span class="number">1</span>)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> SharedCounter._lock:</span><br><span class="line">            self.incr(-delta)</span><br></pre></td></tr></table></figure></p>
+<h2 id="Storing-Thread-Specific-State"><a href="#Storing-Thread-Specific-State" class="headerlink" title="Storing Thread-Specific State"></a>Storing Thread-Specific State</h2><p>Sometimes in multithreaded programs, you need to store data that is only specific to the currently executing thread. To do this, create a thread-local storage object using <strong>threading.local()</strong>. Attributes stored and read on this object are only visible to the executing thread and no others.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> socket, AF_INET, SOCK_STREAM</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazyConnecion</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, address, family= AF_INET, type= SOCK_STREAM)</span>:</span></span><br><span class="line">        self.address= address</span><br><span class="line">        self.family= AF_INET</span><br><span class="line">        self.type= SOCK_STREAM</span><br><span class="line">        self.local= threading.local()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__enter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> hasattr(self.local, <span class="string">'sock'</span>):</span><br><span class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">'Already connected'</span>)</span><br><span class="line">        self.local.sock= socket(self.family, self.type)</span><br><span class="line">        self.local.sock.connect(self.address)</span><br><span class="line">        <span class="keyword">return</span> self.local.sock</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__exit__</span><span class="params">(self, exc_ty, exc_val, tb)</span>:</span></span><br><span class="line">        self.local.sock.close()</span><br><span class="line">        <span class="keyword">del</span> self.local.sock</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(conn)</span>        :</span></span><br><span class="line">    <span class="keyword">with</span> conn <span class="keyword">as</span> s:</span><br><span class="line">        s.send(<span class="string">b'GET /index.html HTTP/1.0\r\n'</span>)</span><br><span class="line">        s.send(<span class="string">b'Host: www.python.org\r\n'</span>)</span><br><span class="line">        s.send(<span class="string">b'\r\n'</span>)</span><br><span class="line">        resp= <span class="string">b''</span>.join(iter(partial(s.recv, <span class="number">8192</span>), <span class="string">b''</span>))</span><br><span class="line">    print(<span class="string">'Got &#123;&#125; bytes'</span>.format(len(resp)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    conn= LazyConnecion((<span class="string">'www.python.org'</span>, <span class="number">80</span>))</span><br><span class="line">    t1= threading.Thread(target= test, args=(conn,))</span><br><span class="line">    t2= threading.Thread(target= test, args=(conn,))</span><br><span class="line">    t1.start()</span><br><span class="line">    t2.start()</span><br><span class="line">    t1.join()</span><br><span class="line">    t2.join()</span><br></pre></td></tr></table></figure>
+<p>The reason it works is that each thread actually creates its own dedicated socket connection (stored as <strong>self.local.sock</strong>). Thus, when the different threads perform socket operations, they don’t interfere with one another as they are being performed on dif‐ ferent sockets.</p>
+<p>Under the covers, an instance of <strong>threading.local()</strong> maintains a separate instance dictionary for each thread. All of the usual instance operations of getting, setting, and deleting values just manipulate the per-thread dictionary. The fact that each thread uses a separate dictionary is what provides the isolation of data.</p>
+<h2 id="Creating-a-Thread-Poo"><a href="#Creating-a-Thread-Poo" class="headerlink" title="Creating a Thread Poo"></a>Creating a Thread Poo</h2><p>You want to create a pool of worker threads for serving clients or performing other kinds of work. The <strong>concurrent.futures</strong> library has a <strong>ThreadPoolExecutor</strong> class that can be used for this purpose.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> socket, AF_INET, SOCK_STREAM</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_client</span><span class="params">(sock, client_addr)</span>:</span></span><br><span class="line">    print(<span class="string">'Got connectin from'</span>, client_addr)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        msg= sock.recv(<span class="number">65536</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> msg:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        sock.sendall(msg)</span><br><span class="line">        print(<span class="string">'Client closed connection'</span>)</span><br><span class="line">        sock.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_server</span><span class="params">(addr)</span>        :</span></span><br><span class="line">    pool= ThreadPoolExecutor(<span class="number">128</span>)</span><br><span class="line">    sock= socket(AF_INET, SOCK_STREAM)</span><br><span class="line">    sock.bind(addr)</span><br><span class="line">    sock.listen(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        client_sock, client_addr= sock.accept()</span><br><span class="line">        pool.submit(echo_client, client_sock, client_addr)</span><br><span class="line"></span><br><span class="line">echo_server((<span class="string">''</span>, <span class="number">16000</span>))</span><br></pre></td></tr></table></figure></p>
+<p>If you want to manually create your own thread pool, it’s usually easy enough to do it using a <strong>Queue</strong>. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> socket, AF_INET, SOCK_STREAM</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="keyword">from</span> queue <span class="keyword">import</span> Queue</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_client</span><span class="params">(q)</span>:</span></span><br><span class="line">    sock, client_addr= q.get()</span><br><span class="line">    print(<span class="string">'Got connection from'</span>, client_addr)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        msg= sock.recv(<span class="number">65536</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> msg: <span class="keyword">break</span></span><br><span class="line">        sock.sendall(msg)</span><br><span class="line">    print(<span class="string">'Client closed connection'</span>)</span><br><span class="line">    sock.close()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_server</span><span class="params">(addr, nworkers)</span>:</span></span><br><span class="line">    q= Queue()</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> range(nworkers):</span><br><span class="line">        t= Thread(target= echo_client, args= (q,))</span><br><span class="line">        t.daemon= <span class="keyword">True</span></span><br><span class="line">        t.start()</span><br><span class="line">    sock= socket(AF_INET, SOCK_STREAM)</span><br><span class="line">    sock.bind(addr)</span><br><span class="line">    sock.listen(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        client_sock, client_addr= sock.accept()</span><br><span class="line">        q.put((client_sock, client_addr))</span><br><span class="line"></span><br><span class="line">echo_server((<span class="string">''</span>, <span class="number">15000</span>), <span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<p>One advantage of using <strong>ThreadPoolExecutor</strong> over a manual implementation is that it makes it easier for the submitter to receive results from the called function. For example, you could write code like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fetch_url</span><span class="params">(url)</span>:</span></span><br><span class="line">    u= urllib.request.urlopen(url)</span><br><span class="line">    data= u.read()</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line">pool= ThreadPoolExecutor(<span class="number">10</span>)</span><br><span class="line">a= pool.submit(fetch_url, <span class="string">'http://www.python.org'</span>)</span><br><span class="line">b= pool.submit(fetch_url, <span class="string">'http://www.pypy.org'</span>)</span><br><span class="line"></span><br><span class="line">x= a.result()</span><br><span class="line">y= b.result()</span><br></pre></td></tr></table></figure>
+<p>The result objects in the example handle all of the blocking and coordination needed to get data back from the worker thread. Specifically, the operation <strong>a.result()</strong> blocks until the corresponding function has been executed by the pool and returned a value.</p>
+<h2 id="Performing-Simple-Parallel-Programming"><a href="#Performing-Simple-Parallel-Programming" class="headerlink" title="Performing Simple Parallel Programming"></a>Performing Simple Parallel Programming</h2><p>You have a program that performs a lot of CPU-intensive work, and you want to make it run faster by having it take advantage of multiple CPUs. The <strong>concurrent.futures</strong> library provides a <strong>ProcessPoolExecutor</strong> class that can be used to execute computationally intensive functions in a separately running instance of the Python interpreter.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gzip</span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">from</span> concurrent <span class="keyword">import</span> futures</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_robots</span><span class="params">(filename)</span>:</span></span><br><span class="line">    robots= set()</span><br><span class="line">    <span class="keyword">with</span> gzip.open(filename) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> io.TextIOWrapper(f, encoding= <span class="string">'ascii'</span>):</span><br><span class="line">            fields= line.split()</span><br><span class="line">            <span class="keyword">if</span> fields[<span class="number">6</span>] == <span class="string">'/robots.txt'</span>:</span><br><span class="line">                robots.add(fields[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">return</span> robots</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_all_robots</span><span class="params">(logdir)</span>:</span></span><br><span class="line">    files= glob.glob(logdir+<span class="string">'/*.log.gz'</span>)</span><br><span class="line">    all_robots= set()</span><br><span class="line">    <span class="keyword">with</span> futures.ProcessPoolExecutor() <span class="keyword">as</span> pool:</span><br><span class="line">        <span class="keyword">for</span> robots <span class="keyword">in</span> pool.map(find_robots, files):</span><br><span class="line">            all_robots.update(robots)</span><br><span class="line">    <span class="keyword">return</span> all_robots</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    robots= find_all_robots(<span class="string">'logs'</span>)</span><br><span class="line">    <span class="keyword">for</span> ipaddr <span class="keyword">in</span> robots:</span><br><span class="line">        print(ipaddr)</span><br></pre></td></tr></table></figure>
+<p>The script produces the same result but runs about 3.5 times faster on our quad-core machine. </p>
+<p>Under the covers, a <strong>ProcessPoolExecutor</strong> creates N independent running Python interpreters where N is the number of available CPUs detected on the system. You can change the number of processes created by supplying an optional argument to <strong>ProcessPoolExecutor(N)</strong>. The pool runs until the last statement in the <strong>with</strong> block is executed,  at which point the process pool is shut down. However, the program will wait until allsubmitted work has been processed.</p>
+<p>Work to be submitted to a pool must be defined in a function. There are two methods for submission. If you are are trying to parallelize a list comprehension or a <strong>map()</strong> operation, you use <strong>pool.map()</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># A function that performs a lot of work</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">work</span><span class="params">(x)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="comment"># Nonparallel code</span></span><br><span class="line">results = map(work, data)</span><br><span class="line"><span class="comment"># Parallel implementation</span></span><br><span class="line"><span class="keyword">with</span> ProcessPoolExecutor() <span class="keyword">as</span> pool:</span><br><span class="line">    results = pool.map(work, data)</span><br></pre></td></tr></table></figure>
+<p>Alternatively, you can manually submit single tasks using the <strong>pool.submit()</strong> method:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Some function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">work</span><span class="params">(x)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"><span class="keyword">with</span> ProcessPoolExecutor() <span class="keyword">as</span> pool:</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment"># Example of submitting work to the pool</span></span><br><span class="line">    future_result = pool.submit(work, arg)</span><br><span class="line">    <span class="comment"># Obtaining the result (blocks until done)</span></span><br><span class="line">    r = future_result.result()</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>If you manually submit a job, the result is an instance of <strong>Future</strong>. To obtain the actual result, you call its <strong>result()</strong> method. This blocks until the result is computed and returned by the pool.</p>
+<p>Instead of blocking, you can also arrange to have a callback function triggered upon completion instead.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">when_done</span><span class="params">(r)</span>:</span></span><br><span class="line">    print(<span class="string">'Got:'</span>, r.result())</span><br><span class="line"><span class="keyword">with</span> ProcessPoolExecutor() <span class="keyword">as</span> pool:</span><br><span class="line">    future_result = pool.submit(work, arg)</span><br><span class="line">    future_result.add_done_callback(when_done)</span><br></pre></td></tr></table></figure></p>
+<p>The user-supplied callback function receives an instance of <strong>Future</strong> that must be used to obtain the actual result (i.e., by calling its <strong>result()</strong> method).</p>
+<h2 id="Using-Generators-As-an-Alternative-to-Threads"><a href="#Using-Generators-As-an-Alternative-to-Threads" class="headerlink" title="Using Generators As an Alternative to Threads"></a>Using Generators As an Alternative to Threads</h2><p>You want to implement concurrency using generators (coroutines) as an alternative to system threads. This is sometimes known as user-level threading or green threading.</p>
+<p>To implement your own concurrency using generators, you first need a fundamental insight concerning generator functions and the <strong>yield</strong> statement. Specifically, the fundamental behavior of <strong>yield</strong> is that it causes a generator to suspend its execution. By suspending execution, it is possible to write a scheduler that treats generators as a kind of “task” and alternates their execution using a kind of cooperative task switching.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">countdown</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> n&gt;<span class="number">0</span>:</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'T-minus'</span>, n)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">yield</span> </span><br><span class="line"><span class="meta">... </span>        n-= <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'Blastoff!'</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">countup</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="meta">... </span>    x=<span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> x &lt; n:</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'Counting up'</span>, x)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">yield</span> </span><br><span class="line"><span class="meta">... </span>        x+= <span class="number">1</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">TaskSheduler</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self._task_queue= deque()</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">new_task</span><span class="params">(self, task)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self._task_queue.append(task)</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">while</span> self._task_queue:</span><br><span class="line"><span class="meta">... </span>            task= self._task_queue.popleft()</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>                next(task)</span><br><span class="line"><span class="meta">... </span>                self._task_queue.append(task)</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">except</span> StopIteration:</span><br><span class="line"><span class="meta">... </span>                <span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sched= TaskSheduler()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sched.new_task(countdown(<span class="number">10</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sched.new_task(countdown(<span class="number">5</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sched.new_task(countup(<span class="number">15</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sched.run()</span><br><span class="line">T-minus <span class="number">10</span></span><br><span class="line">T-minus <span class="number">5</span></span><br><span class="line">Counting up <span class="number">0</span></span><br><span class="line">T-minus <span class="number">9</span></span><br><span class="line">T-minus <span class="number">4</span></span><br><span class="line">Counting up <span class="number">1</span></span><br><span class="line">T-minus <span class="number">8</span></span><br><span class="line">T-minus <span class="number">3</span></span><br><span class="line">Counting up <span class="number">2</span></span><br><span class="line">T-minus <span class="number">7</span></span><br><span class="line">T-minus <span class="number">2</span></span><br><span class="line">Counting up <span class="number">3</span></span><br><span class="line">T-minus <span class="number">6</span></span><br><span class="line">T-minus <span class="number">1</span></span><br><span class="line">Counting up <span class="number">4</span></span><br><span class="line">T-minus <span class="number">5</span></span><br><span class="line">Blastoff!</span><br><span class="line">Counting up <span class="number">5</span></span><br><span class="line">T-minus <span class="number">4</span></span><br><span class="line">Counting up <span class="number">6</span></span><br><span class="line">T-minus <span class="number">3</span></span><br><span class="line">Counting up <span class="number">7</span></span><br><span class="line">T-minus <span class="number">2</span></span><br><span class="line">Counting up <span class="number">8</span></span><br><span class="line">T-minus <span class="number">1</span></span><br><span class="line">Counting up <span class="number">9</span></span><br><span class="line">Blastoff!</span><br><span class="line">Counting up <span class="number">10</span></span><br><span class="line">Counting up <span class="number">11</span></span><br><span class="line">Counting up <span class="number">12</span></span><br><span class="line">Counting up <span class="number">13</span></span><br><span class="line">Counting up <span class="number">14</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>In practice, you probably wouldn’t use generators to implement concurrency for something as simple as shown. Instead, you might use generators to replace the use of threads when implementing actors or network servers.</p>
+<p>The following code illustrates the use of generators to implement a thread-free version of actors:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ActorScheduler</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._actors= &#123;&#125;</span><br><span class="line">        self._msg_queue= deque()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">new_actor</span><span class="params">(self, name, actor)</span>:</span></span><br><span class="line">        self._msg_queue.append((actor, <span class="keyword">None</span>))</span><br><span class="line">        self._actors[name]= actor</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">send</span><span class="params">(self, name, msg)</span>:</span></span><br><span class="line">        actor= self._actors.get(name)</span><br><span class="line">        <span class="keyword">if</span> actor:</span><br><span class="line">            self._msg_queue.append((actor, msg))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> self._msg_queue:</span><br><span class="line">            actor, msg= self._msg_queue.popleft()</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                actor.send(msg)</span><br><span class="line">            <span class="keyword">except</span> StopIteration:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__== <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">printer</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            msg= <span class="keyword">yield</span></span><br><span class="line">            print(<span class="string">'Got:'</span>, msg)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">counter</span><span class="params">(sched)</span>:</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            n= <span class="keyword">yield</span></span><br><span class="line">            <span class="keyword">if</span> n==<span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            sched.send(<span class="string">'printer'</span>, n)</span><br><span class="line">            sched.send(<span class="string">'counter'</span>, n<span class="number">-1</span>)</span><br><span class="line">    sched= ActorScheduler()</span><br><span class="line">    sched.new_actor(<span class="string">'printer'</span>, printer())</span><br><span class="line">    sched.new_actor(<span class="string">'counter'</span>, counter(sched))</span><br><span class="line">    sched.send(<span class="string">'counter'</span>, <span class="number">10</span>)</span><br><span class="line">    sched.run()</span><br><span class="line"><span class="comment">#results</span></span><br><span class="line">Got: <span class="number">10</span></span><br><span class="line">Got: <span class="number">9</span></span><br><span class="line">Got: <span class="number">8</span></span><br><span class="line">Got: <span class="number">7</span></span><br><span class="line">Got: <span class="number">6</span></span><br><span class="line">Got: <span class="number">5</span></span><br><span class="line">Got: <span class="number">4</span></span><br><span class="line">Got: <span class="number">3</span></span><br><span class="line">Got: <span class="number">2</span></span><br><span class="line">Got: <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/C11-Network-and-Web-Programming/" rel="next" title="C11_Network_and_Web_Programming">
+                <i class="fa fa-chevron-left"></i> C11_Network_and_Web_Programming
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/C13-Utility-Scripting-and-System-Administration/" rel="prev" title="C13_Utility_Scripting_and_System_Administration">
+                C13_Utility_Scripting_and_System_Administration <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Starting-and-Stopping-Threads"><span class="nav-number">1.</span> <span class="nav-text">Starting and Stopping Threads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Determining-If-a-Thread-Has-Started"><span class="nav-number">2.</span> <span class="nav-text">Determining If a Thread Has Started</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Communicating-Between-Threads"><span class="nav-number">3.</span> <span class="nav-text">Communicating Between Threads</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Locking-Critical-Sections"><span class="nav-number">4.</span> <span class="nav-text">Locking Critical Sections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Storing-Thread-Specific-State"><span class="nav-number">5.</span> <span class="nav-text">Storing Thread-Specific State</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Creating-a-Thread-Poo"><span class="nav-number">6.</span> <span class="nav-text">Creating a Thread Poo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performing-Simple-Parallel-Programming"><span class="nav-number">7.</span> <span class="nav-text">Performing Simple Parallel Programming</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Generators-As-an-Alternative-to-Threads"><span class="nav-number">8.</span> <span class="nav-text">Using Generators As an Alternative to Threads</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

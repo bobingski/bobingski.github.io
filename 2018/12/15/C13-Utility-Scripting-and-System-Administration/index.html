@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Accepting Script Input via Redirection, Pipes, or Input FilesYou want a script you’ve written to be able to accept input using whatever mechanism is easiest for the user. This should include piping ou">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C13_Utility_Scripting_and_System_Administration">
+<meta property="og:url" content="blog.whistlestop.ml/2018/12/15/C13-Utility-Scripting-and-System-Administration/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Accepting Script Input via Redirection, Pipes, or Input FilesYou want a script you’ve written to be able to accept input using whatever mechanism is easiest for the user. This should include piping ou">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-15T11:12:20.350Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C13_Utility_Scripting_and_System_Administration">
+<meta name="twitter:description" content="Accepting Script Input via Redirection, Pipes, or Input FilesYou want a script you’ve written to be able to accept input using whatever mechanism is easiest for the user. This should include piping ou">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/12/15/C13-Utility-Scripting-and-System-Administration/"/>
+
+
+
+
+
+  <title>C13_Utility_Scripting_and_System_Administration | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C13-Utility-Scripting-and-System-Administration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C13_Utility_Scripting_and_System_Administration</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:48:54+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:20+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Accepting-Script-Input-via-Redirection-Pipes-or-Input-Files"><a href="#Accepting-Script-Input-via-Redirection-Pipes-or-Input-Files" class="headerlink" title="Accepting Script Input via Redirection, Pipes, or Input Files"></a>Accepting Script Input via Redirection, Pipes, or Input Files</h2><p>You want a script you’ve written to be able to accept input using whatever mechanism is easiest for the user. This should include piping output from a command to the script, redirecting a file into the script, or just passing a filename, or list of filenames, to the script on the command line.</p>
+<p>Python’s built-in <strong>fileinput</strong> module makes this very simple and concise.<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fileinput</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> fileinput.input() <span class="keyword">as</span> f_input:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f_input:</span><br><span class="line">        print(line, end= <span class="string">''</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Then you can already accept input to the script in all of the previously mentioned ways. If you save this script as <em>filein.py</em> and make it executable, you can do all of the following and get the expected output:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ ls | ./filein.py <span class="comment"># Prints a directory listing to stdout.</span></span><br><span class="line">$ ./filein.py /etc/passwd <span class="comment"># Reads /etc/passwd to stdout.</span></span><br><span class="line">$ ./filein.py &lt; /etc/passwd <span class="comment"># Reads /etc/passwd to stdout.      </span></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">The **fileinput.input()** function creates and returns an instance of the **FileInput** class. In addition to containing a few handy helper methods, the instance can also be used as a context manager. So, to put all of this together, if we wrote a script that expected to be printing output from several files at once, we might have it include the filename and line number in the output, like this:</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> fileinput</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> fileinput.input(<span class="string">'/etc/passwd'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line"><span class="meta">... </span>print(f.filename(), f.lineno(), line, end=<span class="string">''</span>)</span><br><span class="line">...</span><br><span class="line">/etc/passwd <span class="number">1</span> <span class="comment">##</span></span><br><span class="line">/etc/passwd <span class="number">2</span> <span class="comment"># User Database</span></span><br><span class="line">/etc/passwd <span class="number">3</span> <span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h2 id="Terminating-a-Program-with-an-Error-Message"><a href="#Terminating-a-Program-with-an-Error-Message" class="headerlink" title="Terminating a Program with an Error Message"></a>Terminating a Program with an Error Message</h2><p>You want your program to terminate by printing a message to standard error and returning a nonzero status code. To have a program terminate in this manner, raise a <strong>SystemExit</strong> exception, but supply the error message as an argument. </p>
+<p><code>raise SystemExit(&#39;It failed!&#39;)</code></p>
+<p>This will cause the supplied message to be printed to <strong>sys.stderr</strong> and the program to exit with a status code of 1.</p>
+<h2 id="Parsing-Command-Line-Options"><a href="#Parsing-Command-Line-Options" class="headerlink" title="Parsing Command-Line Options"></a>Parsing Command-Line Options</h2><p>You want to write a program that parses options supplied on the command line (found in <strong>sys.argv</strong>). The <strong>argparse</strong> module can be used to parse command-line options. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"></span><br><span class="line">parser= argparse.ArgumentParser(description= <span class="string">'Search some files'</span>)</span><br><span class="line"></span><br><span class="line">parser.add_argument(dest= <span class="string">'filenames'</span>, metavar= <span class="string">'filename'</span>, nargs= <span class="string">'*'</span>)</span><br><span class="line"></span><br><span class="line">parser.add_argument(<span class="string">'-p'</span>, <span class="string">'--pat'</span>, metavar= <span class="string">'pattern'</span>, required= <span class="keyword">True</span>,</span><br><span class="line">                    dest=<span class="string">'patterns'</span>, action= <span class="string">'append'</span>,</span><br><span class="line">                    help=<span class="string">'text pattern to search for'</span>)</span><br><span class="line"></span><br><span class="line">parser.add_argument(<span class="string">'-v'</span>, dest= <span class="string">'verbose'</span>, action= <span class="string">'store_true'</span>, help= <span class="string">'verbose mode'</span>)</span><br><span class="line"></span><br><span class="line">parser.add_argument(<span class="string">'-o'</span>, dest= <span class="string">'outfile'</span>, action= <span class="string">'store'</span>, help= <span class="string">'output file'</span>)</span><br><span class="line"></span><br><span class="line">parser.add_argument(<span class="string">'--speed'</span>, dest= <span class="string">'speed'</span>, action= <span class="string">'store'</span>,</span><br><span class="line">                    choices= &#123;<span class="string">'slow'</span>, <span class="string">'fast'</span>&#125;, default= <span class="string">'slow'</span>, help= <span class="string">'search speed'</span>)</span><br><span class="line"></span><br><span class="line">args= parser.parse_args()</span><br><span class="line"></span><br><span class="line">print(args.filenames)</span><br><span class="line">print(args.patterns)</span><br><span class="line">print(args.verbose)</span><br><span class="line">print(args.outfile)</span><br><span class="line">print(args.speed)</span><br></pre></td></tr></table></figure>
+<p>This program defines a command-line parser with the following usage:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">PS D:\python\computebaseline&gt; python .\temporary.py -h</span><br><span class="line">usage: temporary.py [-h] [-p pattern] [-v] [-o OUTFILE] [--speed &#123;slow,fast&#125;]</span><br><span class="line">                    [filename [filename ...]]</span><br><span class="line"></span><br><span class="line">Search some files</span><br><span class="line"></span><br><span class="line">positional arguments:</span><br><span class="line">  filename</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --help            show this help message <span class="keyword">and</span> exit</span><br><span class="line">  -p pattern, --pat pattern</span><br><span class="line">                        text pattern to search <span class="keyword">for</span></span><br><span class="line">  -v                    verbose mode</span><br><span class="line">  -o OUTFILE            output file</span><br><span class="line">  --speed &#123;slow,fast&#125;   search speed</span><br></pre></td></tr></table></figure></p>
+<p>The following session shows how data shows up in the program. Carefully observe the output of the <strong>print()</strong> statements.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PS D:\python\computebaseline&gt; python .\temporary.py -v -p spam --pat= eggs foo.txt bar.txt</span><br><span class="line">[<span class="string">'eggs'</span>, <span class="string">'foo.txt'</span>, <span class="string">'bar.txt'</span>]</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">''</span>]</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="keyword">None</span></span><br><span class="line">slow</span><br><span class="line">PS D:\python\computebaseline&gt; python .\temporary.py -v -p spam --pat=eggs foo.txt bar.txt</span><br><span class="line">[<span class="string">'foo.txt'</span>, <span class="string">'bar.txt'</span>]</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'eggs'</span>]</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="keyword">None</span></span><br><span class="line">slow</span><br><span class="line">PS D:\python\computebaseline&gt; python .\temporary.py -v -p spam --pat=eggs foo.txt bar.txt -o results</span><br><span class="line">[<span class="string">'foo.txt'</span>, <span class="string">'bar.txt'</span>]</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'eggs'</span>]</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line">results</span><br><span class="line">slow</span><br><span class="line">PS D:\python\computebaseline&gt; python .\temporary.py -v -p spam --pat=eggs foo.txt bar.txt -o results --speed=fast</span><br><span class="line">[<span class="string">'foo.txt'</span>, <span class="string">'bar.txt'</span>]</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'eggs'</span>]</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line">results</span><br><span class="line">fast</span><br></pre></td></tr></table></figure>
+<p>To parse options, you first create an <strong>ArgumentParser</strong> instance and add declarations for the options you want to support it using the add_argument() method. In each <strong>add_argument()</strong> call, the <strong>dest</strong> argument specifies the name of an attribute where the result of parsing will be placed. The <strong>metavar</strong> argument is used when generating help messages. The <strong>action</strong> argument specifies the processing associated with the argument and is often <strong>store</strong> for storing a value or <strong>append</strong> for collecting multiple argument values into a list.</p>
+<p>The following argument collects all of the extra command-line arguments into a list. It’s being used to make a list of filenames in the example:</p>
+<p><code>parser.add_argument(dest=&#39;filenames&#39;,metavar=&#39;filename&#39;, nargs=&#39;*&#39;)</code></p>
+<p>The following argument sets a <strong>Boolean</strong> flag depending on whether or not the argument was provided:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parser.add_argument(<span class="string">'-v'</span>, dest=<span class="string">'verbose'</span>, action=<span class="string">'store_true'</span>,</span><br><span class="line"> help=<span class="string">'verbose mode'</span>)</span><br></pre></td></tr></table></figure>
+<p>The following argument takes a single value and stores it as a string:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">parser.add_argument(<span class="string">'-o'</span>, dest=<span class="string">'outfile'</span>, action=<span class="string">'store'</span>,</span><br><span class="line"> help=<span class="string">'output file'</span>)</span><br></pre></td></tr></table></figure>
+<p>The following argument specification allows an argument to be repeated multiple times and all of the values append into a list. The required flag means that the argument must be supplied at least once. The use of <strong>-p</strong> and <strong>–pat</strong> mean that either argument name is acceptable.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">parser.add_argument(<span class="string">'-p'</span>, <span class="string">'--pat'</span>,metavar=<span class="string">'pattern'</span>, required=<span class="keyword">True</span>,</span><br><span class="line"> dest=<span class="string">'patterns'</span>, action=<span class="string">'append'</span>,</span><br><span class="line"> help=<span class="string">'text pattern to search for'</span>)</span><br></pre></td></tr></table></figure>
+<p>Finally, the following argument specification takes a value, but checks it against a set of possible choices.</p>
+<p><code>parser.add_argument(&#39;--speed&#39;, dest=&#39;speed&#39;, action=&#39;store&#39;, choices={&#39;slow&#39;,&#39;fast&#39;}, default=&#39;slow&#39;, help=&#39;search speed&#39;)</code></p>
+<p>Once the options have been given, you simply execute the <strong>parser.parse()</strong> method. This will process the <strong>sys.argv</strong> value and return an instance with the results. The results for each argument are placed into an attribute with the name given in the <strong>dest</strong> parameter to <strong>add_argument()</strong>.</p>
+<h2 id="Copying-or-Moving-Files-and-Directories"><a href="#Copying-or-Moving-Files-and-Directories" class="headerlink" title="Copying or Moving Files and Directories"></a>Copying or Moving Files and Directories</h2><p>The <strong>shutil</strong> module has portable implementations of functions for copying files and directories.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="comment"># Copy src to dst. (cp src dst)</span></span><br><span class="line">shutil.copy(src, dst)</span><br><span class="line"><span class="comment"># Copy files, but preserve metadata (cp -p src dst)</span></span><br><span class="line">shutil.copy2(src, dst)</span><br><span class="line"><span class="comment"># Copy directory tree (cp -R src dst)</span></span><br><span class="line">shutil.copytree(src, dst)</span><br><span class="line"><span class="comment"># Move src to dst (mv src dst)</span></span><br><span class="line">shutil.move(src, dst)</span><br></pre></td></tr></table></figure>
+<p>By default, symbolic links are followed by these commands. For example, if the source file is a symbolic link, then the destination file will be a copy of the file the link points to. If you want to copy the symbolic link instead, supply the follow_symlinks keyword argument like this:</p>
+<p><code>shutil.copy2(src, dst, follow_symlinks=False)</code></p>
+<p>If you want to preserve symbolic links in copied directories, do this:</p>
+<p><code>shutil.copytree(src, dst, symlinks=True)</code></p>
+<p>The <strong>copytree()</strong> optionally allows you to ignore certain files and directories during the copy process. To do this, you supply an <strong>ignore</strong> function that takes a directory name and filename listing as input, and returns a list of names to ignore as a result. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ignore_pyc_files</span><span class="params">(dirname, filenames)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> [name <span class="keyword">in</span> filenames <span class="keyword">if</span> name.endswith(<span class="string">'.pyc'</span>)]</span><br><span class="line">shutil.copytree(src, dst, ignore=ignore_pyc_files)</span><br></pre></td></tr></table></figure>
+<p>Since ignoring filename patterns is common, a utility function <strong>ignore_patterns()</strong> has already been provided to do it.</p>
+<p><code>shutil.copytree(src, dst, ignore=shutil.ignore_patterns(&#39;*~&#39;,&#39;*.pyc&#39;))</code></p>
+<p>One tricky bit about copying directories with <strong>copytree()</strong> is the handling of errors. For example, in the process of copying, the function might encounter broken symbolic links, files that can’t be accessed due to permission problems, and so on. To deal with this, all exceptions encountered are collected into a list and grouped into a single exception that gets raised at the end of the operation. Here is how you would handle it:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    shutil.copytree(src, dst)</span><br><span class="line"><span class="keyword">except</span> shutil.Error <span class="keyword">as</span> e:</span><br><span class="line">    <span class="keyword">for</span> src, dst, msg <span class="keyword">in</span> e.args[<span class="number">0</span>]:</span><br><span class="line">        <span class="comment"># src is source name</span></span><br><span class="line">        <span class="comment"># dst is destination name</span></span><br><span class="line">        <span class="comment"># msg is error message from exception</span></span><br><span class="line">        print(dst, src, msg)</span><br></pre></td></tr></table></figure>
+<p>If you supply the <strong>ignore_dangling_symlinks=True</strong> keyword argument, then <strong>copytree()</strong> will ignore dangling symlinks.</p>
+<h2 id="Adding-Logging-to-Libraries"><a href="#Adding-Logging-to-Libraries" class="headerlink" title="Adding Logging to Libraries"></a>Adding Logging to Libraries</h2><p>You would like to add a logging capability to a library, but don’t want it to interfere with programs that don’t use logging. For libraries that want to perform logging, you should create a dedicated logger object, and initially configure it as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># somelib.py</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">log= logging.getLogger(__name__)</span><br><span class="line">log.addHandler(logging.NullHandler())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    log.critical(<span class="string">'A critical error!'</span>)</span><br><span class="line">    log.debug(<span class="string">'A debug message'</span>)</span><br></pre></td></tr></table></figure>
+<p>With this configuration, no logging will occur by default. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> somelib</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>somelib.func()</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>However, if the logging system gets configured, log messages will start to appear.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> logging</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>logging.basicConfig()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>somelib.func()</span><br><span class="line">CRITICAL:somelib:A Critical Error!</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Libraries present a special problem for logging, since information about the environment in which they are used isn’t known. As a general rule, you should never write library code that tries to configure the logging system on its own or which makes assumptions about an already existing logging configuration. Thus, you need to take great care to provide isolation.</p>
+<p>The call to <strong>getLogger(__name__)</strong> creates a logger module that has the same name as the calling module. Since all modules are unique, this creates a dedicated logger that is likely to be separate from other loggers.</p>
+<p>The <strong>log.addHandler(logging.NullHandler())</strong> operation attaches a null handler to the just created logger object. A null handler ignores all logging messages by default. Thus, if the library is used and logging is never configured, no messages or warnings will appear.</p>
+<p>One subtle feature of this recipe is that the logging of individual libraries can be independently configured, regardless of other logging settings.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> logging</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>logging.basicConfig(level=logging.ERROR)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> somelib</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>somelib.func()</span><br><span class="line">CRITICAL:somelib:A Critical Error!</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># Change the logging level for 'somelib' only</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>logging.getLogger(<span class="string">'somelib'</span>).level=logging.DEBUG</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>somelib.func()</span><br><span class="line">CRITICAL:somelib:A Critical Error!</span><br><span class="line">DEBUG:somelib:A debug message</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Here, the root logger has been configured to only output messages at the <strong>ERROR</strong> level or higher. However, the level of the logger for <strong>somelib</strong> has been separately configured to output debugging messages. That setting takes precedence over the global setting.</p>
+<h2 id="Making-a-Stopwatch-Timer"><a href="#Making-a-Stopwatch-Timer" class="headerlink" title="Making a Stopwatch Timer"></a>Making a Stopwatch Timer</h2><p>You want to be able to record the time it takes to perform various tasks. The <strong>time</strong> module contains various functions for performing timing-related functions. However, it’s often useful to put a higher-level interface on them that mimics a stopwatch. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Timer</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, func= time.perf_counter)</span>:</span></span><br><span class="line">        self.elapsed= <span class="number">0.0</span></span><br><span class="line">        self._func= func</span><br><span class="line">        self._start= <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self._start <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">'Already started'</span>)</span><br><span class="line">        self._start= self._func()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">stop</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self._start <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> RuntimeError(<span class="string">'Not started'</span>)</span><br><span class="line">        end= self._func()</span><br><span class="line">        self.elapsed+= end- self._start</span><br><span class="line">        self._start= <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reset</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.elapsed= <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @property</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">running</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._start <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__enter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.start()</span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__exit__</span><span class="params">(self, *args)</span>:</span></span><br><span class="line">        self.stop()</span><br></pre></td></tr></table></figure>
+<p>This class defines a timer that can be started, stopped, and reset as needed by the user. It keeps track of the total elapsed time in the <strong>elapsed</strong> attribute.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">countdown</span><span class="params">(n)</span>:</span></span><br><span class="line">   <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">      n -= <span class="number">1</span></span><br><span class="line"><span class="comment"># Use 1: Explicit start/stop</span></span><br><span class="line">t = Timer()</span><br><span class="line">t.start()</span><br><span class="line">countdown(<span class="number">1000000</span>)</span><br><span class="line">t.stop()</span><br><span class="line">print(t.elapsed)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use 2: As a context manager</span></span><br><span class="line"><span class="keyword">with</span> t:</span><br><span class="line">   countdown(<span class="number">1000000</span>)</span><br><span class="line">   print(t.elapsed)</span><br></pre></td></tr></table></figure>
+<p>One issue in making timing measurements concerns the underlying time function used to do it. As a general rule, the accuracy of timing measurements made with functions such as <strong>time.time()</strong> or <strong>time.clock()</strong> varies according to the operating system. In contrast, the <strong>time.perf_counter()</strong> function always uses the highest-resolution timer available on the system.</p>
+<p>As shown, the time recorded by the <strong>Timer</strong> class is made according to wall-clock time, and includes all time spent sleeping. If you only want the amount of CPU time used by the process, use <strong>time.process_time()</strong> instead. For example:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">t = Timer(time.process_time)</span><br><span class="line"><span class="keyword">with</span> t:</span><br><span class="line">    countdown(<span class="number">1000000</span>)</span><br><span class="line">print(t.elapsed)</span><br></pre></td></tr></table></figure></p>
+<h2 id="Launching-a-Web-Browser"><a href="#Launching-a-Web-Browser" class="headerlink" title="Launching a Web Browser"></a>Launching a Web Browser</h2><p>The <strong>webbrowser</strong> module can be used to launch a browser in a platform-independent manner. For example:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> webbrowser</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>webbrowser.open(<span class="string">'http://www.python.org'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>This opens the requested page using the default browser. If you want a bit more control over how the page gets opened, you can use one of the following functions:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># Open the page in a new browser window</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>webbrowser.open_new(<span class="string">'http://www.python.org'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># Open the page in a new browser tab</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>webbrowser.open_new_tab(<span class="string">'http://www.python.org'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure></p>
+<p>If you want to open a page in a specific browser, you can use the <strong>webbrowser.get()</strong> function to specify a particular browser. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = webbrowser.get(<span class="string">'firefox'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.open(<span class="string">'http://www.python.org'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.open_new_tab(<span class="string">'http://docs.python.org'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/C12-Concurrency/" rel="next" title="C12_Concurrency">
+                <i class="fa fa-chevron-left"></i> C12_Concurrency
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/C14-Testing-Debugging-and-Exceptions/" rel="prev" title="C14_Testing_Debugging_and_Exceptions">
+                C14_Testing_Debugging_and_Exceptions <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Accepting-Script-Input-via-Redirection-Pipes-or-Input-Files"><span class="nav-number">1.</span> <span class="nav-text">Accepting Script Input via Redirection, Pipes, or Input Files</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Terminating-a-Program-with-an-Error-Message"><span class="nav-number">2.</span> <span class="nav-text">Terminating a Program with an Error Message</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parsing-Command-Line-Options"><span class="nav-number">3.</span> <span class="nav-text">Parsing Command-Line Options</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Copying-or-Moving-Files-and-Directories"><span class="nav-number">4.</span> <span class="nav-text">Copying or Moving Files and Directories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adding-Logging-to-Libraries"><span class="nav-number">5.</span> <span class="nav-text">Adding Logging to Libraries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Making-a-Stopwatch-Timer"><span class="nav-number">6.</span> <span class="nav-text">Making a Stopwatch Timer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Launching-a-Web-Browser"><span class="nav-number">7.</span> <span class="nav-text">Launching a Web Browser</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

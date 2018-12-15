@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C01-Keys-and-Constraints-Indexes-Relationships-and-ForeignKeyConstraints/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C04-Iterators-and-Generators/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -325,7 +325,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C01-Keys-and-Constraints-Indexes-Relationships-and-ForeignKeyConstraints/" itemprop="url">sqlalchemy_C01_Keys and Constraints_Indexes_Relationships and ForeignKeyConstraints</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C04-Iterators-and-Generators/" itemprop="url">C04_Iterators_and_Generators</a></h1>
         
 
         <div class="post-meta">
@@ -337,8 +337,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:23:40-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:43:02+08:00">
+                2018-12-15
               </time>
             
 
@@ -353,8 +353,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:34:03-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:42+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -410,10 +410,10 @@
 
       
         
-          <h3 id="Keys-and-Constraints"><a href="#Keys-and-Constraints" class="headerlink" title="Keys and Constraints"></a>Keys and Constraints</h3><p>Keys and constraints are used as a way to ensure that our data meets certain requirements prior to being stored in the database. The objects that represent keys and constraints can be found inside the base SQLAlchemy module, and three of the more common ones can be imported as shown here:<br><code>from sqlalchemy import PrimaryKeyConstraint, UniqueConstraint, CheckConstraint</code><br>
+          <h2 id="Delegating-Iteration"><a href="#Delegating-Iteration" class="headerlink" title="Delegating Iteration"></a>Delegating Iteration</h2><p>You have built a custom container object that internally holds a list, tuple, or some other iterable. You would like to make iteration work with your new container.Typically, all you need to do is define an <strong>__iter__()</strong> method that delegates iteration to the internally held container<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C01-Keys-and-Constraints-Indexes-Relationships-and-ForeignKeyConstraints/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C04-Iterators-and-Generators/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -464,7 +464,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C21-Class-Metaprogramming/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C02-Strings-and-Text/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -483,7 +483,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/C21-Class-Metaprogramming/" itemprop="url">C21_Class Metaprogramming</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C02-Strings-and-Text/" itemprop="url">C02_Strings_and_Text</a></h1>
         
 
         <div class="post-meta">
@@ -495,8 +495,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:20:54-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:42:20+08:00">
+                2018-12-15
               </time>
             
 
@@ -511,8 +511,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:21:46-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:09:19+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -568,11 +568,10 @@
 
       
         
-          <h2 id="A-Class-Factory"><a href="#A-Class-Factory" class="headerlink" title="A Class Factory"></a>A Class Factory</h2><p><strong>_record_factory.py: a simple class factory_</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">record_factory</span><span class="params">(cls_name, field_names)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        field_names= field_names.replace(<span class="string">','</span>,<span class="string">' '</span>).split()</span><br><span class="line">    <span class="keyword">except</span> AttributeError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    field_names= tuple(field_names)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        attrs=dict(zip(self.__slots__, args))</span><br><span class="line">        attrs.update(kwargs)</span><br><span class="line">        <span class="keyword">for</span> name, value <span class="keyword">in</span> attrs.items():</span><br><span class="line">            setattr(self, name, value)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> self.__slots__:</span><br><span class="line">            <span class="keyword">yield</span> getattr(self, name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        values=<span class="string">', '</span>.join(<span class="string">'&#123;&#125;=&#123;!r&#125;'</span>.format(*i) <span class="keyword">for</span> i <span class="keyword">in</span> zip(self.__slots__, self))</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'&#123;&#125;(&#123;&#125;)'</span>.format(self.__class__.__name__, values)</span><br><span class="line"></span><br><span class="line">    cls_attrs=dict(</span><br><span class="line">        __slots__= field_names,</span><br><span class="line">        __init__= __init__,</span><br><span class="line">        __iter__= __iter__,</span><br><span class="line">        __repr__= __repr__</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> type(cls_name, (object,), cls_attrs)</span><br></pre></td></tr></table></figure>
+          <h2 id="Splitting-Strings-on-Any-of-Multiple-Delimiters"><a href="#Splitting-Strings-on-Any-of-Multiple-Delimiters" class="headerlink" title="Splitting Strings on Any of Multiple Delimiters"></a>Splitting Strings on Any of Multiple Delimiters</h2><p>The <strong>split()</strong> method of string objects is really meant for very simple cases, and does not allow for multiple delimiters or account for possible whitespace around the delimiters. In cases when you need a bit more flexibility, use the <strong>re.split()</strong> method:<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/C21-Class-Metaprogramming/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C02-Strings-and-Text/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -623,7 +622,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-02/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C01-Data-Structures-and-Algorithms/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -642,7 +641,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/C20-Attribute-Descriptors-02/" itemprop="url">C20_Attribute Descriptors_02</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C01-Data-Structures-and-Algorithms/" itemprop="url">C01_Data_Structures_and_Algorithms</a></h1>
         
 
         <div class="post-meta">
@@ -654,8 +653,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:19:51-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:41:16+08:00">
+                2018-12-15
               </time>
             
 
@@ -670,8 +669,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:20:16-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:08:45+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -727,10 +726,10 @@
 
       
         
-          <h2 id="Overriding-Versus-Nonoverriding-Descriptors"><a href="#Overriding-Versus-Nonoverriding-Descriptors" class="headerlink" title="Overriding Versus Nonoverriding Descriptors"></a>Overriding Versus Nonoverriding Descriptors</h2><p>Recall that there is an important asymmetry in the way Python handles attributes. Reading an attribute through an instance normally returns the attribute defined in the instance, but if there is no such attribute in the instance, a class attribute will be retrieved. On the other hand, assigning to an attribute in an instance normally creates the attribute in the instance, without affecting the class at all.<br>
+          <h2 id="Unpacking-a-Sequence-into-Separate-Variables"><a href="#Unpacking-a-Sequence-into-Separate-Variables" class="headerlink" title="Unpacking a Sequence into Separate Variables"></a>Unpacking a Sequence into Separate Variables</h2><p>Unpacking actually works with any object that happens to be iterable, not just tuples or lists. This includes strings, files, iterators, and generators. For example:<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/C20-Attribute-Descriptors-02/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C01-Data-Structures-and-Algorithms/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -781,7 +780,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C20-Attribute-Descriptors-01/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/python-time-datetime/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -800,7 +799,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/C20-Attribute-Descriptors-01/" itemprop="url">C20_Attribute Descriptors_01</a></h1>
+                <a class="post-title-link" href="/2018/12/15/python-time-datetime/" itemprop="url">python_time_datetime</a></h1>
         
 
         <div class="post-meta">
@@ -812,8 +811,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:19:17-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:34:45+08:00">
+                2018-12-15
               </time>
             
 
@@ -828,8 +827,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:19:38-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:32+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -847,8 +846,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">book notes</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -885,10 +884,10 @@
 
       
         
-          <p>Descriptors are a way of reusing the same access logic in multiple attributes. For example, field types in ORMs such as the Django ORM and SQL Alchemy are descriptors, managing the flow of data from the fields in a database record to Python object attributes and vice versa.<br>
+          <h2 id="time"><a href="#time" class="headerlink" title="time"></a>time</h2><p><strong>time</strong>模块中时间表现的格式主要有三种：<br><strong>timestamp</strong>时间戳，时间戳表示的是从1970年1月1日00:00:00开始按秒计算的偏移量<br><strong>struct_time</strong>时间元组，共有九个元素组。<br><strong>format time</strong> 格式化时间，已格式化的结构使时间更具可读性。包括自定义格式和固定格式。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/C20-Attribute-Descriptors-01/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/python-time-datetime/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -939,7 +938,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/python-shlex-subprocess-Popen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -958,7 +957,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/" itemprop="url">C19_Dynamic Attributes and Properties_02</a></h1>
+                <a class="post-title-link" href="/2018/12/15/python-shlex-subprocess-Popen/" itemprop="url">python_shlex_subprocess.Popen</a></h1>
         
 
         <div class="post-meta">
@@ -970,8 +969,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:18:38-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:33:17+08:00">
+                2018-12-15
               </time>
             
 
@@ -986,8 +985,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:19:00-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:23+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1005,8 +1004,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">book notes</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -1043,10 +1042,10 @@
 
       
         
-          <h2 id="Using-a-Property-for-Attribute-Validation"><a href="#Using-a-Property-for-Attribute-Validation" class="headerlink" title="Using a Property for Attribute Validation"></a>Using a Property for Attribute Validation</h2><p>So far, we have only seen the <strong>@property</strong> decorator used to implement read-only properties. In this section, we will create a read/write property.<br>
+          <h2 id="shlex"><a href="#shlex" class="headerlink" title="shlex"></a>shlex</h2><p>词法分析是编译中的一个很重要的步骤,Python中提供了shlex模块用来做词法分析,用于分析shell中的输入语法, shlex基本只提供一个分词的功能和识别引号的功能</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-02/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/python-shlex-subprocess-Popen/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1097,7 +1096,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/python-lxml-03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1116,7 +1115,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/" itemprop="url">C19_Dynamic Attributes and Properties_01</a></h1>
+                <a class="post-title-link" href="/2018/12/15/python-lxml-03/" itemprop="url">python_lxml_03</a></h1>
         
 
         <div class="post-meta">
@@ -1128,8 +1127,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:17:52-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:31:27+08:00">
+                2018-12-15
               </time>
             
 
@@ -1144,8 +1143,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:18:22-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:28+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1163,8 +1162,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">book notes</span>
+                  <a href="/categories/python-module/" itemprop="url" rel="index">
+                    <span itemprop="name">python module</span>
                   </a>
                 </span>
 
@@ -1201,10 +1200,11 @@
 
       
         
-          <p>Data attributes and methods are collectively known as <strong>attributes</strong> in Python: a method is just an attribute that is <strong>callable</strong>. Besides data attributes and methods, we can also create properties, which can be used to replace a public data attribute with <strong>accessor methods</strong> (i.e., getter/setter), without changing the class interface.<br>
+          <h3 id="Using-XPath-to-find-text"><a href="#Using-XPath-to-find-text" class="headerlink" title="Using XPath to find text"></a>Using XPath to find text</h3><p>Another way to extract the text content of a tree is XPath, which also allows you to extract the separate text chunks into a list:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(html.xpath(<span class="string">"string()"</span>)) <span class="comment"># lxml.etree only!</span></span><br><span class="line">TEXTTAIL</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(html.xpath(<span class="string">"//text()"</span>)) <span class="comment"># lxml.etree only!</span></span><br><span class="line">[<span class="string">'TEXT'</span>, <span class="string">'TAIL'</span>]</span><br><span class="line"><span class="comment"># If you want to use this more often, you can wrap it in a function:</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>build_text_list = etree.XPath(<span class="string">"//text()"</span>) <span class="comment"># lxml.etree only!</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(build_text_list(html))</span><br><span class="line">[<span class="string">'TEXT'</span>, <span class="string">'TAIL'</span>]</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/C19-Dynamic-Attributes-and-Properties-01/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/python-lxml-03/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1255,7 +1255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C17-Concurrency-with-Futures/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/python-lxml-02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1274,7 +1274,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/C17-Concurrency-with-Futures/" itemprop="url">C17_Concurrency with Futures(Not finished) </a></h1>
+                <a class="post-title-link" href="/2018/12/15/python-lxml-02/" itemprop="url">python_lxml_02</a></h1>
         
 
         <div class="post-meta">
@@ -1286,8 +1286,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:16:17-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:29:59+08:00">
+                2018-12-15
               </time>
             
 
@@ -1302,175 +1302,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:17:30-07:00">
-                2018-05-25
-              </time>
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong><em>flags.py: sequential download script; some functions will be reused by the other scripts</em></strong></p>
-<p>import os<br>import time<br>import sys<br>import requests</p>
-<p>POP20_CC = (‘CN IN US ID BR PK NG BD RU JP ‘<br> ‘MX PH VN ET EG DE IR TR CD FR’).split() </p>
-<p>BASE_URL= ‘<a href="http://flupy.org/data/flags&#39;" target="_blank" rel="noopener">http://flupy.org/data/flags&#39;</a></p>
-<p>DEST_DIR= ‘downloads/‘</p>
-<p>def save_flag(img, filename):<br>    path= os.path.join(DEST_DIR, filename)<br>    with open(path, ‘wb’) as fp:<br>        fp.write(img)</p>
-<p>def get_flag(cc):<br>    url=’{}/{cc}/{cc}.gif’.format(BASE_URL, cc= cc.lower())<br>    resp = requests.get(url)<br>    return resp.content</p>
-<h1 id="Display-a-string-and-flush-sys-stdout-so-we-can-see-progress-in-a-one-line"><a href="#Display-a-string-and-flush-sys-stdout-so-we-can-see-progress-in-a-one-line" class="headerlink" title="Display a string and flush sys.stdout so we can see progress in a one-line"></a>Display a string and flush sys.stdout so we can see progress in a one-line</h1><h1 id="display-this-is-needed-because-Python-normally-waits-for-a-line-break-to-flush"><a href="#display-this-is-needed-because-Python-normally-waits-for-a-line-break-to-flush" class="headerlink" title="display; this is needed because Python normally waits for a line break to flush"></a>display; this is needed because Python normally waits for a line break to flush</h1><h1 id="the-stdout-buffer"><a href="#the-stdout-buffer" class="headerlink" title="the stdout buffer."></a>the stdout buffer.</h1><p>def show(text):<br>    print(text,end= ‘ ‘)<br>    sys.stdout.flush()</p>
-<p>def download_many(cc_list):<br>    for cc in sorted(cc_list):<br>        image= get_flag(cc)<br>        show(cc)<br>        save_flag(image, cc.lower()+’.gif’)<br>    return len(cc_list)</p>
-<p>def main(download_many):<br>    t0=time.time()<br>    count= download_many(POP20_CC)<br>    elapsed= time.time() - t0<br>    msg= ‘\n{} flags downloaded in {:.2f}s’<br>    print(msg.format(count, elapsed))</p>
-<p>if <strong>name</strong>== ‘<strong>main</strong>‘:<br>    main(download_many)</p>
-<h3 id="Downloading-with-concurrent-futures"><a href="#Downloading-with-concurrent-futures" class="headerlink" title="Downloading with concurrent.futures"></a>Downloading with concurrent.futures</h3><p><strong>_flags_threadpool.py: threaded download script using futures.ThreadPoolExecutor_</strong></p>
-<p>from concurrent import futures</p>
-<p>from flags import save_flag, get_flag, show, main</p>
-<p>MAX_WORKERS = 20</p>
-<p>def download_one(cc):<br>    image= get_flag(cc)<br>    show(cc)<br>    save_flag(img, cc.lower()+’.gif’)<br>    return cc</p>
-<p>def download_many(cc_list):<br>    workers= min(MAX_WORKERS, len(cc_list))<br>    with futures.ThreadPoolExecutor(workers) as executor:<br>        res=executor.map(download_one, sorted(cc_list))</p>
-<pre><code>return len(list(res))
-</code></pre><p>if <strong>name</strong>== ‘<strong>main</strong>‘:<br>    main(download_many)</p>
-<h1 id="flags-threadpool-ac-py"><a href="#flags-threadpool-ac-py" class="headerlink" title="flags_threadpool_ac.py"></a>flags_threadpool_ac.py</h1><p>def download_many(cc_list):<br>    cc_list= cc_list[:5]<br>    with futures.ThreadPoolExecutor(max_workers = 3) as executor:<br>        to_do=[]<br>        for cc in sorted(cc_list):<br>            future = executor.submit(download_one, cc)</p>
-<pre><code>        # executor.submit schedules the callable to be executed, and returns a
-        # future representing this pending operation.
-
-        to_do.append(future)
-        msg= &apos;Scheduled for {}: {}&apos;
-        print(msg.format(cc, future))
-
-    results=[]
-    for future in futures.as_completed(to_do):#as_completed yields futures as they are completed.
-        res= future.result() # Get the result of this future.
-        msg=&apos;{} result: {!r}&apos;
-        print(msg.format(future, res))
-        results.append(res)
-return len(results)
-</code></pre><h3 id="Blocking-I-O-and-the-GIL"><a href="#Blocking-I-O-and-the-GIL" class="headerlink" title="Blocking I/O and the GIL"></a>Blocking I/O and the GIL</h3><p>The CPython interpreter is not thread-safe internally, so it has a Global Interpreter Lock<br>(GIL), which allows only one thread at a time to execute Python bytecodes. That’s why<br>a single Python process usually cannot use multiple CPU cores at the same time.</p>
-<p>When we write Python code, we have no control over the GIL, but a built-in function<br>or an extension written in C can release the GIL while running time-consuming tasks.<br>In fact, a Python library coded in C can manage the GIL, launch its own OS threads,<br>and take advantage of all available CPU cores. This complicates the code of the library<br>considerably, and most library authors don’t do it<br>However, all standard library functions that perform blocking I/O release the GIL when<br>waiting for a result from the OS. This means Python programs that are I/O bound can<br>benefit from using threads at the Python level: while one Python thread is waiting for<br>a response from the network, the blocked I/O function releases the GIL so another<br>thread can run.</p>
-<h3 id="Launching-Processes-with-concurrent-futures"><a href="#Launching-Processes-with-concurrent-futures" class="headerlink" title="Launching Processes with concurrent.futures"></a>Launching Processes with concurrent.futures</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C16-Coroutines/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="eustoma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="whistlestop">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/25/C16-Coroutines/" itemprop="url">C16_Coroutines</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:15:33-07:00">
-                2018-05-25
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Post modified&#58;</span>
-              
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:15:58-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:11+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1488,8 +1321,8 @@ return len(results)
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">book notes</span>
+                  <a href="/categories/python-module/" itemprop="url" rel="index">
+                    <span itemprop="name">python module</span>
                   </a>
                 </span>
 
@@ -1526,10 +1359,10 @@ return len(results)
 
       
         
-          <p>We find two main senses for the verb “to yield” in dictionaries: to produce or to give way. Both senses apply in Python when we use the <strong>yield</strong> keyword in a generator. A line such as <strong>yield</strong> item produces a value that is received by the caller of <strong>next(…)</strong>, and it also gives way, suspending the execution of the generator so that the caller may proceed until it’s ready to consume another value by invoking <strong>next()</strong> again. The caller pulls values from the generator.<br>
+          <h2 id="The-Element-class"><a href="#The-Element-class" class="headerlink" title="The Element class"></a>The Element class</h2><p>An <strong>Element</strong> is the main container object for the <strong>ElementTree</strong> API. Most of the XML tree functionality is accessed through this class. <strong>Elements</strong> are easily created through the <strong>Element</strong> factory.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>root= etree.Element(<span class="string">'root'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>root.tag</span><br><span class="line"><span class="string">'root'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>root.append(etree.Element(<span class="string">'child1'</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>child2= etree.SubElement(root, <span class="string">'child2'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>child3= etree.SubElement(root, <span class="string">'child3'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>etree.tostring(root, pretty_print= <span class="keyword">True</span>)</span><br><span class="line"><span class="string">b'&lt;root&gt;\n  &lt;child1/&gt;\n  &lt;child2/&gt;\n  &lt;child3/&gt;\n&lt;/root&gt;\n'</span></span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/C16-Coroutines/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/python-lxml-02/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1580,7 +1413,7 @@ return len(results)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C15-Context-Managers-and-else-Blocks/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/python-lxml-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1599,7 +1432,7 @@ return len(results)
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/C15-Context-Managers-and-else-Blocks/" itemprop="url">C15_Context Managers and else Blocks</a></h1>
+                <a class="post-title-link" href="/2018/12/15/python-lxml-01/" itemprop="url">python_lxml_01</a></h1>
         
 
         <div class="post-meta">
@@ -1611,8 +1444,8 @@ return len(results)
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:14:42-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:29:30+08:00">
+                2018-12-15
               </time>
             
 
@@ -1627,8 +1460,8 @@ return len(results)
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:15:12-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:16+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1646,8 +1479,8 @@ return len(results)
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">book notes</span>
+                  <a href="/categories/python-module/" itemprop="url" rel="index">
+                    <span itemprop="name">python module</span>
                   </a>
                 </span>
 
@@ -1684,11 +1517,11 @@ return len(results)
 
       
         
-          <p>The <strong>with</strong> statement sets up a temporary context and reliably tears it down, under the control of a context manager object. This prevents errors and reduces boilerplate code, making APIs at the same time safer and easier to use. Python programmers are finding lots of uses for with blocks beyond automatic file closing.</p>
-<p>This is no secret, but it is an underappreciated language feature: the <strong>else</strong> clause can be used not only in if statements but also in <strong>for</strong>, <strong>while</strong>, and <strong>try</strong> statements.<br>
+          <p>etree.parse<br>etree.HTML</p>
+<h3 id="文本获取"><a href="#文本获取" class="headerlink" title="文本获取"></a>文本获取</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">text = <span class="string">'''</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">    &lt;ul&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-inactive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;fourth item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">         &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt;</span></span><br><span class="line"><span class="string">     &lt;/ul&gt;</span></span><br><span class="line"><span class="string"> &lt;/div&gt;</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">html = etree.HTML(text)</span><br><span class="line">result = etree.tostring(html)</span><br><span class="line">print(result.decode(<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 輸出：</span></span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;body&gt;&lt;div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">         &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">         &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">         &lt;li class="item-inactive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">         &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;fourth item&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">         &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt;</span><br><span class="line">     &lt;/li&gt;&lt;/ul&gt;</span><br><span class="line"> &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/C15-Context-Managers-and-else-Blocks/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/python-lxml-01/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1739,7 +1572,7 @@ return len(results)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/C14-Iterables-Iterators-and-Generators-02/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/python-unittest/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1758,7 +1591,7 @@ return len(results)
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/C14-Iterables-Iterators-and-Generators-02/" itemprop="url">C14_Iterables, Iterators, and Generators_02</a></h1>
+                <a class="post-title-link" href="/2018/12/15/python-unittest/" itemprop="url">python_unitteste</a></h1>
         
 
         <div class="post-meta">
@@ -1770,8 +1603,8 @@ return len(results)
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:13:47-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:28:33+08:00">
+                2018-12-15
               </time>
             
 
@@ -1786,8 +1619,8 @@ return len(results)
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:14:19-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:07+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1805,8 +1638,8 @@ return len(results)
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">book notes</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -1843,11 +1676,200 @@ return len(results)
 
       
         
-          <p><strong><em>The ArithmeticProgression class</em></strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArithmeticProgression</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, begin, step, end=None)</span>:</span></span><br><span class="line">        self.begin=begin</span><br><span class="line">        self.step=step</span><br><span class="line">        self.end=end</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#This line produces a result value equal to self.begin, but coerced to </span></span><br><span class="line">        <span class="comment">#the type of the subsequent additions.</span></span><br><span class="line">        result=type(self.begin+self.step)(self.begin)</span><br><span class="line">        forever=self.end <span class="keyword">is</span> <span class="keyword">None</span></span><br><span class="line">        index = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> forever <span class="keyword">or</span> result &lt; self.end:</span><br><span class="line">            <span class="keyword">yield</span> result</span><br><span class="line">            index +=<span class="number">1</span></span><br><span class="line">            result =self.begin + self.step * index</span><br></pre></td></tr></table></figure>
+          
+            <p>unittest库提供了test cases, test suites, test fixtures，test runner：</p>
+<ol>
+<li>test case ：通过继承TestCase类，我们可以创建一个test，或者一组tests，包括测试前准备环境的搭建(setUp)，执行测试代码(run)，以及测试后环境的还原(tearDown)。</li>
+<li>test suites ： 测试套件,多个测试用例集合在一起,TestSuite也可以嵌套TestSuite。</li>
+<li>test fixtures ： setup + test case + teardown结构</li>
+<li>TestLoader:用来加载TestCase到TestSuite中，其中的方法从各个地方寻找TestCase，创建它们的实例，然后add到TestSuite中，返回一个TestSuite实例。</li>
+<li>test runner：执行测试用例，其中的run()会执行TestSuite/TestCase。</li>
+<li>TextTestResult：测试的结果会保存到TextTestResult实例中，包括运行用例数，成功数，失败数等</li>
+</ol>
+<p>写好TestCase，然后由TestLoader加载TestCase到TestSuite，然后由TextTestRunner来运行TestSuite，运行的结果保存在TextTestResult中，整个过程集成在unittest.main模块中。所有的测试函数以test开头，test_XXX。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestStringMethods</span><span class="params">(unittest.TestCase)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_upper</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.assertEqual(<span class="string">'foo'</span>.upper(),<span class="string">'FOO'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_split</span><span class="params">(self)</span>:</span></span><br><span class="line">        s=<span class="string">'hello world'</span></span><br><span class="line">        self.assertEqual(s.split(),[<span class="string">'hello'</span>, <span class="string">'world'</span>])</span><br><span class="line">        <span class="comment">#with self.assertEqualRaise(TypeError): s.split(2)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    unittest.main()</span><br><span class="line"></span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line">Ran <span class="number">2</span> tests <span class="keyword">in</span> <span class="number">0.001</span>s</span><br><span class="line"></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">python -m unittest test_module1 test_module2  <span class="comment">#同时测试多个module</span></span><br><span class="line">python -m unittest test_module.TestClass</span><br><span class="line">python -m unittest test_module.TestClass.test_method</span><br></pre></td></tr></table></figure>
+<h3 id="TestCase"><a href="#TestCase" class="headerlink" title="TestCase"></a>TestCase</h3><p><strong>TestCase</strong>的实例是最小的可测试单元。 testcase 是由unittest的<strong>TestCase</strong>类的实例表示的。要编写自己的测试用例必须继承TestCase类,或者使用FunctionTestCase。且Testcase类提供了各种<strong>assert</strong>的方法来检测预期结果和实际结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DefaultWidgetSizeTestCase</span><span class="params">(unittest.TestCase)</span>:</span> <span class="comment">#unittest.TestCase表示某个测试函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">runTest</span><span class="params">(self)</span>:</span></span><br><span class="line">        widget = Widget(<span class="string">'The widget'</span>)</span><br><span class="line">        self.assertEqual(widget.size(), (<span class="number">50</span>, <span class="number">50</span>), <span class="string">'incorrect default size'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建立这样一个测试用例的一个实例,使用该类的构造函数，且不带参数(这样会执行所有的测试方法)</span></span><br><span class="line">testCase = DefaultWidgetSizeTestCase()</span><br><span class="line"></span><br><span class="line"><span class="comment">#建了两个**WidgetTestCase**的实例，每个实例只运行**WidgetTestCase**类中的一个测试方法(通过参数传入)</span></span><br><span class="line"></span><br><span class="line">defaultSizeTestCase = WidgetTestCase(<span class="string">'test_default_size'</span>)</span><br><span class="line">resizeTestCase = WidgetTestCase(<span class="string">'test_resize'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Test-fixtures"><a href="#Test-fixtures" class="headerlink" title="Test fixtures"></a>Test fixtures</h3><p><em>方法固定装置：</em></p>
+<p>如果要对一个模块中的每一个测试函数都做同样的初始化操作和结尾清除等操作，那么创建n个测试用例就得写n遍一样的代码，为了减少重复的代码，可以使用下面两个函数：</p>
+<ul>
+<li><strong>setUp()</strong>: 每次执行测试用例之前调用。无参数，无返回值。该方法抛出的异常都视为error，而不是测试不通过。没有默认的实现。</li>
+<li><strong>tearDown()</strong>: 每次执行测试用例之后调用。无参数，无返回值。测试方法抛出异常，该方法也正常调用，该方法抛出的异常都视为error，而不是测试不通过。只用setUp()调用成功，该方法才会被调用。没有默认的实现。通过<strong>setup</strong> 和 <strong>tearDown</strong>组装一个module成为一个固定的测试装置。</li>
+</ul>
+<p><em>Class固定装置：</em></p>
+<p>必须为类实现<br><strong>setUpClass()</strong>:一个类方法在单个类测试之前运行。<strong>setUpClass</strong>作为唯一的参数被调用时,必须使用<strong>classmethod()</strong>作为装饰器。<br><strong>tearDownClass()</strong>:一个类方法在单个类测试之后运行。<strong>setUpClass</strong>作为唯一的参数被调用时,必须使用<strong>classmethod()</strong>作为装饰器。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span><span class="params">(unittest.TestCase)</span>:</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setUpClass</span><span class="params">(cls)</span>:</span> <span class="comment">#这里的cls是当前类的对象</span></span><br><span class="line">        cls._connection = createExpensiveConnectionObject()</span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDownClass</span><span class="params">(cls)</span>:</span></span><br><span class="line">        cls._connection.destroy()</span><br></pre></td></tr></table></figure></p>
+<p>Module固定装置：</p>
+<p>必须为方法实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setUpModule</span><span class="params">()</span>:</span></span><br><span class="line">    createConnection()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tearDownModule</span><span class="params">()</span>:</span></span><br><span class="line">    closeConnection()</span><br></pre></td></tr></table></figure>
+<p>特殊方法:</p>
+<ol>
+<li><strong>setup()</strong>:每个测试函数运行前运行</li>
+<li><strong>teardown()</strong>:每个测试函数运行完后执行</li>
+<li><strong>setUpClass()</strong>:必须使用<strong>@classmethod</strong> 装饰器,所有test运行前运行一次</li>
+<li><strong>tearDownClass()</strong>:必须使用<strong>@classmethod</strong>装饰器,所有test运行完后运行一次</li>
+<li><strong>setUpModule()</strong> 和 <strong>tearDownModule()</strong>：在整个文件级别上只调用一次 </li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/logging-module-three-ways-to-configure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/15/logging-module-three-ways-to-configure/" itemprop="url">logging_module_three_ways_to_configure</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:27:09+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:03+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-module/" itemprop="url" rel="index">
+                    <span itemprop="name">python module</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Configure logging in three ways:</p>
+<ol>
+<li>Creating loggers, handlers, and formatters explicitly using Python code that calls the configuration methods listed above.</li>
+<li>Creating a logging config file and reading it using the <strong>fileConfig()</strong> function.</li>
+<li>Creating a dictionary of configuration information and passing it to the <strong>dictConfig()</strong> function.
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/C14-Iterables-Iterators-and-Generators-02/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/logging-module-three-ways-to-configure/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1889,7 +1911,7 @@ return len(results)
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1939,7 +1961,7 @@ return len(results)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">114</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1950,7 +1972,7 @@ return len(results)
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1961,7 +1983,7 @@ return len(results)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

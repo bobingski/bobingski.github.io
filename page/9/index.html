@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C03-mongo-cache-py-pymongo/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Tuple-unpacking-namedtuple/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -325,7 +325,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C03-mongo-cache-py-pymongo/" itemprop="url">C03_mongo_cache.py_pymongo</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C02-Tuple-unpacking-namedtuple/" itemprop="url">C02_Tuple unpacking, namedtuple</a></h1>
         
 
         <div class="post-meta">
@@ -337,8 +337,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T22:57:11-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:27:30+08:00">
+                2018-04-22
               </time>
             
 
@@ -353,8 +353,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T23:24:11-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:28:02+08:00">
+                2018-04-22
               </time>
             
           </span>
@@ -410,10 +410,11 @@
 
       
         
-          <h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3>
+          <p>Tuple unpacking works with any iterable object. The only requirement is that the iterable yields exactly one<br>item per variable in the receiving tuple, unless you use a star (*) to capture excess items.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>t=(<span class="number">20</span>,<span class="number">8</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>divmod(t)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: divmod expected <span class="number">2</span> arguments, got <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>divmod(*t)</span><br><span class="line">(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_,filename=os.path.split(<span class="string">'/hom/lubi/.ssh/if.pub'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>filename</span><br><span class="line"><span class="string">'if.pub'</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/C03-mongo-cache-py-pymongo/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C02-Tuple-unpacking-namedtuple/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -464,7 +465,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/C03-downloader-py-datetime/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-Generate-Expressions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -483,7 +484,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/C03-downloader-py-datetime/" itemprop="url">C03_downloader.py_datetime</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C02-Generate-Expressions/" itemprop="url">C02_Generate Expressions</a></h1>
         
 
         <div class="post-meta">
@@ -495,8 +496,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T22:54:24-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:26:45+08:00">
+                2018-04-22
               </time>
             
 
@@ -511,8 +512,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T22:56:31-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:27:09+08:00">
+                2018-04-22
               </time>
             
           </span>
@@ -568,10 +569,14 @@
 
       
         
-          
-            <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>today=datetime.today()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>today.date()</span><br><span class="line">datetime.date(<span class="number">2018</span>, <span class="number">4</span>, <span class="number">2</span>)</span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>today.time()</span><br><span class="line">datetime.time(<span class="number">4</span>, <span class="number">52</span>, <span class="number">20</span>, <span class="number">254000</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next_month=today.replace(month=today.month+<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next_month</span><br><span class="line">datetime.datetime(<span class="number">2018</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">52</span>, <span class="number">20</span>, <span class="number">254000</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next_month.strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>)</span><br><span class="line"><span class="string">'2018-05-02 04:52:20'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> time</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t=time.mktime(today.timetuple()) </span><br><span class="line"><span class="comment">#将一个datetime对象转成时间戳，很遗憾的是python并没直接提供这个方法，但是提供了一个timetuple()方法，它返回一个time.struct_time对象，通过它我们可以构造出时间戳</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t</span><br><span class="line"><span class="number">1522669940.0</span></span><br></pre></td></tr></table></figure>
-
-          
+          <p>To initialize tuples, arrays, and other types of sequences, you could also start from a listcomp, but a genexp<br>saves memory because it yields items one by one using the iterator protocol instead of building a whole list<br>just to feed another constructor.<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/22/C02-Generate-Expressions/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -618,7 +623,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/14/flask-博客配置/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C02-listcomp-speed-py/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -637,7 +642,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/14/flask-博客配置/" itemprop="url">flask 博客配置</a></h1>
+                <a class="post-title-link" href="/2018/04/22/C02-listcomp-speed-py/" itemprop="url">C02_listcomp_speed.py</a></h1>
         
 
         <div class="post-meta">
@@ -649,8 +654,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T22:08:36-07:00">
-                2018-04-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:25:57+08:00">
+                2018-04-22
               </time>
             
 
@@ -665,8 +670,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-04-14T22:23:37-07:00">
-                2018-04-14
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:26:21+08:00">
+                2018-04-22
               </time>
             
           </span>
@@ -684,8 +689,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
                   </a>
                 </span>
 
@@ -722,11 +727,1137 @@
 
       
         
-          <h4 id="服务器，域名，DNS"><a href="#服务器，域名，DNS" class="headerlink" title="服务器，域名，DNS"></a>服务器，域名，DNS</h4><p><strong>vps</strong>: <a href="https://vultr.com" target="_blank" rel="noopener">vultr</a> debian7 </p>
-<p><strong>domain</strong>:  <a href="freenom.com">Freenom</a> ，具体操作可见<a href="https://doub.io/dbwz-3/" target="_blank" rel="noopener">此处</a>(需科学上网)</p>
+          <h3 id="Container-sequences-and-Flat-sequences"><a href="#Container-sequences-and-Flat-sequences" class="headerlink" title="Container sequences and Flat sequences"></a>Container sequences and Flat sequences</h3><p>Container sequences:<br>list, tuple, and collections.deque can hold items of different types.</p>
+<p>Flat sequences:<br>str, bytes, bytearray, memoryview, and array.array hold items of one type.</p>
+<p>Container sequences hold references to the objects they contain, which may be of any type, while flat<br>sequences physically store the value of each item within its own memory space, and not as distinct<br>objects.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/14/flask-博客配置/#more" rel="contents">
+            <a class="btn" href="/2018/04/22/C02-listcomp-speed-py/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C01-repr-str-bool/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/C01-repr-str-bool/" itemprop="url">C01_repr__,__str__,__bool__</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:23:33+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:24:18+08:00">
+                2018-04-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="repr-str"><a href="#repr-str" class="headerlink" title="repr, str"></a><strong>repr</strong>, <strong>str</strong></h3><p>The <strong>repr</strong> special method is called by the repr built-in to get the string representation of the object for<br>inspection.<br>The interactive console and debugger call repr on the results of the expressions evaluated.</p>
+<p>Contrast <strong>repr</strong> with <strong>str</strong>, which is called by the str() constructor and implicitly used by the print<br>function. <strong>str</strong>  should return a string suitable for display to end users.If you only implement one of<br>these special methods, choose <strong>repr</strong>, because when no custom <strong>str</strong> is available, Python will call<br><strong>repr</strong> as a fallback.<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/22/C01-repr-str-bool/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C01-How-Special-Methods-Are-Used/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/C01-How-Special-Methods-Are-Used/" itemprop="url">C01_How Special Methods Are Used</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:22:03+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:23:02+08:00">
+                2018-04-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>First thing to know about special methods is that they are meant to be called by thePython interpreter,<br>and not by you. You don’t write my_object.<strong>len</strong>(). You writelen(my_object) and, if my_object is an instance of a user-defined class, then Python calls the <strong>len</strong> instance method you implemented.</p>
+<p>Special method call is implicit. For example, the statement for i in x: actually causes the invocation of iter(x), which in turn may call x.<strong>iter</strong>() if that is available.<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/22/C01-How-Special-Methods-Are-Used/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C29-mysqldump/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/C29-mysqldump/" itemprop="url">C29_mysqldump</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:21:11+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:21:39+08:00">
+                2018-04-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h3><ul>
+<li>使用命令行实用程序mysqldump 转储所有数据库内容到某个外部文件。在进行常规备份前这个实用程序应该正常运行，以便能正确地备份转储文件。</li>
+<li>可用命令行实用程序mysqlhotcopy 从一个数据库复制所有数据（并非所有数据库引擎都支持这个实用程序）。</li>
+<li>可以使用MySQL的BACKUP TABLE 或SELECT INTO OUTFILE 转储所有数据到某个外部文件。这两条语句都接受将要创建的系统文件名，此系统文件必须不存在，否则会出错。数据可以用RESTORE TABLE 来复原。</li>
+</ul>
+<p>为了保证所有数据被写到磁盘（包括索引数据），可能需要在进行备份前使用FLUSH TABLES 语句。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/22/C29-mysqldump/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C28-用户管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/C28-用户管理/" itemprop="url">C28_用户管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:20:16+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:20:48+08:00">
+                2018-04-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>MySQL用户账号和信息存储在名为mysql 的MySQL数据库中。一般不需要直接访问mysql 数据库和表，但有时需要直接访问。需要直接访问它的时机之一是在需要获得所有用户账号列表时。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> mysql;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">user</span> <span class="keyword">FROM</span> <span class="keyword">user</span>;</span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/22/C28-用户管理/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C27-CHARACTER-SET-COLLATE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/C27-CHARACTER-SET-COLLATE/" itemprop="url">C27_CHARACTER SET, COLLATE</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:19:32+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:19:56+08:00">
+                2018-04-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="给表指定字符集和校对"><a href="#给表指定字符集和校对" class="headerlink" title="给表指定字符集和校对"></a>给表指定字符集和校对</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> mytable</span><br><span class="line">(</span><br><span class="line">   columnn1   <span class="built_in">INT</span>,</span><br><span class="line">   columnn2   <span class="built_in">VARCHAR</span>(<span class="number">10</span>)</span><br><span class="line">) <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> hebrew</span><br><span class="line">  <span class="keyword">COLLATE</span> hebrew_general_ci;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/22/C27-CHARACTER-SET-COLLATE/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C26-COMMIT-ROLLBACK/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/C26-COMMIT-ROLLBACK/" itemprop="url">C26_COMMIT ROLLBACK</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:18:17+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:18:56+08:00">
+                2018-04-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>MyISAM 和InnoDB 是两种最常使用的引擎。前者不支持明确的事务处理管理，而后者支持。</p>
+<p>事务处理（transactionprocessing）可以用来维护数据库的完整性，它保证成批的MySQL操作要么完全执行，要么完全不执行。</p>
+<ul>
+<li>事务（transaction） 指一组SQL语句；</li>
+<li>回退（rollback） 指撤销指定SQL语句的过程；</li>
+<li>提交（commit） 指将未存储的SQL语句结果写入数据库表；</li>
+<li>保留点（savepoint） 指事务处理中设置的临时占位符（place-holder），你可以对它发布回退（与回退整个事务处理不同）。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/22/C26-COMMIT-ROLLBACK/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/04/22/C25-TRIGGER/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/22/C25-TRIGGER/" itemprop="url">C25_TRIGGER</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-22T06:16:19+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-04-22T21:17:52+08:00">
+                2018-04-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>触发器是MySQL响应以下任意语句而自动执行的一条MySQL语句（或位于BEGIN 和END 语句之间的一组语句）：</p>
+<ul>
+<li>DELETE；</li>
+<li>INSERT；</li>
+<li>UPDATE。</li>
+</ul>
+<p>其他MySQL语句不支持触发器。<br>只有表才支持触发器，视图不支持（临时表也不支持）。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/22/C25-TRIGGER/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -768,7 +1899,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -818,7 +1949,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">114</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -829,7 +1960,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -840,7 +1971,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

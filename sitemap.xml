@@ -2,6 +2,223 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>blog.whistlestop.ml/2018/12/15/requests-HTTP-for-humans-01/</loc>
+    
+    <lastmod>2018-12-15T11:13:14.843Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/DOM-scripting-C02-Objects-And-C03-Document-Object-Model/</loc>
+    
+    <lastmod>2018-12-15T11:13:00.668Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-update-wrapper/</loc>
+    
+    <lastmod>2018-12-15T11:12:28.572Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C14-Testing-Debugging-and-Exceptions/</loc>
+    
+    <lastmod>2018-12-15T11:12:24.413Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C13-Utility-Scripting-and-System-Administration/</loc>
+    
+    <lastmod>2018-12-15T11:12:20.350Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C12-Concurrency/</loc>
+    
+    <lastmod>2018-12-15T11:12:16.374Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C11-Network-and-Web-Programming/</loc>
+    
+    <lastmod>2018-12-15T11:12:12.386Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C09-Metaprogramming/</loc>
+    
+    <lastmod>2018-12-15T11:12:08.284Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C08-Classes-and-Objects/</loc>
+    
+    <lastmod>2018-12-15T11:12:02.968Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C07-Functions/</loc>
+    
+    <lastmod>2018-12-15T11:11:54.979Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C06-Data-Encoding-and-Processing/</loc>
+    
+    <lastmod>2018-12-15T11:11:50.237Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C05-Files-and-I-O/</loc>
+    
+    <lastmod>2018-12-15T11:11:46.146Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C04-Iterators-and-Generators/</loc>
+    
+    <lastmod>2018-12-15T11:11:42.216Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-time-datetime/</loc>
+    
+    <lastmod>2018-12-15T11:11:32.260Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-lxml-03/</loc>
+    
+    <lastmod>2018-12-15T11:11:28.668Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-shlex-subprocess-Popen/</loc>
+    
+    <lastmod>2018-12-15T11:11:23.599Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-lxml-01/</loc>
+    
+    <lastmod>2018-12-15T11:11:16.086Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-lxml-02/</loc>
+    
+    <lastmod>2018-12-15T11:11:11.872Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-unittest/</loc>
+    
+    <lastmod>2018-12-15T11:11:07.681Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/logging-module-three-ways-to-configure/</loc>
+    
+    <lastmod>2018-12-15T11:11:03.450Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-logging-module-advanced/</loc>
+    
+    <lastmod>2018-12-15T11:10:59.243Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/python-logging-module-simple/</loc>
+    
+    <lastmod>2018-12-15T11:10:54.435Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/requests-HTTP-for-humans-Advanced/</loc>
+    
+    <lastmod>2018-12-15T11:10:48.630Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/requests-HTTP-for-humans-Authentication/</loc>
+    
+    <lastmod>2018-12-15T11:10:43.187Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/DOM-Scripting-C10-Animation/</loc>
+    
+    <lastmod>2018-12-15T11:10:31.640Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/DOM-Scripting-C09-CSS-DOM/</loc>
+    
+    <lastmod>2018-12-15T11:10:24.257Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/DOM-scripting-C05-Best-Practices/</loc>
+    
+    <lastmod>2018-12-15T11:10:10.948Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/DOM-Scripting-C07-adding-markup-to-a-document-Ajax/</loc>
+    
+    <lastmod>2018-12-15T11:10:04.972Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/DOM-scripting-C04-A-JavaScript-Image-Gallery/</loc>
+    
+    <lastmod>2018-12-15T11:09:57.390Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C02-Strings-and-Text/</loc>
+    
+    <lastmod>2018-12-15T11:09:19.569Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>blog.whistlestop.ml/2018/12/15/C01-Data-Structures-and-Algorithms/</loc>
+    
+    <lastmod>2018-12-15T11:08:45.900Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>blog.whistlestop.ml/2018/05/25/sqlalchemy-C01-Keys-and-Constraints-Indexes-Relationships-and-ForeignKeyConstraints/</loc>
     
     <lastmod>2018-05-26T05:34:03.262Z</lastmod>

@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="requests," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Make a Request12&amp;gt;&amp;gt;&amp;gt; r= requests.get(&apos;https://api.github.com/events&apos;)&amp;gt;&amp;gt;&amp;gt; r=requests.post(&apos;http://httpbin.org/post&apos;, data=&amp;#123;&apos;key&apos;:&apos;value&apos;&amp;#125;) Now, we have a Response object call">
+<meta name="keywords" content="requests">
+<meta property="og:type" content="article">
+<meta property="og:title" content="requests_HTTP_for_humans_01">
+<meta property="og:url" content="blog.whistlestop.ml/2018/12/15/requests-HTTP-for-humans-01/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Make a Request12&amp;gt;&amp;gt;&amp;gt; r= requests.get(&apos;https://api.github.com/events&apos;)&amp;gt;&amp;gt;&amp;gt; r=requests.post(&apos;http://httpbin.org/post&apos;, data=&amp;#123;&apos;key&apos;:&apos;value&apos;&amp;#125;) Now, we have a Response object call">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-15T11:13:14.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="requests_HTTP_for_humans_01">
+<meta name="twitter:description" content="Make a Request12&amp;gt;&amp;gt;&amp;gt; r= requests.get(&apos;https://api.github.com/events&apos;)&amp;gt;&amp;gt;&amp;gt; r=requests.post(&apos;http://httpbin.org/post&apos;, data=&amp;#123;&apos;key&apos;:&apos;value&apos;&amp;#125;) Now, we have a Response object call">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/12/15/requests-HTTP-for-humans-01/"/>
+
+
+
+
+
+  <title>requests_HTTP_for_humans_01 | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/requests-HTTP-for-humans-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">requests_HTTP_for_humans_01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:20:17+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:13:14+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-module/" itemprop="url" rel="index">
+                    <span itemprop="name">python module</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Make-a-Request"><a href="#Make-a-Request" class="headerlink" title="Make a Request"></a>Make a Request</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r= requests.get(<span class="string">'https://api.github.com/events'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r=requests.post(<span class="string">'http://httpbin.org/post'</span>, data=&#123;<span class="string">'key'</span>:<span class="string">'value'</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>Now, we have a <strong>Response</strong> object called <strong>r</strong>. We can get all the information we need from this object.<br>What about the other HTTP request types: PUT, DELETE, HEAD and OPTIONS?<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.put(<span class="string">'http://httpbin.org/put'</span>, data = &#123;<span class="string">'key'</span>:<span class="string">'value'</span>&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.delete(<span class="string">'http://httpbin.org/delete'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.head(<span class="string">'http://httpbin.org/get'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.options(<span class="string">'http://httpbin.org/get'</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="Passing-Parameters-In-URLs"><a href="#Passing-Parameters-In-URLs" class="headerlink" title="Passing Parameters In URLs"></a>Passing Parameters In URLs</h3><p>You often want to send some sort of data in the URL’s query string. If you were constructing the URL by hand, this data would be given as key/value pairs in the URL after a question mark, e.g. <strong>httpbin.org/get?key=val</strong>. <strong>Requests</strong> allows you to provide these arguments as a dictionary of strings, using the <strong>params</strong> keyword argument. </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>payload = &#123;<span class="string">'key1'</span>: <span class="string">'value1'</span>, <span class="string">'key2'</span>: [<span class="string">'value2'</span>, <span class="string">'value3'</span>]&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(<span class="string">'http://httpbin.org/get'</span>, params=payload)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(r.url)</span><br><span class="line">http://httpbin.org/get?key1=value1&amp;key2=value2&amp;key2=value3</span><br></pre></td></tr></table></figure>
+<h3 id="Response-Content"><a href="#Response-Content" class="headerlink" title="Response Content"></a>Response Content</h3><p>We can read the content of the server’s response.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(<span class="string">'https://api.github.com/events'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.text</span><br><span class="line"><span class="string">u'[&#123;"repository":&#123;"open_issues":0,"url":"https://github.com/...</span></span><br></pre></td></tr></table></figure>
+<p>When you make a request, <strong>Requests</strong> makes educated guesses about the encoding of the response based on the HTTP headers. The text encoding guessed by <strong>Requests</strong> is used when you access <strong>r.text</strong>. You can find out what encoding <strong>Requests</strong> is using, and change it, using the r.encoding property:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.encoding</span><br><span class="line"><span class="string">'utf-8'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.encoding = <span class="string">'ISO-8859-1'</span></span><br></pre></td></tr></table></figure>
+<p>If you change the encoding, Requests will use the new value of r.encoding whenever you call r.text. You might want to do this in any situation where you can apply special logic to work out what the encoding of the content will be. For example, HTML and XML have the ability to specify their encoding in their body. In situations like this, you should use r.content to find the encoding, and then set r.encoding. This will let you use r.text with the correct encoding.</p>
+<h3 id="Binary-Response-Content"><a href="#Binary-Response-Content" class="headerlink" title="Binary Response Content"></a>Binary Response Content</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.content</span><br><span class="line"><span class="string">b'[&#123;"repository":&#123;"open_issues":0,"url":"https://github.com/...</span></span><br></pre></td></tr></table></figure>
+<p>For example, to create an image from binary data returned by a request, you can use the following code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>i= Image.open(BytesIO(r.content))</span><br></pre></td></tr></table></figure>
+<h3 id="JSON-Response-Content"><a href="#JSON-Response-Content" class="headerlink" title="JSON Response Content"></a>JSON Response Content</h3><p>There’s also a builtin JSON decoder.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(<span class="string">'https://api.github.com/events'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.json()</span><br><span class="line">[&#123;<span class="string">u'repository'</span>: &#123;<span class="string">u'open_issues'</span>: <span class="number">0</span>, <span class="string">u'url'</span>: <span class="string">'https://github.com/...</span></span><br></pre></td></tr></table></figure>
+<p>In case the JSON decoding fails, <strong>r.json()</strong> raises an exception. For example, if the response gets a 204 (No Content), or if the response contains invalid JSON, attempting <strong>r.json()</strong> raises <strong>ValueError: No JSON object could be decoded</strong>.</p>
+<p>It should be noted that the success of the call to <strong>r.json()</strong> does not indicate the success of the response. Some servers may return a JSON object in a failed response (e.g. error details with HTTP 500). Such JSON will be decoded and returned. To check that a request is successful, use <strong>r.raise_for_status()</strong> or check <strong>r.status_code</strong> is what you expect.</p>
+<h3 id="Raw-Response-Content"><a href="#Raw-Response-Content" class="headerlink" title="Raw Response Content"></a>Raw Response Content</h3><p>In the rare case that you’d like to get the raw socket response from the server, you can access <strong>r.raw</strong>. If you want to do this, make sure you set <strong>stream=True</strong> in your initial request. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(<span class="string">'https://api.github.com/events'</span>, stream=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.raw</span><br><span class="line">&lt;urllib3.response.HTTPResponse object at <span class="number">0x101194810</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.raw.read(<span class="number">10</span>)</span><br><span class="line"><span class="string">'\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x03'</span></span><br></pre></td></tr></table></figure>
+<p>In general, however, you should use a pattern like this to save what is being streamed to a file:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(filename, <span class="string">'wb'</span>) <span class="keyword">as</span> fd:</span><br><span class="line">    <span class="keyword">for</span> chunk <span class="keyword">in</span> r.iter_content(chunk_size=<span class="number">128</span>):</span><br><span class="line">        fd.write(chunk)</span><br></pre></td></tr></table></figure></p>
+<p>An important note about using <strong>Response.iter_content</strong> versus <strong>Response.raw. Response.iter_content</strong> will automatically decode the gzip and deflate transfer-encodings. Response.raw is a raw stream of bytes – it does not transform the response content. If you really need access to the bytes as they were returned, use <strong>Response.raw</strong>.</p>
+<h3 id="Custom-Headers"><a href="#Custom-Headers" class="headerlink" title="Custom Headers"></a>Custom Headers</h3><p>If you’d like to add HTTP headers to a request, simply pass in a <strong>dict</strong> to the headers parameter.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">'https://api.github.com/some/endpoint'</span></span><br><span class="line">headers=&#123;<span class="string">'user-agent'</span>:<span class="string">'my-app/0.0.1'</span>&#125;</span><br><span class="line">r=requests.get(url, headers= headeres)</span><br></pre></td></tr></table></figure>
+<p>Custom headers are given less precedence than more specific sources of information. For instance:</p>
+<ul>
+<li>Authorization headers set with headers= will be overridden if credentials are specified in .netrc, which in turn will be overridden by the auth= parameter.</li>
+<li>Authorization headers will be removed if you get redirected off-host.</li>
+<li>Proxy-Authorization headers will be overridden by proxy credentials provided in the URL.</li>
+<li>Content-Length headers will be overridden when we can determine the length of the content.</li>
+</ul>
+<h3 id="More-complicated-POST-requests"><a href="#More-complicated-POST-requests" class="headerlink" title="More complicated POST requests"></a>More complicated POST requests</h3><p>Typically, you want to send some form-encoded data — much like an HTML form. To do this, simply pass a dictionary to the <strong>data</strong> argument. Your dictionary of data will automatically be form-encoded when the request is made:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>payload = &#123;<span class="string">'key1'</span>: <span class="string">'value1'</span>, <span class="string">'key2'</span>: <span class="string">'value2'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r= requests.post(<span class="string">'http://httpbin.org/post'</span>, data= payload)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.text</span><br><span class="line"><span class="string">'&#123;"args":&#123;&#125;,"data":"","files":&#123;&#125;,"form":&#123;"key1":"value1","key2":"value2"&#125;,......</span></span><br></pre></td></tr></table></figure>
+<p>You can also pass a list of tuples to the <strong>data</strong> argument. This is particularly useful when the form has multiple elements that use the same key:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>payload = ((<span class="string">'key1'</span>, <span class="string">'value1'</span>), (<span class="string">'key1'</span>, <span class="string">'value2'</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r= requests.post(<span class="string">'http://httpbin.org/post'</span>, data= payload)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(r.text)</span><br><span class="line">&#123;<span class="string">"args"</span>:&#123;&#125;,<span class="string">"data"</span>:<span class="string">""</span>,<span class="string">"files"</span>:&#123;&#125;,<span class="string">"form"</span>:&#123;<span class="string">"key1"</span>:[<span class="string">"value1"</span>,<span class="string">"value2"</span>]&#125;,<span class="string">"headers"</span>:&#123;......</span><br></pre></td></tr></table></figure>
+<p>There are times that you may want to send data that is not form-encoded. If you pass in a <strong>string</strong> instead of a <strong>dict,</strong> that data will be posted directly.</p>
+<p>For example, the GitHub API v3 accepts JSON-Encoded POST/PATCH data:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'https://api.github.com/some/endpoint'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>payload = &#123;<span class="string">'some'</span>: <span class="string">'data'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r= requests.post(url, data= json.dumps(payload))</span><br></pre></td></tr></table></figure>
+<p>Instead of encoding the <strong>dict</strong> yourself, you can also pass it directly using the <strong>json</strong> parameter (added in version 2.4.2) and it will be encoded automatically:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'https://api.github.com/some/endpoint'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>payload = &#123;<span class="string">'some'</span>: <span class="string">'data'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r= requests.post(url, json= payload)</span><br></pre></td></tr></table></figure>
+<p>Note, the <strong>json</strong> parameter is ignored if either <strong>data</strong> or <strong>files</strong> is passed.</p>
+<p>Using the <strong>json</strong> parameter in the request will change the <strong>Content-Type</strong> in the header to <strong>application/json</strong>.</p>
+<h3 id="POST-a-Multipart-Encoded-File"><a href="#POST-a-Multipart-Encoded-File" class="headerlink" title="POST a Multipart-Encoded File"></a>POST a Multipart-Encoded File</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'http://httpbin.org/post'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>files=&#123;<span class="string">'file'</span>: open(<span class="string">'report.xls'</span>, <span class="string">'rb'</span>)&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r=requests.post(url, files= files)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.text</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="string">"files"</span>: &#123;</span><br><span class="line">    <span class="string">"file"</span>: <span class="string">"&lt;censored...binary...data&gt;"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>You can set the filename, content_type and headers explicitly:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'http://httpbin.org/post'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>files = &#123;<span class="string">'file'</span>: (<span class="string">'report.xls'</span>, open(<span class="string">'report.xls'</span>, <span class="string">'rb'</span>), <span class="string">'application/vnd.ms-excel'</span>, &#123;<span class="string">'Expires'</span>: <span class="string">'0'</span>&#125;)&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.post(url, files=files)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.text</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="string">"files"</span>: &#123;</span><br><span class="line">    <span class="string">"file"</span>: <span class="string">"&lt;censored...binary...data&gt;"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> you can send strings to be received as files:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'http://httpbin.org/post'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>files = &#123;<span class="string">'file'</span>: (<span class="string">'report.csv'</span>, <span class="string">'some,data,to,send\nanother,row,to,send\n'</span>)&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.post(url, files=files)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.text</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="string">"files"</span>: &#123;</span><br><span class="line">    <span class="string">"file"</span>: <span class="string">"some,data,to,send\\nanother,row,to,send\\n"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In the event you are posting a very large file as a <strong>multipart/form-data</strong> request, you may want to stream the request. By default, <strong>requests</strong> does not support this, but there is a separate package which does - <strong>requests-toolbelt</strong>. </p>
+<h3 id="Response-Status-Codes"><a href="#Response-Status-Codes" class="headerlink" title="Response Status Codes"></a>Response Status Codes</h3><p>We can check the response status code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(<span class="string">'http://httpbin.org/get'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.status_code</span><br><span class="line"><span class="number">200</span></span><br></pre></td></tr></table></figure>
+<p><strong>Requests</strong> also comes with a built-in status code lookup object for easy reference:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.status_code == requests.codes.ok</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>If we made a bad request (a 4XX client error or 5XX server error response), we can raise it with <strong>Response.raise_for_status()</strong>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>bad_r = requests.get(<span class="string">'http://httpbin.org/status/404'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bad_r.status_code</span><br><span class="line"><span class="number">404</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bad_r.raise_for_status()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"requests/models.py"</span>, line <span class="number">832</span>, <span class="keyword">in</span> raise_for_status</span><br><span class="line">    <span class="keyword">raise</span> http_error</span><br><span class="line">requests.exceptions.HTTPError: <span class="number">404</span> Client Error</span><br></pre></td></tr></table></figure>
+<p>But, since our <strong>status_code</strong> for <strong>r</strong> was 200, when we call <strong>raise_for_status()</strong> we get:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.raise_for_status()</span><br><span class="line"><span class="keyword">None</span></span><br></pre></td></tr></table></figure>
+<h3 id="Response-Headers"><a href="#Response-Headers" class="headerlink" title="Response Headers"></a>Response Headers</h3><p>We can view the server’s response headers using a Python dictionary:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.headers</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">'content-encoding'</span>: <span class="string">'gzip'</span>,</span><br><span class="line">    <span class="string">'transfer-encoding'</span>: <span class="string">'chunked'</span>,</span><br><span class="line">    <span class="string">'connection'</span>: <span class="string">'close'</span>,</span><br><span class="line">    <span class="string">'server'</span>: <span class="string">'nginx/1.0.4'</span>,</span><br><span class="line">    <span class="string">'x-runtime'</span>: <span class="string">'148ms'</span>,</span><br><span class="line">    <span class="string">'etag'</span>: <span class="string">'"e1ca502697e5c9317743dc078f67693f"'</span>,</span><br><span class="line">    <span class="string">'content-type'</span>: <span class="string">'application/json'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The dictionary is special, though: it’s made just for HTTP headers. According to RFC 7230, HTTP Header names are case-insensitive.</p>
+<p>So, we can access the headers using any capitalization we want:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.headers[<span class="string">'Content-Type'</span>]</span><br><span class="line"><span class="string">'application/json'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.headers.get(<span class="string">'content-type'</span>)</span><br><span class="line"><span class="string">'application/json'</span></span><br></pre></td></tr></table></figure>
+<p>It is also special in that the server could have sent the same header multiple times with different values, but requests combines them so they can be represented in the dictionary within a single mapping, as per RFC 7230:</p>
+<h3 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h3><p>If a response contains some Cookies, you can quickly access them:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'http://example.com/some/cookie/setting/url'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(url)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.cookies[<span class="string">'example_cookie_name'</span>]</span><br><span class="line"><span class="string">'example_cookie_value'</span></span><br></pre></td></tr></table></figure>
+<p>To send your own cookies to the server, you can use the cookies parameter:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'http://httpbin.org/cookies'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cookies = dict(cookies_are=<span class="string">'working'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(url, cookies=cookies)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.text</span><br><span class="line"><span class="string">'&#123;"cookies": &#123;"cookies_are": "working"&#125;&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>Cookies are returned in a <strong>RequestsCookieJar</strong>, which acts like a <strong>dict</strong> but also offers a more complete interface, suitable for use over multiple domains or paths. Cookie jars can also be passed in to requests:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>jar = requests.cookies.RequestsCookieJar()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>jar.set(<span class="string">'tasty_cookie'</span>, <span class="string">'yum'</span>, domain=<span class="string">'httpbin.org'</span>, path=<span class="string">'/cookies'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>jar.set(<span class="string">'gross_cookie'</span>, <span class="string">'blech'</span>, domain=<span class="string">'httpbin.org'</span>, path=<span class="string">'/elsewhere'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'http://httpbin.org/cookies'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(url, cookies=jar)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.text</span><br><span class="line"><span class="string">'&#123;"cookies": &#123;"tasty_cookie": "yum"&#125;&#125;'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Redirection-and-History"><a href="#Redirection-and-History" class="headerlink" title="Redirection and History"></a>Redirection and History</h3><p>By default Requests will perform location redirection for all verbs except HEAD.</p>
+<p>We can use the <strong>history</strong> property of the Response object to track redirection.</p>
+<p>The <strong>Response.history</strong> list contains the <strong>Response</strong> objects that were created in order to complete the request. The list is sorted from the oldest to the most recent response.</p>
+<p>For example, GitHub redirects all HTTP requests to HTTPS:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(<span class="string">'http://github.com'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.url</span><br><span class="line"><span class="string">'https://github.com/'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.status_code</span><br><span class="line"><span class="number">200</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.history</span><br><span class="line">[&lt;Response [<span class="number">301</span>]&gt;]</span><br></pre></td></tr></table></figure>
+<p>If you’re using GET, OPTIONS, POST, PUT, PATCH or DELETE, you can disable redirection handling with the <strong>allow_redirects</strong> parameter:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.get(<span class="string">'http://github.com'</span>, allow_redirects=<span class="keyword">False</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.status_code</span><br><span class="line"><span class="number">301</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.history</span><br><span class="line">[]</span><br></pre></td></tr></table></figure>
+<p>If you’re using HEAD, you can enable redirection as well:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>r = requests.head(<span class="string">'http://github.com'</span>, allow_redirects=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.url</span><br><span class="line"><span class="string">'https://github.com/'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r.history</span><br><span class="line">[&lt;Response [<span class="number">301</span>]&gt;]</span><br></pre></td></tr></table></figure>
+<h3 id="Timeouts"><a href="#Timeouts" class="headerlink" title="Timeouts"></a>Timeouts</h3><p>You can tell Requests to stop waiting for a response after a given number of seconds with the <strong>timeout</strong> parameter. Nearly all production code should use this parameter in nearly all requests. Failure to do so can cause your program to hang indefinitely:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>requests.get(<span class="string">'http://github.com'</span>, timeout=<span class="number">0.001</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">requests.exceptions.Timeout: HTTPConnectionPool(host=<span class="string">'github.com'</span>, port=<span class="number">80</span>): Request timed out. (timeout=<span class="number">0.001</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>timeout</strong> is not a time limit on the entire response download; rather, an exception is raised if the server has not issued a response for <strong>timeout</strong> seconds (more precisely, if no bytes have been received on the underlying socket for <strong>timeout</strong> seconds). If no <strong>timeout</strong> is specified explicitly, requests do not time out.</p>
+<h3 id="Errors-and-Exceptions"><a href="#Errors-and-Exceptions" class="headerlink" title="Errors and Exceptions"></a>Errors and Exceptions</h3><p>In the event of a network problem (e.g. DNS failure, refused connection, etc), Requests will raise a <strong>ConnectionError</strong> exception.</p>
+<p><strong>Response.raise_for_status()</strong> will raise an <strong>HTTPError</strong> if the HTTP request returned an unsuccessful status code.</p>
+<p>If a request times out, a <strong>Timeout</strong> exception is raised.</p>
+<p>If a request exceeds the configured number of maximum redirections, a <strong>TooManyRedirects</strong> exception is raised.</p>
+<p>All exceptions that Requests explicitly raises inherit from <strong>requests.exceptions.RequestException</strong>.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/requests/" rel="tag"><i class="fa fa-tag"></i> requests</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/DOM-Scripting-C10-Animation/" rel="next" title="DOM_Scripting_C10_Animation">
+                <i class="fa fa-chevron-left"></i> DOM_Scripting_C10_Animation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/requests-HTTP-for-humans-Authentication/" rel="prev" title="requests_HTTP_for_humans_Authentication">
+                requests_HTTP_for_humans_Authentication <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Make-a-Request"><span class="nav-number">1.</span> <span class="nav-text">Make a Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Passing-Parameters-In-URLs"><span class="nav-number">2.</span> <span class="nav-text">Passing Parameters In URLs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response-Content"><span class="nav-number">3.</span> <span class="nav-text">Response Content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-Response-Content"><span class="nav-number">4.</span> <span class="nav-text">Binary Response Content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON-Response-Content"><span class="nav-number">5.</span> <span class="nav-text">JSON Response Content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Raw-Response-Content"><span class="nav-number">6.</span> <span class="nav-text">Raw Response Content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Custom-Headers"><span class="nav-number">7.</span> <span class="nav-text">Custom Headers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-complicated-POST-requests"><span class="nav-number">8.</span> <span class="nav-text">More complicated POST requests</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST-a-Multipart-Encoded-File"><span class="nav-number">9.</span> <span class="nav-text">POST a Multipart-Encoded File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response-Status-Codes"><span class="nav-number">10.</span> <span class="nav-text">Response Status Codes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response-Headers"><span class="nav-number">11.</span> <span class="nav-text">Response Headers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookies"><span class="nav-number">12.</span> <span class="nav-text">Cookies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redirection-and-History"><span class="nav-number">13.</span> <span class="nav-text">Redirection and History</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Timeouts"><span class="nav-number">14.</span> <span class="nav-text">Timeouts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Errors-and-Exceptions"><span class="nav-number">15.</span> <span class="nav-text">Errors and Exceptions</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

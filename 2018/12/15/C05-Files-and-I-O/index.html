@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Reading and Writing Binary DataA lesser-known aspect of binary I/O is that objects such as arrays and C structures can be used for writing without any kind of intermediate conversion to a bytes object">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C05_Files_and_I&#x2F;O">
+<meta property="og:url" content="blog.whistlestop.ml/2018/12/15/C05-Files-and-I-O/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Reading and Writing Binary DataA lesser-known aspect of binary I/O is that objects such as arrays and C structures can be used for writing without any kind of intermediate conversion to a bytes object">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-15T11:11:46.146Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C05_Files_and_I&#x2F;O">
+<meta name="twitter:description" content="Reading and Writing Binary DataA lesser-known aspect of binary I/O is that objects such as arrays and C structures can be used for writing without any kind of intermediate conversion to a bytes object">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/12/15/C05-Files-and-I-O/"/>
+
+
+
+
+
+  <title>C05_Files_and_I/O | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C05-Files-and-I-O/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C05_Files_and_I/O</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:43:43+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:46+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Reading-and-Writing-Binary-Data"><a href="#Reading-and-Writing-Binary-Data" class="headerlink" title="Reading and Writing Binary Data"></a>Reading and Writing Binary Data</h2><p>A lesser-known aspect of binary I/O is that objects such as arrays and C structures can be used for writing without any kind of intermediate conversion to a bytes object. For example:<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> array</span><br><span class="line">nums = array.array(<span class="string">'i'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'data.bin'</span>,<span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(nums)</span><br></pre></td></tr></table></figure></p>
+<p>This applies to any object that implements the so-called “buffer interface,” which directly exposes an underlying memory buffer to operations that can work with it. Writing binary data is one such operation.</p>
+<p>Many objects also allow binary data to be directly read into their underlying memory using the <strong>readinto()</strong> method of files. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> array</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = array.array(<span class="string">'i'</span>, [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> open(<span class="string">'data.bin'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">... </span>f.readinto(a)</span><br><span class="line">...</span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line">array(<span class="string">'i'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Writing-to-a-File-That-Doesn’t-Already-Exist"><a href="#Writing-to-a-File-That-Doesn’t-Already-Exist" class="headerlink" title="Writing to a File That Doesn’t Already Exist"></a>Writing to a File That Doesn’t Already Exist</h2><p>You want to write data to a file, but only if it doesn’t already exist on the filesystem. This problem is easily solved by using the little-known <strong>x</strong> mode to <strong>open()</strong> instead of the usual <strong>w</strong> mode.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> open(<span class="string">'somefile'</span>, <span class="string">'wt'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">... </span>f.write(<span class="string">'Hello\n'</span>)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> open(<span class="string">'somefile'</span>, <span class="string">'xt'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">... </span>f.write(<span class="string">'Hello\n'</span>)</span><br><span class="line">...</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">FileExistsError: [Errno <span class="number">17</span>] File exists: <span class="string">'somefile'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>If the file is binary mode, use mode <strong>xb</strong> instead of <strong>xt</strong>.</p>
+<h2 id="Performing-I-O-Operations-on-a-String"><a href="#Performing-I-O-Operations-on-a-String" class="headerlink" title="Performing I/O Operations on a String"></a>Performing I/O Operations on a String</h2><p>Use the <strong>io.StringIO()</strong> and <strong>io.BytesIO()</strong> classes to create file-like objects that operate on string data.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> io</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s= io.StringIO()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.write(<span class="string">'Hello World\n'</span>)</span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="string">'This is a test'</span>, file= s)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.getvalue()</span><br><span class="line"><span class="string">'Hello World\nThis is a test\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s= io.StringIO(<span class="string">'Hello\nWorld\n'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.read(<span class="number">4</span>)</span><br><span class="line"><span class="string">'Hell'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.read()</span><br><span class="line"><span class="string">'o\nWorld\n'</span></span><br></pre></td></tr></table></figure>
+<p>The <strong>io.StringIO</strong> class should only be used for text. If you are operating with binary data, use the <strong>io.BytesIO</strong> class instead.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s= io.BytesIO()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.write(<span class="string">b'binary data'</span>)</span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.getvalue()</span><br><span class="line"><span class="string">b'binary data'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>The <strong>StringIO</strong> and <strong>BytesIO</strong> classes are most useful in scenarios where you need to mimic a normal file for some reason.  Be aware that <strong>StringIO</strong> and <strong>BytesIO</strong> instances don’t have a proper integer filedescriptor. Thus, they do not work with code that requires the use of a real system-level file such as a file, pipe, or socket.</p>
+<h2 id="Reading-and-Writing-Compressed-Datafiles"><a href="#Reading-and-Writing-Compressed-Datafiles" class="headerlink" title="Reading and Writing Compressed Datafiles"></a>Reading and Writing Compressed Datafiles</h2><p>You need to read or write data in a file with <strong>gzip</strong> or <strong>bz2</strong> compression. The <strong>gzip</strong> and <strong>bz2</strong> modules make it easy to work with such files. Both modules provide an alternative implementation of <strong>open()</strong> that can be used for this purpose. Both <strong>gzip.open()</strong> and <strong>bz2.open()</strong> accept the same parameters as the built-in <strong>open()</strong> function, including <strong>encoding</strong>, <strong>errors</strong>, <strong>newline</strong>, and so forth.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gzip compression</span></span><br><span class="line"><span class="keyword">import</span> gzip</span><br><span class="line"><span class="keyword">with</span> gzip.open(<span class="string">'somefile.gz'</span>, <span class="string">'rt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    text = f.read()</span><br><span class="line"><span class="comment"># bz2 compression</span></span><br><span class="line"><span class="keyword">import</span> bz2</span><br><span class="line"><span class="keyword">with</span> bz2.open(<span class="string">'somefile.bz2'</span>, <span class="string">'rt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    text = f.read()</span><br></pre></td></tr></table></figure>
+<p>Similarly, to write compressed data, do this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gzip compression</span></span><br><span class="line"><span class="keyword">import</span> gzip</span><br><span class="line"><span class="keyword">with</span> gzip.open(<span class="string">'somefile.gz'</span>, <span class="string">'wt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(text)</span><br><span class="line"><span class="comment"># bz2 compression</span></span><br><span class="line"><span class="keyword">import</span> bz2</span><br><span class="line"><span class="keyword">with</span> bz2.open(<span class="string">'somefile.bz2'</span>, <span class="string">'wt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(text)</span><br></pre></td></tr></table></figure>
+<p>When writing compressed data, the compression level can be optionally specified using the <strong>compresslevel</strong> keyword argument. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> gzip.open(<span class="string">'somefile.gz'</span>, <span class="string">'wt'</span>, compresslevel=<span class="number">5</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(text)</span><br></pre></td></tr></table></figure>
+<p>Finally, a little-known feature of <strong>gzip.open()</strong> and <strong>bz2.open()</strong> is that they can be layered on top of an existing file opened in binary mode.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gzip</span><br><span class="line">f = open(<span class="string">'somefile.gz'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="keyword">with</span> gzip.open(f, <span class="string">'rt'</span>) <span class="keyword">as</span> g:</span><br><span class="line">    text = g.read()</span><br></pre></td></tr></table></figure>
+<p>This allows the <strong>gzip</strong> and <strong>bz2</strong> modules to work with various file-like objects such as sockets, pipes, and in-memory files.</p>
+<h2 id="Iterating-Over-Fixed-Sized-Records"><a href="#Iterating-Over-Fixed-Sized-Records" class="headerlink" title="Iterating Over Fixed-Sized Records"></a>Iterating Over Fixed-Sized Records</h2><p>Instead of iterating over a file by lines, you want to iterate over a collection of fixedsized records or chunks.</p>
+<p>Use the <strong>iter()</strong> function and <strong>functools.partial()</strong> using this neat trick:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line">RECORD_SIZE = <span class="number">32</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'somefile.data'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    records = iter(partial(f.read, RECORD_SIZE), <span class="string">b''</span>)</span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> records:</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure></p>
+<p>The <strong>records</strong> object in this example is an iterable that will produce fixed-sized chunks until the end of the file is reached.</p>
+<p>A little-known feature of the <strong>iter()</strong> function is that it can create an iterator if you pass it a callable and a sentinel value. The resulting iterator simply calls the supplied callable over and over again until it returns the sentinel, at which point iteration stops.</p>
+<p>In the solution, the <strong>functools.partial</strong> is used to create a callable that reads a fixed number of bytes from a file each time it’s called. The sentinel of <strong>b’’</strong> is what gets returned when a file is read but the end of file has been reached.</p>
+<h2 id="Reading-Binary-Data-into-a-Mutable-Buffer"><a href="#Reading-Binary-Data-into-a-Mutable-Buffer" class="headerlink" title="Reading Binary Data into a Mutable Buffer"></a>Reading Binary Data into a Mutable Buffer</h2><p>You want to read binary data directly into a mutable buffer without any intermediate copying. Perhaps you want to mutate the data in-place and write it back out to a file.</p>
+<p>To read data into a mutable array, use the <strong>readinto()</strong> method of files.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os.path</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">read_into_buffer</span><span class="params">(filename)</span>:</span></span><br><span class="line"><span class="meta">... </span>    buf= bytearray(os.path.getsize(filename))</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">with</span> open(filename, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">... </span>        f.readinto(buf)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> buf</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># Write a sample file</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> open(<span class="string">'sample.bin'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">... </span>f.write(<span class="string">b'Hello World'</span>)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf = read_into_buffer(<span class="string">'sample.bin'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf</span><br><span class="line">bytearray(<span class="string">b'Hello World'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf[<span class="number">0</span>:<span class="number">5</span>] = <span class="string">b'Hallo'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>buf</span><br><span class="line">bytearray(<span class="string">b'Hallo World'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">with</span> open(<span class="string">'newsample.bin'</span>, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="meta">... </span>f.write(buf)</span><br><span class="line">...</span><br><span class="line"><span class="number">11</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>The <strong>readinto()</strong> method of files can be used to fill any preallocated array with data. This even includes arrays created from the <strong>array</strong> module or libraries such as <strong>numpy</strong>. Unlike the normal <strong>read()</strong> method, <strong>readinto()</strong> fills the contents of an existing buffer rather than allocating new objects and returning them. </p>
+<h2 id="Getting-a-Directory-Listing"><a href="#Getting-a-Directory-Listing" class="headerlink" title="Getting a Directory Listing"></a>Getting a Directory Listing</h2><p>For filename matching, you may want to use the <strong>glob</strong> or <strong>fnmatch</strong> modules instead.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> glob</span><br><span class="line">pyfiles = glob.glob(<span class="string">'somedir/*.py'</span>)</span><br><span class="line"><span class="keyword">from</span> fnmatch <span class="keyword">import</span> fnmatch</span><br><span class="line">pyfiles = [name <span class="keyword">for</span> name <span class="keyword">in</span> os.listdir(<span class="string">'somedir'</span>)</span><br><span class="line"> <span class="keyword">if</span> fnmatch(name, <span class="string">'*.py'</span>)]</span><br></pre></td></tr></table></figure>
+<p>Getting a directory listing is easy, but it only gives you the names of entries in the directory. If you want to get additional metadata, such as file sizes, modification dates, and so forth, you either need to use additional functions in the <strong>os.path</strong> module or use the <strong>os.stat()</strong> function.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> os.path</span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line">pyfiles = glob.glob(<span class="string">'*.py'</span>)</span><br><span class="line"><span class="comment"># Get file sizes and modification dates</span></span><br><span class="line">name_sz_date = [(name, os.path.getsize(name), os.path.getmtime(name)) <span class="keyword">for</span> name <span class="keyword">in</span> pyfiles]</span><br><span class="line"><span class="keyword">for</span> name, size, mtime <span class="keyword">in</span> name_sz_date:</span><br><span class="line">    print(name, size, mtime)</span><br><span class="line"><span class="comment"># Alternative: Get file metadata</span></span><br><span class="line">file_metadata = [(name, os.stat(name)) <span class="keyword">for</span> name <span class="keyword">in</span> pyfiles]</span><br><span class="line"><span class="keyword">for</span> name, meta <span class="keyword">in</span> file_metadata:</span><br><span class="line">    print(name, meta.st_size, meta.st_mtime)</span><br></pre></td></tr></table></figure></p>
+<h2 id="Serializing-Python-Objects"><a href="#Serializing-Python-Objects" class="headerlink" title="Serializing Python Objects"></a>Serializing Python Objects</h2><p>The most common approach for serializing data is to use the <strong>pickle</strong> module. To dump an object to a file, you do this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line">data = ... <span class="comment"># Some Python object</span></span><br><span class="line">f = open(<span class="string">'somefile'</span>, <span class="string">'wb'</span>)</span><br><span class="line">pickle.dump(data, f)</span><br></pre></td></tr></table></figure>
+<p>To dump an object to a string, use <strong>pickle.dumps()</strong>:</p>
+<p><code>s = pickle.dumps(data)</code></p>
+<p>To re-create an object from a byte stream, use either the <strong>pickle.load()</strong> or <strong>pickle.loads()</strong> functions. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Restore from a file</span></span><br><span class="line">f = open(<span class="string">'somefile'</span>, <span class="string">'rb'</span>)</span><br><span class="line">data = pickle.load(f)</span><br><span class="line"><span class="comment"># Restore from a string</span></span><br><span class="line">data = pickle.loads(s)</span><br></pre></td></tr></table></figure>
+<p>pickle is a Python-specific self-describing data encoding. By self-describing, the serialized data contains information related to the start and end of each object as well as information about its type. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pickle</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'somedata'</span>, <span class="string">'wb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dump([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], f)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dump(<span class="string">'hello'</span>, f)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dump(&#123;<span class="string">'Apple'</span>, <span class="string">'Pear'</span>, <span class="string">'Banana'</span>&#125;, f)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'somedata'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.load(f)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.load(f)</span><br><span class="line"><span class="string">'hello'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.load(f)</span><br><span class="line">&#123;<span class="string">'Apple'</span>, <span class="string">'Pear'</span>, <span class="string">'Banana'</span>&#125;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Certain kinds of objects can’t be pickled. These are typically objects that involve some sort of external system state, such as open files, open network connections, threads, processes, stack frames, and so forth. User-defined classes can sometimes work around these limitations by providing <strong>__getstate__()</strong> and <strong>__setstate__()</strong> methods. If defined, <strong>pickle.dump()</strong> will call <strong>__getstate__()</strong> to get an object that can be pickled. Similarly, <strong>__setstate__()</strong> will be invoked on unpickling. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Countdown</span>:</span></span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, n)</span>:</span></span><br><span class="line">         self.n = n</span><br><span class="line">         self.thr = threading.Thread(target=self.run)</span><br><span class="line">         self.thr.daemon = <span class="keyword">True</span></span><br><span class="line">         self.thr.start()</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">         <span class="keyword">while</span> self.n &gt; <span class="number">0</span>:</span><br><span class="line">             print(<span class="string">'T-minus'</span>, self.n)</span><br><span class="line">             self.n -= <span class="number">1</span></span><br><span class="line">             time.sleep(<span class="number">5</span>)</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">__getstate__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.n</span><br><span class="line">     <span class="function"><span class="keyword">def</span> <span class="title">__setstate__</span><span class="params">(self, n)</span>:</span></span><br><span class="line">         self.__init__(n)</span><br></pre></td></tr></table></figure>
+<p>Try the following experiment involving pickling:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> countdown</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = countdown.Countdown(<span class="number">30</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>T-minus <span class="number">30</span></span><br><span class="line">T-minus <span class="number">29</span></span><br><span class="line">T-minus <span class="number">28</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># After a few moments</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'cstate.p'</span>, <span class="string">'wb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pickle</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.dump(c, f)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.close()</span><br></pre></td></tr></table></figure>
+<p>Now quit Python and try this after restart:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>f = open(<span class="string">'cstate.p'</span>, <span class="string">'rb'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pickle.load(f)</span><br><span class="line">countdown.Countdown object at <span class="number">0x10069e2d0</span>&gt;</span><br><span class="line">T-minus <span class="number">19</span></span><br><span class="line">T-minus <span class="number">18</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/C04-Iterators-and-Generators/" rel="next" title="C04_Iterators_and_Generators">
+                <i class="fa fa-chevron-left"></i> C04_Iterators_and_Generators
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/C06-Data-Encoding-and-Processing/" rel="prev" title="C06_Data_Encoding_and_Processing">
+                C06_Data_Encoding_and_Processing <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reading-and-Writing-Binary-Data"><span class="nav-number">1.</span> <span class="nav-text">Reading and Writing Binary Data</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-to-a-File-That-Doesn’t-Already-Exist"><span class="nav-number">2.</span> <span class="nav-text">Writing to a File That Doesn’t Already Exist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performing-I-O-Operations-on-a-String"><span class="nav-number">3.</span> <span class="nav-text">Performing I/O Operations on a String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reading-and-Writing-Compressed-Datafiles"><span class="nav-number">4.</span> <span class="nav-text">Reading and Writing Compressed Datafiles</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterating-Over-Fixed-Sized-Records"><span class="nav-number">5.</span> <span class="nav-text">Iterating Over Fixed-Sized Records</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reading-Binary-Data-into-a-Mutable-Buffer"><span class="nav-number">6.</span> <span class="nav-text">Reading Binary Data into a Mutable Buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Getting-a-Directory-Listing"><span class="nav-number">7.</span> <span class="nav-text">Getting a Directory Listing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Serializing-Python-Objects"><span class="nav-number">8.</span> <span class="nav-text">Serializing Python Objects</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

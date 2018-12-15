@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Writing Functions That Accept Any Number of ArgumentsTo accept any number of keyword arguments, use an argument that starts with **.  1234567891011121314&amp;gt;&amp;gt;&amp;gt; import html&amp;gt;&amp;gt;&amp;gt; make_eleme">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C07_Functions">
+<meta property="og:url" content="blog.whistlestop.ml/2018/12/15/C07-Functions/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Writing Functions That Accept Any Number of ArgumentsTo accept any number of keyword arguments, use an argument that starts with **.  1234567891011121314&amp;gt;&amp;gt;&amp;gt; import html&amp;gt;&amp;gt;&amp;gt; make_eleme">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-15T11:11:54.979Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C07_Functions">
+<meta name="twitter:description" content="Writing Functions That Accept Any Number of ArgumentsTo accept any number of keyword arguments, use an argument that starts with **.  1234567891011121314&amp;gt;&amp;gt;&amp;gt; import html&amp;gt;&amp;gt;&amp;gt; make_eleme">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/12/15/C07-Functions/"/>
+
+
+
+
+
+  <title>C07_Functions | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C07-Functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C07_Functions</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:45:04+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:54+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Writing-Functions-That-Accept-Any-Number-of-Arguments"><a href="#Writing-Functions-That-Accept-Any-Number-of-Arguments" class="headerlink" title="Writing Functions That Accept Any Number of Arguments"></a>Writing Functions That Accept Any Number of Arguments</h2><p>To accept any number of keyword arguments, use an argument that starts with **. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> html</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>make_element(<span class="string">'item'</span>, <span class="string">'Albatross'</span>, size=<span class="string">'large'</span>, quantity=<span class="number">6</span>)</span><br><span class="line"><span class="string">'&lt;itemsize= "large" quantity= "6"&gt;Albatross&lt;/item&gt;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">make_element</span><span class="params">(name, value, **attrs)</span>:</span></span><br><span class="line"><span class="meta">... </span>    keyvals=[<span class="string">'%s= "%s"'</span> %item <span class="keyword">for</span> item <span class="keyword">in</span> attrs.items() ]</span><br><span class="line"><span class="meta">... </span>    attr_str= <span class="string">' '</span>.join(keyvals)</span><br><span class="line"><span class="meta">... </span>    element= <span class="string">'&lt;&#123;name&#125; &#123;attrs&#125;&gt;&#123;value&#125;&lt;/&#123;name&#125;&gt;'</span>.format(</span><br><span class="line"><span class="meta">... </span>        name= name,</span><br><span class="line"><span class="meta">... </span>        value= html.escape(value),</span><br><span class="line"><span class="meta">... </span>        attrs= attr_str)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> element</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>make_element(<span class="string">'item'</span>, <span class="string">'Albatross'</span>, size=<span class="string">'large'</span>, quantity=<span class="number">6</span>)</span><br><span class="line"><span class="string">'&lt;item size= "large" quantity= "6"&gt;Albatross&lt;/item&gt;'</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a> 
+<p>If you want a function that can accept both any number of positional and keyword-only arguments, use * and ** together.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">anyargs</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line"><span class="meta">... </span>    print(args)</span><br><span class="line"><span class="meta">... </span>    print(kwargs)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>A * argument can only appear as the last positional argument in a function definition. A ** argument can only appear as the last argument. A subtle aspect of function definitions is that arguments can still appear after a * argument.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">a</span><span class="params">(x, *args, y)</span>:</span><span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">a</span><span class="params">(x, *args, y, **kwargs)</span>:</span><span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Writing-Functions-That-Only-Accept-Keyword-Arguments"><a href="#Writing-Functions-That-Only-Accept-Keyword-Arguments" class="headerlink" title="Writing Functions That Only Accept Keyword Arguments"></a>Writing Functions That Only Accept Keyword Arguments</h2><p>You want a function to only accept certain arguments by keyword. This feature is easy to implement if you place the keyword arguments after a * argument or a single unnamed *.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">recv</span><span class="params">(maxsize,*,block)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="string">'Receives a message'</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">pass</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>recv(<span class="number">1024</span>, <span class="keyword">True</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: recv() takes <span class="number">1</span> positional argument but <span class="number">2</span> were given</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>This technique can also be used to specify keyword arguments for functions that accept a varying number of positional arguments.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">mininum</span><span class="params">(*values, clip= None)</span>:</span></span><br><span class="line"><span class="meta">... </span>    m = min(values)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> clip <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line"><span class="meta">... </span>        m= clip <span class="keyword">if</span> clip &gt; m <span class="keyword">else</span> m</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> m</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mininum(<span class="number">1</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">-5</span>,<span class="number">10</span>)</span><br><span class="line"><span class="number">-5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>mininum(<span class="number">1</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">-5</span>,<span class="number">10</span>, clip= <span class="number">0</span>)</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h2 id="Attaching-Informational-Metadata-to-Function-Arguments"><a href="#Attaching-Informational-Metadata-to-Function-Arguments" class="headerlink" title="Attaching Informational Metadata to Function Arguments"></a>Attaching Informational Metadata to Function Arguments</h2><p>Function argument annotations can be a useful way to give programmers hints about how a function is supposed to be used. </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x:int,y:int)</span> -&gt; int:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> x+ y</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>help(add)</span><br><span class="line">Help on function add <span class="keyword">in</span> module __main__:</span><br><span class="line">add(x:int, y:int) -&gt; int</span><br></pre></td></tr></table></figure>
+<p>Function annotations are merely stored in a function’s <strong>__annotations__</strong> attribute.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.__annotations__</span><br><span class="line">&#123;'y': &lt;class 'int'&gt;, 'return': &lt;class 'int'&gt;, 'x': &lt;class 'int'&gt;&#125;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Defining-Functions-with-Default-Arguments"><a href="#Defining-Functions-with-Default-Arguments" class="headerlink" title="Defining Functions with Default Arguments"></a>Defining Functions with Default Arguments</h2><p>On the surface, defining a function with optional arguments is easy—simply assign values in the definition and make sure that default arguments appear last. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spam</span><span class="params">(a, b=<span class="number">42</span>)</span>:</span></span><br><span class="line">    print(a, b)</span><br><span class="line">spam(<span class="number">1</span>) <span class="comment"># Ok. a=1, b=42</span></span><br><span class="line">spam(<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># Ok. a=1, b=2</span></span><br></pre></td></tr></table></figure>
+<p>If the default value is supposed to be a mutable container, such as a list, set, or dictionary, use <strong>None</strong> as the default and write code like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Using a list as a default value</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spam</span><span class="params">(a, b=None)</span>:</span></span><br><span class="line">     <span class="keyword">if</span> b <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">         b = []</span><br><span class="line">     ...</span><br></pre></td></tr></table></figure>
+<p>If, instead of providing a default value, you want to write code that merely tests whether an optional argument was given an interesting value or not, use this idiom:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_no_value = object()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spam</span><span class="params">(a, b=_no_value)</span>:</span></span><br><span class="line">     <span class="keyword">if</span> b <span class="keyword">is</span> _no_value:</span><br><span class="line">           print(<span class="string">'No b value supplied'</span>)</span><br><span class="line">           ...</span><br></pre></td></tr></table></figure>
+<p>Here’s how this function behaves:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>spam(<span class="number">1</span>)</span><br><span class="line">No b value supplied</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>spam(<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># b = 2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>spam(<span class="number">1</span>, <span class="keyword">None</span>) <span class="comment"># b = None</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Carefully observe that there is a distinction between passing no value at all and passing a value of <strong>None</strong>.</p>
+<p>The tricky part here is that you can’t use a default value of <strong>None</strong>, <strong>0</strong>, or <strong>False</strong> to test for the presence of a user-supplied argument (since all of these are perfectly valid values that a user might supply). Thus, you need something else to test against.</p>
+<p>To solve this problem, you can create a unique private instance of object, as shown in the solution (the <strong>_no_value</strong> variable). In the function, you then check the identity of the supplied argument against this special value to see if an argument was supplied or not. The thinking here is that it would be extremely unlikely for a user to pass the <strong>_no_value</strong> instance in as an input value. Therefore, it becomes a safe value to check against if you’re trying to determine whether an argument was supplied or not. The values assigned as a default are bound only once at the time of function definition.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">42</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">spam</span><span class="params">(a, b=x)</span>:</span></span><br><span class="line"><span class="meta">... </span>print(a, b)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>spam(<span class="number">1</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">42</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">23</span> <span class="comment"># Has no effect</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>spam(<span class="number">1</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">42</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Notice how changing the variable <strong>x</strong> (which was used as a default value) has no effect whatsoever. This is because the default value was fixed at function definition time.</p>
+<p>Second, the values assigned as defaults should always be immutable objects, such as <strong>None</strong>, <strong>True</strong>, <strong>False</strong>, numbers, or strings. Specifically, never write code like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spam</span><span class="params">(a, b=[])</span>:</span> <span class="comment"># NO!</span></span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+<p>If you do this, you can run into all sorts of trouble if the default value ever escapes the function and gets modified. Such changes will permanently alter the default value across future function calls. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">spam</span><span class="params">(a, b=[])</span>:</span></span><br><span class="line"><span class="meta">... </span>    print(b)</span><br><span class="line"><span class="meta">... </span>     <span class="keyword">return</span> b</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = spam(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line">[]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x.append(<span class="number">99</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x.append(<span class="string">'Yow!'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line">[<span class="number">99</span>, <span class="string">'Yow!'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>spam(<span class="number">1</span>) <span class="comment"># Modified list gets returned!</span></span><br><span class="line">[<span class="number">99</span>, <span class="string">'Yow!'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Capturing-Variables-in-Anonymous-Functions"><a href="#Capturing-Variables-in-Anonymous-Functions" class="headerlink" title="Capturing Variables in Anonymous Functions"></a>Capturing Variables in Anonymous Functions</h2><p>You’ve defined an anonymous function using lambda, but you also need to capture the values of certain variables at the time of definition. Consider the behavior of the following code:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">10</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="keyword">lambda</span> y: x + y</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">20</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="keyword">lambda</span> y: x + y</span><br></pre></td></tr></table></figure>
+<p>Now ask yourself a question. What are the values of <strong>a(10)</strong> and <strong>b(10)</strong>? If you think the results might be 20 and 30, you would be wrong:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a(<span class="number">10</span>)</span><br><span class="line"><span class="number">30</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b(<span class="number">10</span>)</span><br><span class="line"><span class="number">30</span></span><br></pre></td></tr></table></figure></p>
+<p>The problem here is that the value of <strong>x</strong> used in the lambda expression is a free variable that gets bound at runtime, not definition time. Thus, the value of <strong>x</strong> in the <strong>lambda</strong> expressions is whatever the value of the <strong>x</strong> variable happens to be at the time of execution.</p>
+<p>The problem addressed in this recipe is something that tends to come up in code that tries to be just a little bit too clever with the use of lambda functions. For example, creating a list of lambda expressions using a list comprehension or in a loop of some kind and expecting the lambda functions to remember the iteration variable at the time of definition. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>funcs = [<span class="keyword">lambda</span> x: x+n <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">5</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> f <span class="keyword">in</span> funcs:</span><br><span class="line"><span class="meta">... </span>print(f(<span class="number">0</span>))</span><br><span class="line">...</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Notice how all functions think that n has the last value during iteration. Now compare to the following:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>funcs = [<span class="keyword">lambda</span> x, n=n: x+n <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">5</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> f <span class="keyword">in</span> funcs:</span><br><span class="line"><span class="meta">... </span>print(f(<span class="number">0</span>))</span><br><span class="line">...</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Carrying-Extra-State-with-Callback-Functions"><a href="#Carrying-Extra-State-with-Callback-Functions" class="headerlink" title="Carrying Extra State with Callback Functions"></a>Carrying Extra State with Callback Functions</h2><p>You’re writing code that relies on the use of callback functions (e.g., event handlers, completion callbacks, etc.), but you want to have the callback function carry extra state for use inside the callback function.</p>
+<p>To illustrate and for the purposes of testing, define the following function, which invokes a callback:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">apply_async</span><span class="params">(func, args, *, callback)</span>:</span></span><br><span class="line"><span class="meta">... </span>    result = func(*args)</span><br><span class="line"><span class="meta">... </span>    callback(result)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> x + y</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>One way to carry extra information in a callback is to use a bound-method instead of a simple function. For example, this class keeps an internal sequence number that is incremented every time a result is received:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ResultHandler</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.sequence= <span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">handler</span><span class="params">(self, result)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.sequence+= <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'[&#123;&#125;] Got: &#123;&#125;'</span>.format(self.sequence, result))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>r= ResultHandler()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>apply_async(add, (<span class="number">2</span>,<span class="number">3</span>), callback= r.handler)</span><br><span class="line">[<span class="number">1</span>] Got: <span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>apply_async(add, (<span class="string">'hello'</span>, <span class="string">'world'</span>), callback=r.handler)</span><br><span class="line">[<span class="number">2</span>] Got: helloworld</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>As an alternative to a class, you can also use a closure to capture state.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">make_handler</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    sequence= <span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">handler</span><span class="params">(result)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">nonlocal</span> sequence</span><br><span class="line"><span class="meta">... </span>        sequence+= <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'[&#123;&#125;] Got: &#123;&#125;'</span>.format(sequence, result))</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> handler</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>handler= make_handler()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>apply_async(add, (<span class="number">2</span>, <span class="number">3</span>), callback=handler)</span><br><span class="line">[<span class="number">1</span>] Got: <span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>apply_async(add, (<span class="string">'hello'</span>, <span class="string">'world'</span>), callback=handler)</span><br><span class="line">[<span class="number">2</span>] Got: helloworld</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>As yet another variation on this theme, you can sometimes use a <strong>coroutine</strong> to accomplish the same thing:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">make_handler</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    sequence= <span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"><span class="meta">... </span>        result= <span class="keyword">yield</span></span><br><span class="line"><span class="meta">... </span>        sequence += <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'[&#123;&#125;] Got: &#123;&#125;'</span>.format(sequence, result))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>handler= make_handler()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(handler)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>apply_async(add, (<span class="number">2</span>,<span class="number">3</span>), callback= handler.send)</span><br><span class="line">[<span class="number">1</span>] Got: <span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>apply_async(add, (<span class="number">2</span>,<span class="number">3</span>), callback= handler.send)</span><br><span class="line">[<span class="number">2</span>] Got: <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>You can also carry state into a callback using an extra argument and partial function application. For example:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">SequenceNo</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.sequence= <span class="number">0</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">handler</span><span class="params">(result, seq)</span>:</span></span><br><span class="line"><span class="meta">... </span>    seq.sequence += <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'[&#123;&#125;] Got: &#123;&#125;'</span>.format(seq.sequence, result))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>seq= SequenceNo()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>apply_async(add, (<span class="number">2</span>,<span class="number">3</span>), callback= partial(handler, seq= seq))</span><br><span class="line">[<span class="number">1</span>] Got: <span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>apply_async(add, (<span class="number">2</span>,<span class="number">3</span>), callback= partial(handler, seq= seq))</span><br><span class="line">[<span class="number">2</span>] Got: <span class="number">5</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Inlining-Callback-Functions"><a href="#Inlining-Callback-Functions" class="headerlink" title="Inlining Callback Functions"></a>Inlining Callback Functions</h2><p>Callback functions can be inlined into a function using generators and coroutines. To illustrate, suppose you have a function that performs work and invokes a callback as follows:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">apply_async</span><span class="params">(func, args, *, callback)</span>:</span></span><br><span class="line"><span class="meta">... </span>    result= function(*args)</span><br><span class="line"><span class="meta">... </span>    callback(result)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> queue <span class="keyword">import</span> Queue</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Async</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, func, args)</span>:</span></span><br><span class="line">        self.func = func</span><br><span class="line">        self.args = args</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inlined_async</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">    @wraps(func)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args)</span>:</span></span><br><span class="line">        f = func(*args)</span><br><span class="line">        result_queue = Queue()</span><br><span class="line">        result_queue.put(<span class="keyword">None</span>)</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            result = result_queue.get()</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                a = f.send(result)</span><br><span class="line">                apply_async(a.func, a.args, callback=result_queue.put)</span><br><span class="line">            <span class="keyword">except</span> StopIteration:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"><span class="keyword">return</span> wrapper</span><br></pre></td></tr></table></figure>
+<h2 id="These-two-fragments-of-code-will-allow-you-to-inline-the-callback-steps-using-yield-statements"><a href="#These-two-fragments-of-code-will-allow-you-to-inline-the-callback-steps-using-yield-statements" class="headerlink" title="These two fragments of code will allow you to inline the callback steps using yield statements."></a>These two fragments of code will allow you to inline the callback steps using <strong>yield</strong> statements.</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> x+ y</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>@inlined_async</span><br><span class="line"><span class="meta">... </span><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    r= <span class="keyword">yield</span> Async(add, (<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"><span class="meta">... </span>    print(r)</span><br><span class="line"><span class="meta">... </span>    r= <span class="keyword">yield</span> Async(add, (<span class="string">'hello'</span>, <span class="string">'world'</span>))</span><br><span class="line"><span class="meta">... </span>    print(r)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line"><span class="meta">... </span>        r= <span class="keyword">yield</span> Async(add, (n,n))</span><br><span class="line"><span class="meta">... </span>        print(r)</span><br><span class="line"><span class="meta">... </span>    print(<span class="string">'Goodbye'</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>test()</span><br><span class="line"><span class="number">5</span></span><br><span class="line">helloworld</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line">Goodbye</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>First, in code involving callbacks, the whole point is that the current calculation will suspend and resume at some later point in time (e.g., asynchronously). When the calculation resumes, the callback will get executed to continue the processing. The <strong>apply_async()</strong> function illustrates the essential parts of executing the callback, although in reality it might be much more complicated (involving threads, processes, event handlers, etc.).</p>
+<p>The idea that a calculation will suspend and resume naturally maps to the execution model of a generator function. Specifically, the <strong>yield</strong> operation makes a generator function emit a value and suspend. Subsequent calls to the <strong>__next__()</strong> or <strong>send()</strong> method of a generator will make it start again.</p>
+<p>With this in mind, the core of this recipe is found in the <strong>inline_async()</strong> decorator function. The key idea is that the decorator will step the generator function through all of its <strong>yield</strong> statements, one at a time. To do this, a result queue is created and initially populated with a value of <strong>None</strong>. A loop is then initiated in which a result is popped off the queue and sent into the generator. This advances to the next <strong>yield</strong>, at which point an instance of <strong>Async</strong> is received. The loop then looks at the function and arguments, and initiates the asynchronous calculation <strong>apply_async()</strong>. However, the sneakiest part of this calculation is that instead of using a normal callback function, the callback is set to the queue <strong>put()</strong> method.</p>
+<p>At this point, it is left somewhat open as to precisely what happens. The main loop immediately goes back to the top and simply executes a <strong>get()</strong> operation on the queue. If data is present, it must be the result placed there by the <strong>put()</strong> callback. If nothing is there, the operation blocks, waiting for a result to arrive at some future time. How that might happen depends on the precise implementation of the <strong>apply_async()</strong> function.</p>
+<h2 id="Accessing-Variables-Defined-Inside-a-Closure"><a href="#Accessing-Variables-Defined-Inside-a-Closure" class="headerlink" title="Accessing Variables Defined Inside a Closure"></a>Accessing Variables Defined Inside a Closure</h2><p>Normally, the inner variables of a closure are completely hidden to the outside world. However, you can provide access by writing accessor functions and attaching them to the closure as function attributes. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">sample</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    n=<span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'n='</span>, n)</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">get_n</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> n</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">set_n</span><span class="params">(value)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">nonlocal</span> n</span><br><span class="line"><span class="meta">... </span>        n= value</span><br><span class="line"><span class="meta">... </span>    func.get_n= get_n</span><br><span class="line"><span class="meta">... </span>    func.set_n= set_n</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> func</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f=sample()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f()</span><br><span class="line">n= <span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.set_n(<span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f()</span><br><span class="line">n= <span class="number">10</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>f.get_n()</span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
+<p>A slight extension to this recipe can be made to have closures emulate instances of a class. All you need to do is copy the inner functions over to the dictionary of an instance and return it. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">ClosureInstance</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, locals= None)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">if</span> locals <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line"><span class="meta">... </span>            locals= sys._getframe(<span class="number">1</span>).f_locals</span><br><span class="line"><span class="meta">... </span>            print(locals)</span><br><span class="line"><span class="meta">... </span>        self.__dict__.update((key, value) <span class="keyword">for</span> key, value <span class="keyword">in</span> locals.items() <span class="keyword">if</span> callable(value))</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> self.__dict__[<span class="string">'__len__'</span>]()</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">Stack</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    items=[]</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(item)</span>:</span></span><br><span class="line"><span class="meta">... </span>        items.append(item)</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> items.pop()</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> len(items)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> ClosureInstance()</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s=Stack()</span><br><span class="line">&#123;<span class="string">'pop'</span>: &lt;function Stack.&lt;locals&gt;.pop at <span class="number">0x010BB810</span>&gt;, <span class="string">'items'</span>: [], <span class="string">'push'</span>: &lt;function Stack.&lt;locals&gt;.push at <span class="number">0x010BB618</span>&gt;, <span class="string">'__len__'</span>: &lt;function Stack.&lt;locals&gt;.__len__ at <span class="number">0x010BB660</span>&gt;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.push(<span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.push(<span class="string">'he'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(s)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.pop()</span><br><span class="line"><span class="string">'he'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>However, should you be inclined to do something like this in your code, be aware that it’s still a rather weird substitute for a real class. For example, major features such as inheritance, properties, descriptors, or class methods don’t work. You also have to play some tricks to get special methods to work (e.g., see the implementation of <strong>__len__()</strong> in <strong>ClosureInstance</strong>).</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/C06-Data-Encoding-and-Processing/" rel="next" title="C06_Data_Encoding_and_Processing">
+                <i class="fa fa-chevron-left"></i> C06_Data_Encoding_and_Processing
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/C08-Classes-and-Objects/" rel="prev" title="C08_Classes_and_Objects">
+                C08_Classes_and_Objects <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-Functions-That-Accept-Any-Number-of-Arguments"><span class="nav-number">1.</span> <span class="nav-text">Writing Functions That Accept Any Number of Arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-Functions-That-Only-Accept-Keyword-Arguments"><span class="nav-number">2.</span> <span class="nav-text">Writing Functions That Only Accept Keyword Arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attaching-Informational-Metadata-to-Function-Arguments"><span class="nav-number">3.</span> <span class="nav-text">Attaching Informational Metadata to Function Arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Defining-Functions-with-Default-Arguments"><span class="nav-number">4.</span> <span class="nav-text">Defining Functions with Default Arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Capturing-Variables-in-Anonymous-Functions"><span class="nav-number">5.</span> <span class="nav-text">Capturing Variables in Anonymous Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Carrying-Extra-State-with-Callback-Functions"><span class="nav-number">6.</span> <span class="nav-text">Carrying Extra State with Callback Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Inlining-Callback-Functions"><span class="nav-number">7.</span> <span class="nav-text">Inlining Callback Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#These-two-fragments-of-code-will-allow-you-to-inline-the-callback-steps-using-yield-statements"><span class="nav-number">8.</span> <span class="nav-text">These two fragments of code will allow you to inline the callback steps using yield statements.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Accessing-Variables-Defined-Inside-a-Closure"><span class="nav-number">9.</span> <span class="nav-text">Accessing Variables Defined Inside a Closure</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

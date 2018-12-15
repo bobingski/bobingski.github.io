@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Splitting Strings on Any of Multiple DelimitersThe split() method of string objects is really meant for very simple cases, and does not allow for multiple delimiters or account for possible whitespace">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C02_Strings_and_Text">
+<meta property="og:url" content="blog.whistlestop.ml/2018/12/15/C02-Strings-and-Text/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Splitting Strings on Any of Multiple DelimitersThe split() method of string objects is really meant for very simple cases, and does not allow for multiple delimiters or account for possible whitespace">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-15T11:09:19.569Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C02_Strings_and_Text">
+<meta name="twitter:description" content="Splitting Strings on Any of Multiple DelimitersThe split() method of string objects is really meant for very simple cases, and does not allow for multiple delimiters or account for possible whitespace">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/12/15/C02-Strings-and-Text/"/>
+
+
+
+
+
+  <title>C02_Strings_and_Text | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C02-Strings-and-Text/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C02_Strings_and_Text</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:42:20+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:09:19+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Splitting-Strings-on-Any-of-Multiple-Delimiters"><a href="#Splitting-Strings-on-Any-of-Multiple-Delimiters" class="headerlink" title="Splitting Strings on Any of Multiple Delimiters"></a>Splitting Strings on Any of Multiple Delimiters</h2><p>The <strong>split()</strong> method of string objects is really meant for very simple cases, and does not allow for multiple delimiters or account for possible whitespace around the delimiters. In cases when you need a bit more flexibility, use the <strong>re.split()</strong> method:<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>line = <span class="string">'asdf fjdk; afed, fjek,asdf, foo'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">r'[;,\s]'</span>, line)</span><br><span class="line">[<span class="string">'asdf'</span>, <span class="string">'fjdk'</span>, <span class="string">''</span>, <span class="string">'afed'</span>, <span class="string">''</span>, <span class="string">'fjek'</span>, <span class="string">'asdf'</span>, <span class="string">''</span>, <span class="string">'foo'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>When using <strong>re.split()</strong>, you need to be a bit careful should the regular expression pattern involve a capture group enclosed in parentheses. If capture groups are used, then the matched text is also included in the result.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fields= re.split(<span class="string">r'(;|,|\s)\s*'</span>, line)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fields</span><br><span class="line">[<span class="string">'asdf'</span>, <span class="string">' '</span>, <span class="string">'fjdk'</span>, <span class="string">';'</span>, <span class="string">'afed'</span>, <span class="string">','</span>, <span class="string">'fjek'</span>, <span class="string">','</span>, <span class="string">'asdf'</span>, <span class="string">','</span>, <span class="string">'foo'</span>]</span><br></pre></td></tr></table></figure>
+<p>If you don’t want the separator characters in the result, but still need to use parentheses to group parts of the regular expression pattern, make sure you use a noncapture group, specified as <strong>(?:…)</strong>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.split(<span class="string">r'(?:,|;|\s)\s*'</span>, line)</span><br><span class="line">[<span class="string">'asdf'</span>, <span class="string">'fjdk'</span>, <span class="string">'afed'</span>, <span class="string">'fjek'</span>, <span class="string">'asdf'</span>, <span class="string">'foo'</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Matching-Text-at-the-Start-or-End-of-a-String"><a href="#Matching-Text-at-the-Start-or-End-of-a-String" class="headerlink" title="Matching Text at the Start or End of a String"></a>Matching Text at the Start or End of a String</h2><p>A simple way to check the beginning or end of a string is to use the <strong>str.startswith()</strong> or <strong>str.endswith()</strong> methods.If you need to check against multiple choices, simply provide a tuple of possibilities to <strong>startswith()</strong> or <strong>endswith()</strong>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>filenames = os.listdir(<span class="string">'.'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>filenames</span><br><span class="line">[ <span class="string">'Makefile'</span>, <span class="string">'foo.c'</span>, <span class="string">'bar.py'</span>, <span class="string">'spam.c'</span>, <span class="string">'spam.h'</span> ]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[name <span class="keyword">for</span> name <span class="keyword">in</span> filenames <span class="keyword">if</span> name.endswith((<span class="string">'.c'</span>, <span class="string">'.h'</span>)) ]</span><br><span class="line">[<span class="string">'foo.c'</span>, <span class="string">'spam.c'</span>, <span class="string">'spam.h'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>any(name.endswith(<span class="string">'.py'</span>) <span class="keyword">for</span> name <span class="keyword">in</span> filenames)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Oddly, this is one part of Python where a tuple is actually required as input. If you happen to have the choices specified in a list or set, just make sure you convert them using <strong>tuple()</strong> first. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>choices = [<span class="string">'http:'</span>, <span class="string">'ftp:'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url = <span class="string">'http://www.python.org'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url.startswith(choices)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: startswith first arg must be str <span class="keyword">or</span> a tuple of str, <span class="keyword">not</span> list</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>url.startswith(tuple(choices))</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Matching-Strings-Using-Shell-Wildcard-Patterns"><a href="#Matching-Strings-Using-Shell-Wildcard-Patterns" class="headerlink" title="Matching Strings Using Shell Wildcard Patterns"></a>Matching Strings Using Shell Wildcard Patterns</h2><p>The matching performed by <strong>fnmatch</strong> sits somewhere between the functionality of simple string methods and the full power of regular expressions. If you’re just trying to provide a simple mechanism for allowing wildcards in data processing operations, it’s often a reasonable solution.If you’re actually trying to write code that matches filenames, use the <strong>glob</strong> module instead.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> fnmatch <span class="keyword">import</span> fnmatch, fnmatchcase</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fnmatch(<span class="string">'foo.txt'</span>,<span class="string">'*.txt'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fnmatch(<span class="string">'Dat45.csv'</span>,<span class="string">'Dat[0-9]*'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fnmatchcase(<span class="string">'foo.txt'</span>,<span class="string">'*.TXT'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>If this distinction matters, use <strong>fnmatchcase()</strong> instead. It matches exactly based on the lower and uppercase conventions that you supply:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fnmatchcase(<span class="string">'foo.txt'</span>, <span class="string">'*.TXT'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Matching-and-Searching-for-Text-Patterns"><a href="#Matching-and-Searching-for-Text-Patterns" class="headerlink" title="Matching and Searching for Text Patterns"></a>Matching and Searching for Text Patterns</h2><p>If you’re going to perform a lot of matches using the same pattern, it usually pays to precompile the regular expression pattern into a pattern object first.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datepat = re.compile(<span class="string">r'\d+/\d+/\d+'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">if</span> datepat.match(text1):</span><br><span class="line"><span class="meta">... </span>print(<span class="string">'yes'</span>)</span><br><span class="line"><span class="meta">... </span><span class="keyword">else</span>:</span><br><span class="line"><span class="meta">... </span>print(<span class="string">'no'</span>)</span><br><span class="line">...</span><br><span class="line">yes</span><br></pre></td></tr></table></figure></p>
+<p><strong>match()</strong> always tries to find the match at the start of a string. If you want to search text for all occurrences of a pattern, use the <strong>findall()</strong> method instead.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>text = <span class="string">'Today is 11/27/2012. PyCon starts 3/13/2013.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datepat.findall(text)</span><br><span class="line">[<span class="string">'11/27/2012'</span>, <span class="string">'3/13/2013'</span>]</span><br></pre></td></tr></table></figure>
+<p>Capture groups often simplify subsequent processing of the matched text because the contents of each group can be extracted individually.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>datepat = re.compile(<span class="string">r'(\d+)/(\d+)/(\d+)'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m=datepat.match(<span class="string">'11/27/2012'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">'11/27/2012'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">1</span>)</span><br><span class="line"><span class="string">'11'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">2</span>)</span><br><span class="line"><span class="string">'27'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">3</span>)</span><br><span class="line"><span class="string">'2012'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.groups()</span><br><span class="line">(<span class="string">'11'</span>, <span class="string">'27'</span>, <span class="string">'2012'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="comment"># Find all matches (notice splitting into tuples)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text</span><br><span class="line"><span class="string">'Today is 11/27/2012. PyCon starts 3/13/2013.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datepat.findall(text)</span><br><span class="line">[(<span class="string">'11'</span>, <span class="string">'27'</span>, <span class="string">'2012'</span>), (<span class="string">'3'</span>, <span class="string">'13'</span>, <span class="string">'2013'</span>)]</span><br></pre></td></tr></table></figure>
+<p>The <strong>findall()</strong> method searches the text and finds all matches, returning them as a list. If you want to find matches iteratively, use the <strong>finditer()</strong> method instead.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> m <span class="keyword">in</span> datepat.finditer(text):</span><br><span class="line"><span class="meta">... </span>    print(m.group(<span class="number">0</span>))</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="number">11</span>/<span class="number">27</span>/<span class="number">2012</span></span><br><span class="line"><span class="number">3</span>/<span class="number">13</span>/<span class="number">2013</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> m <span class="keyword">in</span> datepat.finditer(text):</span><br><span class="line"><span class="meta">... </span>    print(m.groups())</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">(<span class="string">'11'</span>, <span class="string">'27'</span>, <span class="string">'2012'</span>)</span><br><span class="line">(<span class="string">'3'</span>, <span class="string">'13'</span>, <span class="string">'2013'</span>)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Searching-and-Replacing-Text"><a href="#Searching-and-Replacing-Text" class="headerlink" title="Searching and Replacing Text"></a>Searching and Replacing Text</h2><p>For more complicated patterns, use the <strong>sub()</strong> functions/methods in the <strong>re</strong> module. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>text = <span class="string">'Today is 11/27/2012. PyCon starts 3/13/2013.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.sub(<span class="string">r'(\d+)/(\d+)/(\d+)'</span>, <span class="string">r'\3-\1-\2'</span>, text)</span><br><span class="line"><span class="string">'Today is 2012-11-27. PyCon starts 2013-3-13.'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>The first argument to <strong>sub()</strong> is the pattern to match and the second argument is the replacement pattern. Backslashed digits such as <strong>\3</strong> refer to capture group numbers in the pattern.</p>
+<p>If you’re going to perform repeated substitutions of the same pattern, consider compiling it first for better performance. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datepat = re.compile(<span class="string">r'(\d+)/(\d+)/(\d+)'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datepat.sub(<span class="string">r'\3-\1-\2'</span>, text)</span><br><span class="line"><span class="string">'Today is 2012-11-27. PyCon starts 2013-3-13.'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>For more complicated substitutions, it’s possible to specify a substitution callback function instead. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> calendar <span class="keyword">import</span> month_abbr</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">change_date</span><span class="params">(m)</span>:</span></span><br><span class="line"><span class="meta">... </span>mon_name = month_abbr[int(m.group(<span class="number">1</span>))]</span><br><span class="line"><span class="meta">... </span><span class="keyword">return</span> <span class="string">'&#123;&#125; &#123;&#125; &#123;&#125;'</span>.format(m.group(<span class="number">2</span>), mon_name, m.group(<span class="number">3</span>))</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>datepat.sub(change_date, text)</span><br><span class="line"><span class="string">'Today is 27 Nov 2012. PyCon starts 13 Mar 2013.'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>As input, the argument to the substitution callback is a <strong>match</strong> object, as returned by <strong>match()</strong> or <strong>find()</strong>. Use the <strong>.group()</strong> method to extract specific parts of the match. The function should return the replacement text.</p>
+<p>If you want to know how many substitutions were made in addition to getting the replacement text, use <strong>re.subn()</strong> instead.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>newtext, n = datepat.subn(<span class="string">r'\3-\1-\2'</span>, text)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>newtext</span><br><span class="line"><span class="string">'Today is 2012-11-27. PyCon starts 2013-3-13.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Searching-and-Replacing-Case-Insensitive-Text"><a href="#Searching-and-Replacing-Case-Insensitive-Text" class="headerlink" title="Searching and Replacing Case-Insensitive Text"></a>Searching and Replacing Case-Insensitive Text</h2><p>To perform case-insensitive text operations, you need to use the re module and supply the <strong>re.IGNORECASE</strong> flag to various operations. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>text = <span class="string">'UPPER PYTHON, lower python, Mixed Python'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.findall(<span class="string">'python'</span>, text, flags=re.IGNORECASE)</span><br><span class="line">[<span class="string">'PYTHON'</span>, <span class="string">'python'</span>, <span class="string">'Python'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.sub(<span class="string">'python'</span>, <span class="string">'snake'</span>, text, flags=re.IGNORECASE)</span><br><span class="line"><span class="string">'UPPER snake, lower snake, Mixed snake'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>The last example reveals a limitation that replacing text won’t match the case of the matched text. If you need to fix this, you might have to use a support function.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">matchcase</span><span class="params">(word)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">replace</span><span class="params">(m)</span>:</span></span><br><span class="line"><span class="meta">... </span>        text= m.group()</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">if</span> text.isupper():</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> word.upper()</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">elif</span> text.islower():</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> word.lower()</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">elif</span> text[<span class="number">0</span>].isupper():</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> word.capitalize()</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">else</span>:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">return</span> word          </span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> replace</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>re.sub(<span class="string">'python'</span>, matchcase(<span class="string">'snake'</span>), text, flags=re.IGNORECASE)</span><br><span class="line"><span class="string">'UPPER SNAKE, lower snake, Mixed Snake'</span></span><br></pre></td></tr></table></figure>
+<h2 id="Specifying-a-Regular-Expression-for-the-Shortest-Match"><a href="#Specifying-a-Regular-Expression-for-the-Shortest-Match" class="headerlink" title="Specifying a Regular Expression for the Shortest Match"></a>Specifying a Regular Expression for the Shortest Match</h2><p>You’re trying to match a text pattern using regular expressions, but it is identifying the longest possible matches of a pattern. Instead, you would like to change it to find the shortest possible match.This problem often arises in patterns that try to match text enclosed inside a pair of starting and ending delimiters (e.g., a quoted string).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str_pat= re.compile(<span class="string">r'"(.*)"'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text1= <span class="string">'Computer says "no."'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str_pat.findall(text1)</span><br><span class="line">[<span class="string">'no.'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text2 = <span class="string">'Computer says "no." Phone says "yes."'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str_pat.findall(text2)</span><br><span class="line">[<span class="string">'no." Phone says "yes.'</span>]</span><br></pre></td></tr></table></figure>
+<p>In this example, the pattern <strong>r’”(.*)”‘</strong> is attempting to match text enclosed inside quotes. However, the * operator in a regular expression is greedy, so matching is based on finding the longest possible match.</p>
+<p>To fix this, add the <strong>?</strong> modifier after the <strong>*</strong> operator in the pattern</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str_pat= re.compile(<span class="string">r'"(.*?)"'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>str_pat.findall(text2)</span><br><span class="line">[<span class="string">'no.'</span>, <span class="string">'yes.'</span>]</span><br></pre></td></tr></table></figure>
+<p>In a pattern, the dot matches any character except a newline. However, if you bracket the dot with starting and ending text (such as a quote), matching will try to find the longest possible match to the pattern.This causes multiple occurrences of the starting or ending text to be skipped altogether and included in the results of the longer match. Adding the <strong>?</strong> right after operators such as <strong>*</strong> or <strong>+</strong> forces the matching algorithm to look for the shortest possible match instead.</p>
+<h2 id="Sanitizing-and-Cleaning-Up-Text"><a href="#Sanitizing-and-Cleaning-Up-Text" class="headerlink" title="Sanitizing and Cleaning Up Text"></a>Sanitizing and Cleaning Up Text</h2><p>Some bored script kiddie has entered the text “pýtĥöñ” into a form on your web page and you’d like to clean it up somehow.s. To do so, you can turn to the often overlooked <strong>str.translate()</strong> method. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'pýtĥöñ\fis\tawesome\r\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s</span><br><span class="line"><span class="string">'pýtĥöñ\x0cis\tawesome\r\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>remap = &#123;</span><br><span class="line"><span class="meta">... </span>ord(<span class="string">'\t'</span>) : <span class="string">' '</span>,</span><br><span class="line"><span class="meta">... </span>ord(<span class="string">'\f'</span>) : <span class="string">' '</span>,</span><br><span class="line"><span class="meta">... </span>ord(<span class="string">'\r'</span>) : <span class="keyword">None</span> <span class="comment"># Deleted</span></span><br><span class="line"><span class="meta">... </span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = s.translate(remap)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a</span><br><span class="line"><span class="string">'pýtĥöñ is awesome\n'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>You can take this remapping idea a step further and build much bigger tables. For example, let’s remove all combining characters:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> unicodedata</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>cmb_chrs = dict.fromkeys(c <span class="keyword">for</span> c <span class="keyword">in</span> range(sys.maxunicode)</span><br><span class="line"><span class="meta">... </span><span class="keyword">if</span> unicodedata.combining(chr(c)))</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = unicodedata.normalize(<span class="string">'NFD'</span>, a)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b</span><br><span class="line"><span class="string">'pýtĥöñ is awesome\n'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b.translate(cmb_chrs)</span><br><span class="line"><span class="string">'python is awesome\n'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>A dictionary mapping every Unicode combining character to <strong>None</strong> is created using the <strong>dict.fromkeys()</strong>.</p>
+<h2 id="Aligning-Text-Strings"><a href="#Aligning-Text-Strings" class="headerlink" title="Aligning Text Strings"></a>Aligning Text Strings</h2><p>For basic alignment of strings, the <strong>ljust()</strong>, <strong>rjust()</strong>, and <strong>center()</strong> methods of strings can be used. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>text = <span class="string">'Hello World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text.ljust(<span class="number">20</span>)</span><br><span class="line"><span class="string">'Hello World '</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text.rjust(<span class="number">20</span>)</span><br><span class="line"><span class="string">' Hello World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text.center(<span class="number">20</span>)</span><br><span class="line"><span class="string">' Hello World '</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text.rjust(<span class="number">20</span>,<span class="string">'='</span>)</span><br><span class="line"><span class="string">'=========Hello World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text.center(<span class="number">20</span>,<span class="string">'*'</span>)</span><br><span class="line"><span class="string">'****Hello World*****'</span></span><br></pre></td></tr></table></figure>
+<p>The <strong>format()</strong> function can also be used to easily align things. All you need to do is use the <strong>&lt;</strong>, <strong>&gt;</strong>, or <strong>^</strong> characters along with a desired width. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(text, <span class="string">'&gt;20'</span>)</span><br><span class="line"><span class="string">' Hello World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(text, <span class="string">'&lt;20'</span>)</span><br><span class="line"><span class="string">'Hello World '</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(text, <span class="string">'^20'</span>)</span><br><span class="line"><span class="string">' Hello World '</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(text, <span class="string">'=&gt;20s'</span>)</span><br><span class="line"><span class="string">'=========Hello World'</span></span><br></pre></td></tr></table></figure>
+<p>One benefit of <strong>format()</strong> is that it is not specific to strings. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">1.2345</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(x, <span class="string">'&gt;10'</span>)</span><br><span class="line"><span class="string">' 1.2345'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>format(x, <span class="string">'^10.2f'</span>)</span><br><span class="line"><span class="string">' 1.23 '</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>In older code, you will also see the <strong>%</strong> operator used to format text. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'%-20s'</span> % text</span><br><span class="line"><span class="string">'Hello World '</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'%20s'</span> % text</span><br><span class="line"><span class="string">' Hello World'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Combining-and-Concatenating-Strings"><a href="#Combining-and-Concatenating-Strings" class="headerlink" title="Combining and Concatenating Strings"></a>Combining and Concatenating Strings</h2><p>If you’re writing code that is building output from lots of small strings, you might consider writing that code as a generator function, using <strong>yield</strong> to emit fragments. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">sample</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">yield</span> <span class="string">'Is'</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">yield</span> <span class="string">'Chicago'</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">yield</span> <span class="string">'Not'</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">yield</span> <span class="string">'Chicago'</span></span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text=<span class="string">''</span>.join(sample())</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>text</span><br><span class="line"><span class="string">'IsChicagoNotChicago'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Or you could come up with some kind of hybrid scheme that’s smart about combining I/O operations:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">combine</span><span class="params">(source, maxsize)</span>:</span></span><br><span class="line"><span class="meta">... </span>    parts=[]</span><br><span class="line"><span class="meta">... </span>    size=<span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">for</span> part <span class="keyword">in</span> source:</span><br><span class="line"><span class="meta">... </span>        parts.append(part)</span><br><span class="line"><span class="meta">... </span>        size+=len(part)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">if</span> size &gt; maxsize:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">yield</span> <span class="string">''</span>.join(parts)</span><br><span class="line"><span class="meta">... </span>            parts=[]</span><br><span class="line"><span class="meta">... </span>            size=<span class="number">0</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">yield</span> <span class="string">''</span>.join(parts)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> part <span class="keyword">in</span> combine(sample(), <span class="number">32768</span>):</span><br><span class="line"><span class="meta">... </span>    f.write(part)</span><br></pre></td></tr></table></figure></p>
+<h2 id="Handling-HTML-and-XML-Entities-in-Text"><a href="#Handling-HTML-and-XML-Entities-in-Text" class="headerlink" title="Handling HTML and XML Entities in Text"></a>Handling HTML and XML Entities in Text</h2><p>If you are producing text, replacing special characters such as <strong>&lt;</strong> or <strong>&gt;</strong> is relatively easy if you use the <strong>html.escape()</strong> function. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'Elements are written as "&lt;tag&gt;text&lt;/tag&gt;".'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> html</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(html.escape(s))</span><br><span class="line">Elements are written <span class="keyword">as</span> &amp;quot;&amp;lt;tag&amp;gt;text&amp;lt;/tag&amp;gt;&amp;quot;.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(html.escape(s, quote=<span class="keyword">False</span>))  <span class="comment"># Disable escaping of quotes</span></span><br><span class="line">Elements are written <span class="keyword">as</span> <span class="string">"&amp;lt;tag&amp;gt;text&amp;lt;/tag&amp;gt;"</span>.</span><br></pre></td></tr></table></figure>
+<p>If you’re trying to emit text as ASCII and want to embed character code entities for nonASCII characters, you can use the <strong>errors=’xmlcharrefreplace’</strong> argument to various I/O-related functions to do it. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'Spicy Jalapeño'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.encode(<span class="string">'ascii'</span>, errors=<span class="string">'xmlcharrefreplace'</span>)</span><br><span class="line"><span class="string">b'Spicy Jalape&amp;#241;o'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = <span class="string">'Spicy &amp;quot;Jalape&amp;#241;o&amp;quot.'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> html.parser <span class="keyword">import</span> HTMLParser</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>p=HTMLParser()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>p.unescape</span><br><span class="line">&lt;bound method HTMLParser.unescape of &lt;html.parser.HTMLParser object at <span class="number">0x0536FB90</span>&gt;&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>p.unescape(s)</span><br><span class="line"><span class="string">'Spicy "Jalapeño".'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t = <span class="string">'The prompt is &amp;gt;&amp;gt;&amp;gt;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> xml.sax.saxutils <span class="keyword">import</span> unescape</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>unescape(t)</span><br><span class="line"><span class="string">'The prompt is &gt;&gt;&gt;'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="Tokenizing-Text"><a href="#Tokenizing-Text" class="headerlink" title="Tokenizing Text"></a>Tokenizing Text</h2><p>You have a string that you want to parse left to right into a stream of tokens.To tokenize the string, you need to do more than merely match patterns. You need to have some way to identify the kind of pattern as well. For instance, you might want to turn the string into a sequence of pairs like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tokens = [(<span class="string">'NAME'</span>, <span class="string">'foo'</span>), (<span class="string">'EQ'</span>,<span class="string">'='</span>), (<span class="string">'NUM'</span>, <span class="string">'23'</span>), (<span class="string">'PLUS'</span>,<span class="string">'+'</span>),</span><br><span class="line"> (<span class="string">'NUM'</span>, <span class="string">'42'</span>), (<span class="string">'TIMES'</span>, <span class="string">'*'</span>), (<span class="string">'NUM'</span>, <span class="number">10</span><span class="string">')]</span></span><br></pre></td></tr></table></figure>
+<p>To do this kind of splitting, the first step is to define all of the possible tokens, including whitespace, by regular expression patterns using named capture groups such as this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">NAME = <span class="string">r'(?P&lt;NAME&gt;[a-zA-Z_][a-zA-Z_0-9]*)'</span></span><br><span class="line">NUM = <span class="string">r'(?P&lt;NUM&gt;\d+)'</span></span><br><span class="line">PLUS = <span class="string">r'(?P&lt;PLUS&gt;\+)'</span></span><br><span class="line">TIMES = <span class="string">r'(?P&lt;TIMES&gt;\*)'</span></span><br><span class="line">EQ = <span class="string">r'(?P&lt;EQ&gt;=)'</span></span><br><span class="line">WS = <span class="string">r'(?P&lt;WS&gt;\s+)'</span></span><br><span class="line">master_pat = re.compile(<span class="string">'|'</span>.join([NAME, NUM, PLUS, TIMES, EQ, WS]))</span><br></pre></td></tr></table></figure>
+<p>In these re patterns, the <strong>?P<tokenname></tokenname></strong> convention is used to assign a name to the pattern. This will be used later.</p>
+<p>Next, to tokenize, use the little-known <strong>scanner()</strong> method of pattern objects. This method creates a scanner object in which repeated calls to <strong>match()</strong> step through the supplied text one match at a time. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>scanner = master_pat.scanner(<span class="string">'foo = 42'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scanner.match()</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x100677738</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_.lastgroup, _.group()</span><br><span class="line">(<span class="string">'NAME'</span>, <span class="string">'foo'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scanner.match()</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x100677738</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_.lastgroup, _.group()</span><br><span class="line">(<span class="string">'WS'</span>, <span class="string">' '</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scanner.match()</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x100677738</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_.lastgroup, _.group()</span><br><span class="line">(<span class="string">'EQ'</span>, <span class="string">'='</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scanner.match()</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x100677738</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_.lastgroup, _.group()</span><br><span class="line">(<span class="string">'WS'</span>, <span class="string">' '</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scanner.match()</span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x100677738</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>_.lastgroup, _.group()</span><br><span class="line">(<span class="string">'NUM'</span>, <span class="string">'42'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>scanner.match()</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>To take this technique and put it into code, it can be cleaned up and easily packaged into a generator like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line">Token = namedtuple(<span class="string">'Token'</span>, [<span class="string">'type'</span>,<span class="string">'value'</span>])</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_tokens</span><span class="params">(pat, text)</span>:</span></span><br><span class="line">    scanner = pat.scanner(text)</span><br><span class="line">    <span class="keyword">for</span> m <span class="keyword">in</span> iter(scanner.match, <span class="keyword">None</span>):</span><br><span class="line">        <span class="keyword">yield</span> Token(m.lastgroup, m.group())</span><br><span class="line"><span class="comment"># Example use</span></span><br><span class="line"><span class="keyword">for</span> tok <span class="keyword">in</span> generate_tokens(master_pat, <span class="string">'foo = 42'</span>):</span><br><span class="line">    print(tok)</span><br><span class="line"><span class="comment"># Produces output</span></span><br><span class="line"><span class="comment"># Token(type='NAME', value='foo')</span></span><br><span class="line"><span class="comment"># Token(type='WS', value=' ')</span></span><br><span class="line"><span class="comment"># Token(type='EQ', value='=')</span></span><br><span class="line"><span class="comment"># Token(type='WS', value=' ')</span></span><br><span class="line"><span class="comment"># Token(type='NUM', value='42')</span></span><br></pre></td></tr></table></figure>
+<p>If you want to filter the token stream in some way, you can either define more generator functions or use a generator expression. For example, here is how you might filter out all whitespace tokens.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tokens = (tok <span class="keyword">for</span> tok <span class="keyword">in</span> generate_tokens(master_pat, text)</span><br><span class="line">                <span class="keyword">if</span> tok.type != <span class="string">'WS'</span>)</span><br><span class="line"><span class="keyword">for</span> tok <span class="keyword">in</span> tokens:</span><br><span class="line">    print(tok)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/C01-Data-Structures-and-Algorithms/" rel="next" title="C01_Data_Structures_and_Algorithms">
+                <i class="fa fa-chevron-left"></i> C01_Data_Structures_and_Algorithms
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/C04-Iterators-and-Generators/" rel="prev" title="C04_Iterators_and_Generators">
+                C04_Iterators_and_Generators <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Splitting-Strings-on-Any-of-Multiple-Delimiters"><span class="nav-number">1.</span> <span class="nav-text">Splitting Strings on Any of Multiple Delimiters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Matching-Text-at-the-Start-or-End-of-a-String"><span class="nav-number">2.</span> <span class="nav-text">Matching Text at the Start or End of a String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Matching-Strings-Using-Shell-Wildcard-Patterns"><span class="nav-number">3.</span> <span class="nav-text">Matching Strings Using Shell Wildcard Patterns</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Matching-and-Searching-for-Text-Patterns"><span class="nav-number">4.</span> <span class="nav-text">Matching and Searching for Text Patterns</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Searching-and-Replacing-Text"><span class="nav-number">5.</span> <span class="nav-text">Searching and Replacing Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Searching-and-Replacing-Case-Insensitive-Text"><span class="nav-number">6.</span> <span class="nav-text">Searching and Replacing Case-Insensitive Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Specifying-a-Regular-Expression-for-the-Shortest-Match"><span class="nav-number">7.</span> <span class="nav-text">Specifying a Regular Expression for the Shortest Match</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sanitizing-and-Cleaning-Up-Text"><span class="nav-number">8.</span> <span class="nav-text">Sanitizing and Cleaning Up Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aligning-Text-Strings"><span class="nav-number">9.</span> <span class="nav-text">Aligning Text Strings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-and-Concatenating-Strings"><span class="nav-number">10.</span> <span class="nav-text">Combining and Concatenating Strings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handling-HTML-and-XML-Entities-in-Text"><span class="nav-number">11.</span> <span class="nav-text">Handling HTML and XML Entities in Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tokenizing-Text"><span class="nav-number">12.</span> <span class="nav-text">Tokenizing Text</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

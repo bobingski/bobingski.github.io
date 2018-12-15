@@ -306,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C10-Reflection-with-SQLAlchemy-ORM-and-Automap/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/python-update-wrapper/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -325,7 +325,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C10-Reflection-with-SQLAlchemy-ORM-and-Automap/" itemprop="url">sqlalchemy_C10_Reflection with SQLAlchemy ORM and Automap</a></h1>
+                <a class="post-title-link" href="/2018/12/15/python-update-wrapper/" itemprop="url">python_update_wrapper</a></h1>
         
 
         <div class="post-meta">
@@ -337,8 +337,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:33:02-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:51:21+08:00">
+                2018-12-15
               </time>
             
 
@@ -353,8 +353,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:33:26-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:28+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -372,8 +372,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/book-notes/" itemprop="url" rel="index">
-                    <span itemprop="name">book notes</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -410,10 +410,10 @@
 
       
         
-          <p>Reflection lets you populate a SQLAlchemy object from an existing database; reflection works on <strong>tables</strong>, <strong>views</strong>, <strong>indexes</strong>, and <strong>foreign keys</strong>. But what if you want to reflect a database <strong>schema</strong> into ORM-style classes? Fortunately, the handy SQLAlchemy extension automap lets you do just that.<br>
+          <p>来自 <strong>functools</strong><br><strong>functools</strong> 库中装饰器相关的函数是 <strong>update_wrapper</strong> 、<strong>wraps</strong>，还搭配 <strong>WRAPPER_ASSIGNMENTS</strong> 和<strong>WRAPPER_UPDATES</strong> 两个常量使用，作用就是消除 Python 装饰器的一些负面作用。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C10-Reflection-with-SQLAlchemy-ORM-and-Automap/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/python-update-wrapper/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -464,7 +464,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C08-Understanding-the-Session-and-Exceptions/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C14-Testing-Debugging-and-Exceptions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -483,7 +483,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C08-Understanding-the-Session-and-Exceptions/" itemprop="url">sqlalchemy_C08_Understanding the Session and Exceptions</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C14-Testing-Debugging-and-Exceptions/" itemprop="url">C14_Testing_Debugging_and_Exceptions</a></h1>
         
 
         <div class="post-meta">
@@ -495,8 +495,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:31:36-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:49:37+08:00">
+                2018-12-15
               </time>
             
 
@@ -511,8 +511,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:32:07-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:24+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -568,19 +568,11 @@
 
       
         
-          <h2 id="The-SQLAlchemy-Session"><a href="#The-SQLAlchemy-Session" class="headerlink" title="The SQLAlchemy Session"></a>The SQLAlchemy Session</h2><p>Understanding the session states can be useful for troubleshooting exceptions and handling unexpected behaviors. There are four possible states for data object instances:</p>
-<p>Transient</p>
-<pre><code>The instance is not in session, and is not in the database.
-</code></pre><p>Pending</p>
-<pre><code>The instance has been added to the session with add(), but hasn’t been flushed or committed.
-</code></pre><p>Persistent</p>
-<pre><code>The object in session has a corresponding record in the database.
-</code></pre><p>Detached</p>
-<pre><code>The instance is no longer connected to the session, but has a record in the database.
-</code></pre>
+          <h2 id="Testing-Output-Sent-to-stdout"><a href="#Testing-Output-Sent-to-stdout" class="headerlink" title="Testing Output Sent to stdout"></a>Testing Output Sent to stdout</h2><p>You have a program that has a method whose output goes to standard Output (<strong>sys.stdout</strong>). This almost always means that it emits text to the screen. You’d like to write a test for your code to prove that, given the proper input, the proper output is displayed.</p>
+<p>Using the <strong>unittest.mock</strong> module’s <strong>patch()</strong> function, it’s pretty simple to mock out <strong>sys.stdout</strong> for just a single test, and put it back again, without messy temporary variables or leaking mocked-out state between test cases.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C08-Understanding-the-Session-and-Exceptions/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C14-Testing-Debugging-and-Exceptions/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -631,7 +623,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM-02/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C13-Utility-Scripting-and-System-Administration/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -650,7 +642,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM-02/" itemprop="url">sqlalchemy_C06_Defining Schema with SQLAlchemy ORM_02</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C13-Utility-Scripting-and-System-Administration/" itemprop="url">C13_Utility_Scripting_and_System_Administration</a></h1>
         
 
         <div class="post-meta">
@@ -662,8 +654,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:30:30-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:48:54+08:00">
+                2018-12-15
               </time>
             
 
@@ -678,8 +670,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:31:14-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:20+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -735,10 +727,11 @@
 
       
         
-          <h2 id="The-Session"><a href="#The-Session" class="headerlink" title="The Session"></a>The Session</h2>
+          <h2 id="Accepting-Script-Input-via-Redirection-Pipes-or-Input-Files"><a href="#Accepting-Script-Input-via-Redirection-Pipes-or-Input-Files" class="headerlink" title="Accepting Script Input via Redirection, Pipes, or Input Files"></a>Accepting Script Input via Redirection, Pipes, or Input Files</h2><p>You want a script you’ve written to be able to accept input using whatever mechanism is easiest for the user. This should include piping output from a command to the script, redirecting a file into the script, or just passing a filename, or list of filenames, to the script on the command line.</p>
+<p>Python’s built-in <strong>fileinput</strong> module makes this very simple and concise.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM-02/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C13-Utility-Scripting-and-System-Administration/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -789,7 +782,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C12-Concurrency/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -808,7 +801,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM/" itemprop="url">sqlalchemy_C06_Defining Schema with SQLAlchemy ORM</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C12-Concurrency/" itemprop="url">C12_Concurrency</a></h1>
         
 
         <div class="post-meta">
@@ -820,8 +813,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:29:45-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:48:09+08:00">
+                2018-12-15
               </time>
             
 
@@ -836,8 +829,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:30:06-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:16+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -893,10 +886,11 @@
 
       
         
-          <p>In SQLAlchemy Core, we created a metadata container and then declared a <strong>Table</strong> object associated with that metadata. In SQLAlchemy ORM, we are going to define a class that inherits from a special base class called the <strong>declarative_base</strong>. The <strong>declarative_base</strong> combines a metadata container and a mapper that maps our class to a database table. It also maps instances of the class to records in that table if they have been saved.<br>
+          <h2 id="Starting-and-Stopping-Threads"><a href="#Starting-and-Stopping-Threads" class="headerlink" title="Starting and Stopping Threads"></a>Starting and Stopping Threads</h2><p>The threading library can be used to execute any Python callable in its own thread. To do this, you create a <strong>Thread</strong> instance and supply the callable that you wish to execute as a target.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> time</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">countdown</span><span class="params">(n)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line"><span class="meta">... </span>        print(<span class="string">'T-minus'</span>, n)</span><br><span class="line"><span class="meta">... </span>        n-= <span class="number">1</span></span><br><span class="line"><span class="meta">... </span>        time.sleep(<span class="number">3</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t= Thread(target= countdown, args=(<span class="number">10</span>,))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>t.start()</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C06-Defining-Schema-with-SQLAlchemy-ORM/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C12-Concurrency/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -947,7 +941,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C05-Reflection/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C11-Network-and-Web-Programming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -966,7 +960,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C05-Reflection/" itemprop="url">sqlalchemy_C05_Reflection</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C11-Network-and-Web-Programming/" itemprop="url">C11_Network_and_Web_Programming</a></h1>
         
 
         <div class="post-meta">
@@ -978,8 +972,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:29:00-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:47:28+08:00">
+                2018-12-15
               </time>
             
 
@@ -994,8 +988,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:29:25-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:12+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1051,10 +1045,11 @@
 
       
         
-          <p>Reflection is a technique that allows us to populate a SQLAlchemy object from an existing database.<br>
+          <h2 id="Creating-a-TCP-Server"><a href="#Creating-a-TCP-Server" class="headerlink" title="Creating a TCP Server"></a>Creating a TCP Server</h2><p>You want to implement a server that communicates with clients using the TCP Internet protocol. An easy way to create a TCP server is to use the <strong>socketserver</strong> library.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socketserver <span class="keyword">import</span> BaseRequestHandler, TCPServer</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EchoHandler</span><span class="params">(BaseRequestHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'Got connection from'</span>, self.client_address)</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            msg = self.request.recv(<span class="number">8192</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> msg:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            self.request.send(msg)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    serv = TCPServer((<span class="string">''</span>, <span class="number">20000</span>), EchoHandler)</span><br><span class="line">    serv.serve_forever()</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C05-Reflection/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C11-Network-and-Web-Programming/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1105,7 +1100,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C04-Testing/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C09-Metaprogramming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1124,7 +1119,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C04-Testing/" itemprop="url">sqlalchemy_C04_Testing</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C09-Metaprogramming/" itemprop="url">C09_Metaprogramming</a></h1>
         
 
         <div class="post-meta">
@@ -1136,8 +1131,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:28:15-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:46:45+08:00">
+                2018-12-15
               </time>
             
 
@@ -1152,8 +1147,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:28:39-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:08+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1209,10 +1204,11 @@
 
       
         
-          <p><strong><em>db.py</em></strong><br>
+          <h2 id="Putting-a-Wrapper-Around-a-Function"><a href="#Putting-a-Wrapper-Around-a-Function" class="headerlink" title="Putting a Wrapper Around a Function"></a>Putting a Wrapper Around a Function</h2><p>If you ever need to wrap a function with extra code, define a decorator function. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> time</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">timethis</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">... </span>    @wraps(func)</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line"><span class="meta">... </span>        start= time.time()</span><br><span class="line"><span class="meta">... </span>        result= func(*args, **kwargs)</span><br><span class="line"><span class="meta">... </span>        end= time.time()</span><br><span class="line"><span class="meta">... </span>        print(func.__name__, end- start)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> result</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> wrapper</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C04-Testing/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C09-Metaprogramming/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1263,7 +1259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C03-Exceptions-and-Transaction/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C08-Classes-and-Objects/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1282,7 +1278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C03-Exceptions-and-Transaction/" itemprop="url">sqlalchemy_C03_Exceptions and Transaction</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C08-Classes-and-Objects/" itemprop="url">C08_Classes_and_Objects</a></h1>
         
 
         <div class="post-meta">
@@ -1294,8 +1290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:27:26-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:45:58+08:00">
+                2018-12-15
               </time>
             
 
@@ -1310,8 +1306,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:27:58-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:02+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1367,10 +1363,10 @@
 
       
         
-          <h3 id="AttributeError"><a href="#AttributeError" class="headerlink" title="AttributeError"></a>AttributeError</h3><p><strong>AttributeErrors</strong> occur when you try to access an attribute of an object that isn’t present on that object.<br>
+          <h2 id="Changing-the-String-Representation-of-Instances"><a href="#Changing-the-String-Representation-of-Instances" class="headerlink" title="Changing the String Representation of Instances"></a>Changing the String Representation of Instances</h2><p>To change the string representation of an instance, define the <strong>__str__()</strong> and <strong>__repr__()</strong> methods.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C03-Exceptions-and-Transaction/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C08-Classes-and-Objects/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1421,7 +1417,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C02-Built-In-SQL-Functions-and-Labels/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C07-Functions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1440,7 +1436,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C02-Built-In-SQL-Functions-and-Labels/" itemprop="url">sqlalchemy_C02_Built-In SQL Functions and Labels</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C07-Functions/" itemprop="url">C07_Functions</a></h1>
         
 
         <div class="post-meta">
@@ -1452,8 +1448,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:26:16-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:45:04+08:00">
+                2018-12-15
               </time>
             
 
@@ -1468,8 +1464,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:27:04-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:54+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1525,10 +1521,11 @@
 
       
         
-          <p> Two very commonly used database functions are <strong>SUM()</strong> and <strong>COUNT()</strong>. To use these functions, we need to import the <strong>sqlalchemy.sql.func</strong> module where they are found. These functions are wrapped around the column(s) on which they are operating.<br>
+          <h2 id="Writing-Functions-That-Accept-Any-Number-of-Arguments"><a href="#Writing-Functions-That-Accept-Any-Number-of-Arguments" class="headerlink" title="Writing Functions That Accept Any Number of Arguments"></a>Writing Functions That Accept Any Number of Arguments</h2><p>To accept any number of keyword arguments, use an argument that starts with **. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> html</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>make_element(<span class="string">'item'</span>, <span class="string">'Albatross'</span>, size=<span class="string">'large'</span>, quantity=<span class="number">6</span>)</span><br><span class="line"><span class="string">'&lt;itemsize= "large" quantity= "6"&gt;Albatross&lt;/item&gt;'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">make_element</span><span class="params">(name, value, **attrs)</span>:</span></span><br><span class="line"><span class="meta">... </span>    keyvals=[<span class="string">'%s= "%s"'</span> %item <span class="keyword">for</span> item <span class="keyword">in</span> attrs.items() ]</span><br><span class="line"><span class="meta">... </span>    attr_str= <span class="string">' '</span>.join(keyvals)</span><br><span class="line"><span class="meta">... </span>    element= <span class="string">'&lt;&#123;name&#125; &#123;attrs&#125;&gt;&#123;value&#125;&lt;/&#123;name&#125;&gt;'</span>.format(</span><br><span class="line"><span class="meta">... </span>        name= name,</span><br><span class="line"><span class="meta">... </span>        value= html.escape(value),</span><br><span class="line"><span class="meta">... </span>        attrs= attr_str)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> element</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>make_element(<span class="string">'item'</span>, <span class="string">'Albatross'</span>, size=<span class="string">'large'</span>, quantity=<span class="number">6</span>)</span><br><span class="line"><span class="string">'&lt;item size= "large" quantity= "6"&gt;Albatross&lt;/item&gt;'</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C02-Built-In-SQL-Functions-and-Labels/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C07-Functions/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1579,7 +1576,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C02-Inserting-Data-Querying-Data/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C06-Data-Encoding-and-Processing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1598,7 +1595,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C02-Inserting-Data-Querying-Data/" itemprop="url">sqlalchemy_C02_Inserting Data_Querying Data</a></h1>
+                <a class="post-title-link" href="/2018/12/15/C06-Data-Encoding-and-Processing/" itemprop="url">C06_Data_Encoding_and_Processing</a></h1>
         
 
         <div class="post-meta">
@@ -1610,8 +1607,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:25:27-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:44:23+08:00">
+                2018-12-15
               </time>
             
 
@@ -1626,8 +1623,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:33:42-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:50+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1683,10 +1680,11 @@
 
       
         
-          <h3 id="Inserting-Data"><a href="#Inserting-Data" class="headerlink" title="Inserting Data"></a>Inserting Data</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>ins= cookies.insert().values(</span><br><span class="line"><span class="meta">... </span>    cookie_name=<span class="string">'chololate chip'</span>,</span><br><span class="line"><span class="meta">... </span>    cookie_recipe_url=<span class="string">'http://some.aweso.me/cookie/recipe.html'</span>,</span><br><span class="line"><span class="meta">... </span>    quantity= <span class="string">'12'</span>,</span><br><span class="line"><span class="meta">... </span>    unit_cost= <span class="string">'0.50'</span>)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str(ins))</span><br><span class="line">INSERT INTO cookies (cookie_name, cookie_recipe_url, quantity, unit_cost) VALUES (:cookie_name, </span><br><span class="line">:cookie_recipe_url, :quantity, :unit_cost)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+          <h2 id="Reading-and-Writing-CSV-Data"><a href="#Reading-and-Writing-CSV-Data" class="headerlink" title="Reading and Writing CSV Data"></a>Reading and Writing CSV Data</h2><p>For most kinds of CSV data, use the <strong>csv</strong> library.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'stocks.csv'</span>) <span class="keyword">as</span> f:</span><br><span class="line">     f_csv = csv.reader(f)</span><br><span class="line">     headers = next(f_csv)</span><br><span class="line">     <span class="keyword">for</span> row <span class="keyword">in</span> f_csv:</span><br><span class="line">        <span class="comment"># Process row</span></span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C02-Inserting-Data-Querying-Data/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C06-Data-Encoding-and-Processing/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1737,7 +1735,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/05/25/sqlalchemy-C01-Persisting-the-Tables/">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C05-Files-and-I-O/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eustoma">
@@ -1756,7 +1754,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/25/sqlalchemy-C01-Persisting-the-Tables/" itemprop="url">sqlalchemy_C01_Persisting the Tables </a></h1>
+                <a class="post-title-link" href="/2018/12/15/C05-Files-and-I-O/" itemprop="url">C05_Files_and_I/O</a></h1>
         
 
         <div class="post-meta">
@@ -1768,8 +1766,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-25T22:24:43-07:00">
-                2018-05-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:43:43+08:00">
+                2018-12-15
               </time>
             
 
@@ -1784,8 +1782,8 @@
               
                 <span class="post-meta-item-text">Post modified&#58;</span>
               
-              <time title="Post modified" itemprop="dateModified" datetime="2018-05-25T22:33:54-07:00">
-                2018-05-25
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:11:46+08:00">
+                2018-12-15
               </time>
             
           </span>
@@ -1841,11 +1839,10 @@
 
       
         
-          <p>All of our tables and additional schema definitions are associated with an instance of <strong>metadata</strong>. Persisting the schema to the database is simply a matter of calling the <strong>create_all()</strong> method on our <strong>metadata</strong> instance with the engine where it should create those tables:</p>
-<p>metadata.create_all(engine)<br>
+          <h2 id="Reading-and-Writing-Binary-Data"><a href="#Reading-and-Writing-Binary-Data" class="headerlink" title="Reading and Writing Binary Data"></a>Reading and Writing Binary Data</h2><p>A lesser-known aspect of binary I/O is that objects such as arrays and C structures can be used for writing without any kind of intermediate conversion to a bytes object. For example:<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/25/sqlalchemy-C01-Persisting-the-Tables/#more" rel="contents">
+            <a class="btn" href="/2018/12/15/C05-Files-and-I-O/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1887,7 +1884,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1937,7 +1934,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">83</span>
+                  <span class="site-state-item-count">114</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1948,7 +1945,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -1959,7 +1956,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

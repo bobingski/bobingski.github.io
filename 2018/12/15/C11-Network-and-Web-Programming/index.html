@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="whistlestop" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Creating a TCP ServerYou want to implement a server that communicates with clients using the TCP Internet protocol. An easy way to create a TCP server is to use the socketserver library. 1234567891011">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C11_Network_and_Web_Programming">
+<meta property="og:url" content="blog.whistlestop.ml/2018/12/15/C11-Network-and-Web-Programming/index.html">
+<meta property="og:site_name" content="whistlestop">
+<meta property="og:description" content="Creating a TCP ServerYou want to implement a server that communicates with clients using the TCP Internet protocol. An easy way to create a TCP server is to use the socketserver library. 1234567891011">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-15T11:12:12.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C11_Network_and_Web_Programming">
+<meta name="twitter:description" content="Creating a TCP ServerYou want to implement a server that communicates with clients using the TCP Internet protocol. An easy way to create a TCP server is to use the socketserver library. 1234567891011">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="blog.whistlestop.ml/2018/12/15/C11-Network-and-Web-Programming/"/>
+
+
+
+
+
+  <title>C11_Network_and_Web_Programming | whistlestop</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+
+  <div class="container  page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">whistlestop</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Never start something you're not willing to finish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            Sitemap
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="blog.whistlestop.ml/2018/12/15/C11-Network-and-Web-Programming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eustoma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="whistlestop">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C11_Network_and_Web_Programming</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-15T18:47:28+08:00">
+                2018-12-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-12-15T19:12:12+08:00">
+                2018-12-15
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/book-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">book notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Creating-a-TCP-Server"><a href="#Creating-a-TCP-Server" class="headerlink" title="Creating a TCP Server"></a>Creating a TCP Server</h2><p>You want to implement a server that communicates with clients using the TCP Internet protocol. An easy way to create a TCP server is to use the <strong>socketserver</strong> library.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socketserver <span class="keyword">import</span> BaseRequestHandler, TCPServer</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EchoHandler</span><span class="params">(BaseRequestHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'Got connection from'</span>, self.client_address)</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            msg = self.request.recv(<span class="number">8192</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> msg:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            self.request.send(msg)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    serv = TCPServer((<span class="string">''</span>, <span class="number">20000</span>), EchoHandler)</span><br><span class="line">    serv.serve_forever()</span><br></pre></td></tr></table></figure>
+<a id="more"></a> 
+<p>In this code, you define a special handler class that implements a <strong>handle()</strong> method for servicing client connections. The <strong>request</strong> attribute is the underlying client socket and <strong>client_address</strong> has client address.</p>
+<p>To test the server, run it and then open a separate Python process that connects to it:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> socket <span class="keyword">import</span> socket, AF_INET, SOCK_STREAM</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = socket(AF_INET, SOCK_STREAM)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.connect((<span class="string">'localhost'</span>, <span class="number">20000</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.send(<span class="string">b'Hello'</span>)</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.recv(<span class="number">8192</span>)</span><br><span class="line"><span class="string">b'Hello'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p> Here is an example that uses the <strong>StreamRequestHandler</strong> base class to put a file-like interface on the underlying socket:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socketserver <span class="keyword">import</span> StreamRequestHandler, TCPServer</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EchoHandler</span><span class="params">(StreamRequestHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'Got connection from'</span>, self.client_address)</span><br><span class="line">        <span class="comment"># self.rfile is a file-like object for reading</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> self.rfile:</span><br><span class="line">            <span class="comment"># self.wfile is a file-like object for writing</span></span><br><span class="line">            self.wfile.write(line)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    serv = TCPServer((<span class="string">''</span>, <span class="number">20000</span>), EchoHandler)</span><br><span class="line">    serv.serve_forever()</span><br></pre></td></tr></table></figure>
+<p><strong>socketserver</strong> makes it relatively easy to create simple TCP servers. However, you should be aware that, by default, the servers are single threaded and can only serve one client at a time. If you want to handle multiple clients, either instantiate a <strong>ForkingTCPServer</strong> or <strong>ThreadingTCPServer</strong> object instead.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socketserver <span class="keyword">import</span> ThreadingTCPServer</span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    serv = ThreadingTCPServer((<span class="string">''</span>, <span class="number">20000</span>), EchoHandler)</span><br><span class="line">    serv.serve_forever()</span><br></pre></td></tr></table></figure>
+<p>One issue with forking and threaded servers is that they spawn a new process or thread on each client connection. There is no upper bound on the number of allowed clients, so a malicious hacker could potentially launch a large number of simultaneous connections in an effort to make your server explode.</p>
+<p>You create an instance of a normal nonthreaded server, but then launch the <strong>serve_forever()</strong> method in a pool of multiple threads. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line">    NWORKERS = <span class="number">16</span></span><br><span class="line">    serv = TCPServer((<span class="string">''</span>, <span class="number">20000</span>), EchoHandler)</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> range(NWORKERS):</span><br><span class="line">        t = Thread(target=serv.serve_forever)</span><br><span class="line">        t.daemon = <span class="keyword">True</span></span><br><span class="line">        t.start()</span><br><span class="line">    serv.serve_forever()</span><br></pre></td></tr></table></figure>
+<p>Normally, a <strong>TCPServer</strong> binds and activates the underlying socket upon instantiation. However, sometimes you might want to adjust the underlying socket by setting options. To do this, supply the <strong>bind_and_activate=False</strong> argument.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    serv = TCPServer((<span class="string">''</span>, <span class="number">20000</span>), EchoHandler, bind_and_activate=<span class="keyword">False</span>)</span><br><span class="line">    <span class="comment"># Set up various socket options</span></span><br><span class="line">    serv.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="keyword">True</span>)</span><br><span class="line">    <span class="comment"># Bind and activate</span></span><br><span class="line">    serv.server_bind()</span><br><span class="line">    serv.server_activate()</span><br><span class="line">    serv.serve_forever()</span><br></pre></td></tr></table></figure>
+<p>The <strong>StreamRequestHandler</strong> class is actually a bit more flexible, and supports some features that can be enabled through the specification of additional class variables. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EchoHandler</span><span class="params">(StreamRequestHandler)</span>:</span></span><br><span class="line">    <span class="comment"># Optional settings (defaults shown)</span></span><br><span class="line">    timeout = <span class="number">5</span> <span class="comment"># Timeout on all socket operations</span></span><br><span class="line">    rbufsize = <span class="number">-1</span> <span class="comment"># Read buffer size</span></span><br><span class="line">    wbufsize = <span class="number">0</span> <span class="comment"># Write buffer size</span></span><br><span class="line">    disable_nagle_algorithm = <span class="keyword">False</span> <span class="comment"># Sets TCP_NODELAY socket option</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'Got connection from'</span>, self.client_address)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> self.rfile:</span><br><span class="line">                <span class="comment"># self.wfile is a file-like object for writing</span></span><br><span class="line">                self.wfile.write(line)</span><br><span class="line">        <span class="keyword">except</span> socket.timeout:</span><br><span class="line">            print(<span class="string">'Timed out!'</span>)</span><br></pre></td></tr></table></figure>
+<p>Finally, it should be noted that most of Python’s higher-level networking modules (e.g., HTTP, XML-RPC, etc.) are built on top of the <strong>socketserver</strong> functionality. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> socket, AF_INET, SOCK_STREAM</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_handler</span><span class="params">(address, client_sock)</span>:</span></span><br><span class="line">    print(<span class="string">'Got connection from &#123;&#125;'</span>.format(address))</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        msg = client_sock.recv(<span class="number">8192</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> msg:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        client_sock.sendall(msg)</span><br><span class="line">    client_sock.close()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_server</span><span class="params">(address, backlog=<span class="number">5</span>)</span>:</span></span><br><span class="line">    sock = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">    sock.bind(address)</span><br><span class="line">    sock.listen(backlog)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        client_sock, client_addr = sock.accept()</span><br><span class="line">        echo_handler(client_addr, client_sock)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    echo_server((<span class="string">''</span>, <span class="number">20000</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="Creating-a-Simple-REST-Based-Interface"><a href="#Creating-a-Simple-REST-Based-Interface" class="headerlink" title="Creating a Simple REST-Based Interface"></a>Creating a Simple REST-Based Interface</h2><p>One of the easiest ways to build REST-based interfaces is to create a tiny library based on the WSGI standard.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> cgi</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">notfound_404</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line"><span class="meta">... </span>    start_response(<span class="string">'404 Not Found'</span>, [(<span class="string">'Content-type'</span>, <span class="string">'text/plain'</span>)])</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> [<span class="string">b'Not Found'</span>]</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">PathDispatcher</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.pathmap= &#123;&#125;</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, environ, start_response)</span>:</span></span><br><span class="line"><span class="meta">... </span>        path= environ(<span class="string">'PATH_INFO'</span>)</span><br><span class="line"><span class="meta">... </span>        params= cgi.FieldStorage(environ[<span class="string">'wsgi.input'</span>], environ= environ)</span><br><span class="line"><span class="meta">... </span>        method= environ[<span class="string">'REQUEST_METHOD'</span>].lower()</span><br><span class="line"><span class="meta">... </span>        environ[<span class="string">'params'</span>]= &#123;key: params.getvalue(key) <span class="keyword">for</span> key <span class="keyword">in</span> params&#125;</span><br><span class="line"><span class="meta">... </span>        handler= self.pathmap.get((method, path), notfound_404)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> handler(environ, start_response)</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(self, method, path, function)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self.pathmap[method.lower(), path] = function</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span> function</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>To use this dispatcher, you simply write different handlers, such as the following:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">_hello_resp = <span class="string">'''\</span></span><br><span class="line"><span class="string">   &lt;html&gt;</span></span><br><span class="line"><span class="string">      &lt;head&gt;</span></span><br><span class="line"><span class="string">         &lt;title&gt;Hello &#123;name&#125;&lt;/title&gt;</span></span><br><span class="line"><span class="string">      &lt;/head&gt;</span></span><br><span class="line"><span class="string">      &lt;body&gt;</span></span><br><span class="line"><span class="string">         &lt;h1&gt;Hello &#123;name&#125;!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">      &lt;/body&gt;</span></span><br><span class="line"><span class="string">   &lt;/html&gt;'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">   start_response(<span class="string">'200 OK'</span>, [ (<span class="string">'Content-type'</span>,<span class="string">'text/html'</span>)])</span><br><span class="line">   params = environ[<span class="string">'params'</span>]</span><br><span class="line">   resp = _hello_resp.format(name=params.get(<span class="string">'name'</span>))</span><br><span class="line">   <span class="keyword">yield</span> resp.encode(<span class="string">'utf-8'</span>)</span><br><span class="line">_localtime_resp = <span class="string">'''\</span></span><br><span class="line"><span class="string">   &lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="string">   &lt;time&gt;</span></span><br><span class="line"><span class="string">       &lt;year&gt;&#123;t.tm_year&#125;&lt;/year&gt;</span></span><br><span class="line"><span class="string">       &lt;month&gt;&#123;t.tm_mon&#125;&lt;/month&gt;</span></span><br><span class="line"><span class="string">       &lt;day&gt;&#123;t.tm_mday&#125;&lt;/day&gt;</span></span><br><span class="line"><span class="string">       &lt;hour&gt;&#123;t.tm_hour&#125;&lt;/hour&gt;</span></span><br><span class="line"><span class="string">       &lt;minute&gt;&#123;t.tm_min&#125;&lt;/minute&gt;</span></span><br><span class="line"><span class="string">       &lt;second&gt;&#123;t.tm_sec&#125;&lt;/second&gt;</span></span><br><span class="line"><span class="string">   &lt;/time&gt;'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">localtime</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">   start_response(<span class="string">'200 OK'</span>, [ (<span class="string">'Content-type'</span>, <span class="string">'application/xml'</span>) ])</span><br><span class="line">   resp = _localtime_resp.format(t=time.localtime())</span><br><span class="line">   <span class="keyword">yield</span> resp.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">   <span class="keyword">from</span> resty <span class="keyword">import</span> PathDispatcher</span><br><span class="line">   <span class="keyword">from</span> wsgiref.simple_server <span class="keyword">import</span> make_server</span><br><span class="line">   <span class="comment"># Create the dispatcher and register functions</span></span><br><span class="line">   dispatcher = PathDispatcher()</span><br><span class="line">   dispatcher.register(<span class="string">'GET'</span>, <span class="string">'/hello'</span>, hello_world)</span><br><span class="line">   dispatcher.register(<span class="string">'GET'</span>, <span class="string">'/localtime'</span>, localtime)</span><br><span class="line">   <span class="comment"># Launch a basic server</span></span><br><span class="line">   httpd = make_server(<span class="string">''</span>, <span class="number">8080</span>, dispatcher)</span><br><span class="line">   print(<span class="string">'Serving on port 8080...'</span>)</span><br><span class="line">   httpd.serve_forever()</span><br></pre></td></tr></table></figure>
+<p>To test your server, you can interact with it using a browser or <strong>urllib</strong>. For example:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = urlopen(<span class="string">'http://localhost:8080/hello?name=Guido'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>u = urlopen(<span class="string">'http://localhost:8080/localtime'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>In WSGI, you simply implement applications in the form of a callable that accepts this calling convention:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cgi</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wsgi_app</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+<p>The <strong>environ</strong> argument is a dictionary that contains values inspired by the CGI interface provided by various web servers such as Apache.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wsgi_app</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">    method = environ[<span class="string">'REQUEST_METHOD'</span>]</span><br><span class="line">    path = environ[<span class="string">'PATH_INFO'</span>]</span><br><span class="line">    <span class="comment"># Parse the query parameters</span></span><br><span class="line">    params = cgi.FieldStorage(environ[<span class="string">'wsgi.input'</span>], environ=environ)</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>The <strong>start_response</strong> argument is a function that must be called to initiate a response. The first argument is the resulting HTTP status. The second argument is a list of (<strong>name</strong>, <strong>value</strong>) tuples that make up the HTTP headers of the response. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wsgi_app</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">    ...</span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-type'</span>, <span class="string">'text/plain'</span>)])</span><br></pre></td></tr></table></figure>
+<p>Although WSGI applications are commonly defined as a function, as shown, an instance may also be used as long as it implements a suitable <strong>__call__()</strong> method. For example:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WSGIApplication</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, environ, start_response)</span></span></span><br><span class="line"><span class="function">        ...</span></span><br></pre></td></tr></table></figure></p>
+<p>This technique has been used to create the <strong>PathDispatcher</strong> class in the recipe. The dispatcher does nothing more than manage a dictionary mapping (<strong>method</strong>, <strong>path</strong>) pairs to handler functions. When a request arrives, the <strong>method</strong> and <strong>path</strong> are extracted and used to dispatch to a handler.  In addition, any query variables are parsed and put into a dictionary that is stored as <strong>environ[‘params’]</strong>.</p>
+<h2 id="Implementing-a-Simple-Remote-Procedure-Call-with-XML-RPC"><a href="#Implementing-a-Simple-Remote-Procedure-Call-with-XML-RPC" class="headerlink" title="Implementing a Simple Remote Procedure Call with XML-RPC"></a>Implementing a Simple Remote Procedure Call with XML-RPC</h2><p>You want an easy way to execute functions or methods in Python programs running on remote machines.<br>Perhaps the easiest way to implement a simple remote procedure call mechanism is to use XML-RPC.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> xmlrpc.server <span class="keyword">import</span> SimpleXMLRPCServer</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KeyValueServer</span>:</span></span><br><span class="line">    _rpc_methods_ = [<span class="string">'get'</span>, <span class="string">'set'</span>, <span class="string">'delete'</span>, <span class="string">'exists'</span>, <span class="string">'keys'</span>]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, address)</span>:</span></span><br><span class="line">        self._data = &#123;&#125;</span><br><span class="line">        self._serv = SimpleXMLRPCServer(address, allow_none=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> self._rpc_methods_:</span><br><span class="line">            self._serv.register_function(getattr(self, name))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._data[name]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, name, value)</span>:</span></span><br><span class="line">        self._data[name] = value</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="keyword">del</span> self._data[name]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exists</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> name <span class="keyword">in</span> self._data</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">keys</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> list(self._data)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">serve_forever</span><span class="params">(self)</span>:</span></span><br><span class="line">        self._serv.serve_forever()</span><br><span class="line"><span class="comment"># Example</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    kvserv = KeyValueServer((<span class="string">''</span>, <span class="number">15000</span>))</span><br><span class="line">    kvserv.serve_forever()</span><br></pre></td></tr></table></figure>
+<p>Here is how you would access the server remotely from a client:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> xmlrpc.client <span class="keyword">import</span> ServerProxy</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = ServerProxy(<span class="string">'http://localhost:15000'</span>, allow_none=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.set(<span class="string">'foo'</span>, <span class="string">'bar'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.set(<span class="string">'spam'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.keys()</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'foo'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.get(<span class="string">'foo'</span>)</span><br><span class="line"><span class="string">'bar'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.get(<span class="string">'spam'</span>)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.delete(<span class="string">'spam'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.exists(<span class="string">'spam'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>XML-RPC can be an extremely easy way to set up a simple remote procedure call service. All you need to do is create a server instance, register functions with it using the <strong>register_function()</strong> method, and then launch it using the <strong>serve_forever()</strong> method.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> xmlrpc.server <span class="keyword">import</span> SimpleXMLRPCServer</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x+y</span><br><span class="line">serv = SimpleXMLRPCServer((<span class="string">''</span>, <span class="number">15000</span>))</span><br><span class="line">serv.register_function(add)</span><br><span class="line">serv.serve_forever()</span><br></pre></td></tr></table></figure>
+<h2 id="Communicating-Simply-Between-Interpreters"><a href="#Communicating-Simply-Between-Interpreters" class="headerlink" title="Communicating Simply Between Interpreters"></a>Communicating Simply Between Interpreters</h2><p>You are running multiple instances of the Python interpreter, possibly on different machines, and you would like to exchange data between interpreters using messages.</p>
+<p>It is easy to communicate between interpreters if you use the <strong>multiprocessing.connection</strong> module. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing.connection <span class="keyword">import</span> Listener</span><br><span class="line"><span class="keyword">import</span> traceback</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_client</span><span class="params">(conn)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">            msg = conn.recv()</span><br><span class="line">            conn.send(msg)</span><br><span class="line">    <span class="keyword">except</span> EOFError:</span><br><span class="line">        print(<span class="string">'Connection closed'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_server</span><span class="params">(address, authkey)</span>:</span></span><br><span class="line">    serv = Listener(address, authkey=authkey)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            client = serv.accept()</span><br><span class="line">            echo_client(client)</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            traceback.print_exc()</span><br><span class="line">echo_server((<span class="string">''</span>, <span class="number">25000</span>), authkey=<span class="string">b'peekaboo'</span>)</span><br></pre></td></tr></table></figure>
+<p>Here is a simple example of a client connecting to the server and sending various messages:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> multiprocessing.connection <span class="keyword">import</span> Client</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c = Client((<span class="string">'localhost'</span>, <span class="number">25000</span>), authkey=<span class="string">b'peekaboo'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.send(<span class="string">'hello'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.recv()</span><br><span class="line"><span class="string">'hello'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.send(<span class="number">42</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.recv()</span><br><span class="line"><span class="number">42</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.send([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>c.recv()</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>Unlike a low-level socket, messages are kept intact (each object sent using <strong>send()</strong> is received in its entirety with <strong>recv()</strong>). In addition, objects are serialized using <strong>pickle</strong>. So, any object compatible with <strong>pickle</strong> can be sent or received over the connection.</p>
+<p>If you know that the interpreters are going to be running on the same machine, you can use alternative forms of networking, such as UNIX domain sockets or Windows named pipes. To create a connection using a UNIX domain socket, simply change the address to a filename such as this:<br><code>s = Listener(&#39;/tmp/myconn&#39;, authkey=b&#39;peekaboo&#39;)</code></p>
+<p>To create a connection using a Windows named pipe, use a filename such as this:<br><code>s = Listener(r&#39;\\.\pipe\myconn&#39;, authkey=b&#39;peekaboo&#39;)</code></p>
+<p>As a general rule, you would not be using <strong>multiprocessing</strong> to implement public-facing services. The <strong>authkey</strong> parameter to <strong>Client()</strong> and <strong>Listener()</strong> is there to help authenticate the end points of the connection.</p>
+<p>Don’t use <strong>multiprocessing</strong> if you need more low-level control over aspects of the connection. For example, if you needed to support timeouts, nonblocking I/O, or anything similar, you’re probably better off using a different library or implementing such features on top of sockets instead.</p>
+<h2 id="Implementing-Remote-Procedure-Calls"><a href="#Implementing-Remote-Procedure-Calls" class="headerlink" title="Implementing Remote Procedure Calls"></a>Implementing Remote Procedure Calls</h2><p>You want to implement simple remote procedure call (RPC) on top of a message passing layer, such as sockets, multiprocessing connections, or ZeroMQ.</p>
+<p>RPC is easy to implement by encoding function requests, arguments, and return values using <strong>pickle</strong>, and passing the pickled byte strings between interpreters. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> pickle</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">RPCHandler</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self._functions= &#123;&#125;</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">register_function</span><span class="params">(self, func)</span>:</span></span><br><span class="line"><span class="meta">... </span>        self._functions[func.__name__] = func</span><br><span class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">handle_connection</span><span class="params">(self, connection)</span>:</span></span><br><span class="line"><span class="meta">... </span>        <span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"><span class="meta">... </span>                func_name, args, kwargs= pickle.loads(connection.recv())</span><br><span class="line"><span class="meta">... </span>                <span class="keyword">try</span>:</span><br><span class="line"><span class="meta">... </span>                    r= self._functions[func_name](*arg, **kwargs)</span><br><span class="line"><span class="meta">... </span>                    connection.send(pickle.dumps(r))</span><br><span class="line"><span class="meta">... </span>                <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line"><span class="meta">... </span>                    connetion.send(pickle.dumps(e))</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">except</span> EOFError:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">pass</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>To use this handler, you need to add it into a messaging server. There are many possible choices, but the <strong>multiprocessing</strong> library provides a simple option. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> multiprocessing.connection <span class="keyword">import</span> Listener</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> threading <span class="keyword">import</span> Thread</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">rpc_server</span><span class="params">(handler, address, authkey)</span>:</span></span><br><span class="line"><span class="meta">... </span>    sock= Listener(address, authkey= authkey)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"><span class="meta">... </span>        client= sock.accept()</span><br><span class="line"><span class="meta">... </span>        t= Thread(target= handler.handle_connection, args=(client,))</span><br><span class="line"><span class="meta">... </span>        t.daemon= <span class="keyword">True</span></span><br><span class="line"><span class="meta">... </span>        t.start()</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> x+y</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">sub</span><span class="params">(x, y)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> x- y</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>handler= RPCHandler()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>handler.register_function(add)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>handler.register_function(sub)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>rpc_server(handler, (<span class="string">'localhost'</span>, <span class="number">17000</span>), authkey= <span class="string">b'peekaboo'</span>)</span><br></pre></td></tr></table></figure>
+<p>To access the server from a remote client, you need to create a corresponding RPC proxy class that forwards requests. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import pickle</span><br><span class="line">&gt;&gt;&gt; class RPCProxy:</span><br><span class="line">...     def __init__(self, connection):</span><br><span class="line">...             self._connection= connection</span><br><span class="line">...     def __getattr__(self, name):</span><br><span class="line">...             def do_rpc(*args, **kwargs):</span><br><span class="line">...                     self._connection.send(pickle.dumps((name, args, kwargs)))</span><br><span class="line">...                     results= pickle.loads(self._connection.recv())</span><br><span class="line">...                     if isinstance(result, Exception):</span><br><span class="line">...                             raise result</span><br><span class="line">...                     return result</span><br><span class="line">...             return do_rpc</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; from multiprocessing.connection import Client</span><br><span class="line">&gt;&gt;&gt; c=Client((&apos;localhost&apos;, 17000), authkey= b&apos;peekaboo&apos;)</span><br><span class="line">&gt;&gt;&gt; proxy= RPCProxy(c)</span><br><span class="line">&gt;&gt;&gt; proxy.add(2,3)</span><br><span class="line">-1</span><br><span class="line">&gt;&gt;&gt; proxy.sub([1, 2], 4)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line"> File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;</span><br><span class="line"> File &quot;rpcserver.py&quot;, line 37, in do_rpc</span><br><span class="line"> raise result</span><br><span class="line">TypeError: unsupported operand type(s) for -: &apos;list&apos; and &apos;int&apos;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>The general idea of the <strong>RPCHandler</strong> and <strong>RPCProxy</strong> classes is relatively simple. If a client wants to call a remote function, such as <strong>foo(1, 2, z=3)</strong>, the proxy class creates a tuple <strong>(‘foo’, (1, 2), {‘z’: 3})</strong> that contains the function name and arguments. This tuple is pickled and sent over the connection. This is performed in the <strong>do_rpc()</strong> closure that’s returned by the <strong>__getattr__()</strong> method of <strong>RPCProxy</strong>. </p>
+<h2 id="Authenticating-Clients-Simply"><a href="#Authenticating-Clients-Simply" class="headerlink" title="Authenticating Clients Simply"></a>Authenticating Clients Simply</h2><p>You want a simple way to authenticate the clients connecting to servers in a distributed system, but don’t need the complexity of something like SSL.</p>
+<p>Simple but effective authentication can be performed by implementing a connection handshake using the <strong>hmac</strong> module.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> hmac</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> os</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">client_authenticate</span><span class="params">(connection, secret_key)</span>:</span></span><br><span class="line"><span class="meta">... </span>    message= connection.recv(<span class="number">32</span>)</span><br><span class="line"><span class="meta">... </span>    hash= hmac.new(secret_key, message)</span><br><span class="line"><span class="meta">... </span>    digest= hash.digest()</span><br><span class="line"><span class="meta">... </span>    connection.send(digest)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">server_authenticate</span><span class="params">(connection, secret_key)</span>:</span></span><br><span class="line"><span class="meta">... </span>    message= os.urandom(<span class="number">32</span>)</span><br><span class="line"><span class="meta">... </span>    connection.send(message)</span><br><span class="line"><span class="meta">... </span>    hash= hmac.new(secret_key, message)</span><br><span class="line"><span class="meta">... </span>    digest= hash.digest()</span><br><span class="line"><span class="meta">... </span>    response= connection.recv(len(digest))</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> hmac.compare_digest(digest, response)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>The general idea is that upon connection, the server presents the client with a message of random bytes (returned by <strong>os.urandom()</strong>, in this case). The client and server both compute a cryptographic hash of the random data using <strong>hmac</strong> and a secret key known only to both ends. The client sends its computed digest back to the server, where it is compared and used to decide whether or not to accept or reject the connection.</p>
+<p>Comparison of resulting digests should be performed using the <strong>hmac.compare_digest()</strong> function. This function has been written in a way that avoids timing-analysisbased attacks and should be used instead of a normal comparison operator (<strong>==</strong>).</p>
+<p>To use these functions, you would incorporate them into existing networking or messaging code. For example, with sockets, the server code might look something like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> socket <span class="keyword">import</span> socket, AF_INET, SOCK_STREAM</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>secret_key= <span class="string">b'peekaboo'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">echo_handler</span><span class="params">(client_sock)</span>:</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">if</span> <span class="keyword">not</span> server_authenticate(client_sock, secret_key):</span><br><span class="line"><span class="meta">... </span>        client_sock.close()</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">return</span></span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"><span class="meta">... </span>        msg= client_sock.recv(<span class="number">8192</span>)</span><br><span class="line"><span class="meta">... </span>        <span class="keyword">if</span> <span class="keyword">not</span> msg:</span><br><span class="line"><span class="meta">... </span>            <span class="keyword">break</span></span><br><span class="line"><span class="meta">... </span>        client_sock.sendall(msg)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">echo_server</span><span class="params">(address)</span>:</span></span><br><span class="line"><span class="meta">... </span>    s= socket(AF_INET, SOCK_STREAM)</span><br><span class="line"><span class="meta">... </span>    s.bind(address)</span><br><span class="line"><span class="meta">... </span>    s.listen(<span class="number">5</span>)</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line"><span class="meta">... </span>        c, a= s.accept()</span><br><span class="line"><span class="meta">... </span>        echo_handler(c)</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>echo_server((<span class="string">''</span>, <span class="number">18000</span>))</span><br></pre></td></tr></table></figure>
+<p>Within a client, you would do this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> socket, AF_INET, SOCK_STREAM</span><br><span class="line">secret_key = <span class="string">b'peekaboo'</span></span><br><span class="line">s = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">s.connect((<span class="string">'localhost'</span>, <span class="number">18000</span>))</span><br><span class="line">client_authenticate(s, secret_key)</span><br><span class="line">s.send(<span class="string">b'Hello World'</span>)</span><br><span class="line">resp = s.recv(<span class="number">1024</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="Adding-SSL-to-Network-Services"><a href="#Adding-SSL-to-Network-Services" class="headerlink" title="Adding SSL to Network Services"></a>Adding SSL to Network Services</h2><p>The <strong>ssl</strong> module provides support for adding SSL to low-level socket connections. In particular, the <strong>ssl.wrap_socket()</strong> function takes an existing socket and wraps an SSL layer around it. </p>
+<p>A simple echo server that presents a server certificate to connecting clients:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> socket, AF_INET, SOCK_STREAM</span><br><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line"></span><br><span class="line">KEYFILE= <span class="string">'server_key.pem'</span></span><br><span class="line">CERTFILE= <span class="string">'server_cert.pem'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_client</span><span class="params">(s)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        data= s.recv(<span class="number">8192</span>)</span><br><span class="line">        <span class="keyword">if</span> data== <span class="string">b''</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        s.send(data)</span><br><span class="line">    s.close()</span><br><span class="line">    print(<span class="string">'Connection closed'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">echo_server</span><span class="params">(address)</span>:</span></span><br><span class="line">    s= socket(AF_INET, SOCK_STREAM)</span><br><span class="line">    s.bind(address)</span><br><span class="line">    s.listen(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    s_ssl= ssl.wrap_socket(s, keyfile= KEYFILE, certfile= CERTFILE, server_side= <span class="keyword">True</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            c, a= s_ssl.accept()</span><br><span class="line">            print(<span class="string">'Got connection'</span>, c, a)</span><br><span class="line">            echo_client(c)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            print(<span class="string">'&#123;&#125;: &#123;&#125;'</span>.format(e.__class__.__name__, e))</span><br><span class="line"></span><br><span class="line">echo_server((<span class="string">''</span>, <span class="number">20000</span>))</span><br></pre></td></tr></table></figure>
+<p>Here’s an interactive session that shows how to connect to the server as a client. The client requires the server to present its certificate and verifies it:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from socket import socket, AF_INET, SOCK_STREAM</span><br><span class="line">&gt;&gt;&gt; import ssl</span><br><span class="line">&gt;&gt;&gt; s = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">&gt;&gt;&gt; s_ssl = ssl.wrap_socket(s,</span><br><span class="line">... cert_reqs=ssl.CERT_REQUIRED,</span><br><span class="line">... ca_certs = &apos;server_cert.pem&apos;)</span><br><span class="line">&gt;&gt;&gt; s_ssl.connect((&apos;localhost&apos;, 20000))</span><br><span class="line">&gt;&gt;&gt; s_ssl.send(b&apos;Hello World?&apos;)</span><br><span class="line">12</span><br><span class="line">&gt;&gt;&gt; s_ssl.recv(8192)</span><br><span class="line">b&apos;Hello World?&apos;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>The problem with all of this low-level socket hacking is that it doesn’t play well with existing network services already implemented in the standard library. For example, most server code (HTTP, XML-RPC, etc.) is actually based on the <strong>socketserver</strong> library. Client code is also implemented at a higher level. It is possible to add SSL to existing services, but a slightly different approach is needed.</p>
+<p>First, for servers, SSL can be added through the use of a mixin class like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SSLMixin</span>:</span></span><br><span class="line">    <span class="string">'''Mixin class that adds support for SSL to existing servers based</span></span><br><span class="line"><span class="string"> on the socketserver module.'''</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, keyfile= None, certfile= None, ca_certs= None, cert_reqs= ssl.CERT_NONE, **kwargs)</span>:</span></span><br><span class="line">        self._keyfile= keyfile</span><br><span class="line">        self._certfile= certfile</span><br><span class="line">        self._ca_certs= ca_certs</span><br><span class="line">        self._cert_reqs= cert_reqs</span><br><span class="line">        super().__init__(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_request</span><span class="params">(self)</span>:</span></span><br><span class="line">        client, addr= super().get_request()</span><br><span class="line">        client_ssl= ssl.wrap_socket(client, keyfile= self._keyfile,</span><br><span class="line">                                            certfile=self._certfile,</span><br><span class="line">                                            ca_certs= self._ca_certs,</span><br><span class="line">                                            cert_reqs= self._cert_reqs,</span><br><span class="line">                                            server_side= <span class="keyword">True</span>    )</span><br><span class="line">        <span class="keyword">return</span> client_ssl, addr</span><br></pre></td></tr></table></figure>
+<p>To use this mixin class, you can mix it with other server classes. For example, here’s an example of defining an XML-RPC server that operates over SSL:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> xmlrpc.server <span class="keyword">import</span> SimpleXMLRPCServer</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SSLSimpleXMLRPCServer</span><span class="params">(SSLMixin, SimpleXMLRPCServer)</span>:</span> <span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<p>Here’s the XML-RPC server modified only slightly to use SSL:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KeyValueServer</span>:</span></span><br><span class="line">    _rpc_methods= [<span class="string">'get'</span>, <span class="string">'set'</span>, <span class="string">'delete'</span>, <span class="string">'exists'</span>, <span class="string">'keys'</span>]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        self._data= &#123;&#125;</span><br><span class="line">        self._serv= SSLSimpleXMLRPCServer(*args, allow_none= <span class="keyword">True</span>, **kwargs)</span><br><span class="line">        <span class="keyword">for</span> name <span class="keyword">in</span> self._rpc_methods:</span><br><span class="line">            self._serv.register_function(getattr(self, name))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self, name)</span>:</span> self._data[name]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set</span><span class="params">(self, name, value)</span>:</span> self._data[name]= value</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(self, name)</span>:</span> <span class="keyword">del</span> self._data[name]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exists</span><span class="params">(self, name)</span>:</span> <span class="keyword">return</span> name <span class="keyword">in</span> self._data</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">keys</span><span class="params">(self)</span>:</span> <span class="keyword">return</span> list(self._data)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">serve_forever</span><span class="params">(self)</span>:</span> self._serv.serve_forever()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__== <span class="string">'__main__'</span>:</span><br><span class="line">    KEYFILE= <span class="string">'server_key.pem'</span></span><br><span class="line">    CERTFILE= <span class="string">'server_cert.pem'</span></span><br><span class="line">    kvserv= KeyValueServer((<span class="string">''</span>, <span class="number">15000</span>), keyfile= KEYFILE, certfile= CERTFILE)</span><br><span class="line">    kvserv.serve_forever()</span><br></pre></td></tr></table></figure>
+<p>To use this server, you can connect using the normal xmlrpc.client module. Just specify a https: in the URL. For example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> xmlrpc.client <span class="keyword">import</span> ServerProxy</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = ServerProxy(<span class="string">'https://localhost:15000'</span>, allow_none=<span class="keyword">True</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.set(<span class="string">'foo'</span>,<span class="string">'bar'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.set(<span class="string">'spam'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.keys()</span><br><span class="line">[<span class="string">'spam'</span>, <span class="string">'foo'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.get(<span class="string">'foo'</span>)</span><br><span class="line"><span class="string">'bar'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.get(<span class="string">'spam'</span>)</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.delete(<span class="string">'spam'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s.exists(<span class="string">'spam'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/C09-Metaprogramming/" rel="next" title="C09_Metaprogramming">
+                <i class="fa fa-chevron-left"></i> C09_Metaprogramming
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/15/C12-Concurrency/" rel="prev" title="C12_Concurrency">
+                C12_Concurrency <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="eustoma" />
+            
+              <p class="site-author-name" itemprop="name">eustoma</p>
+              <p class="site-description motion-element" itemprop="description">Too young to be old, too old to be young</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">114</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/bobingski" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://t.me/naeJean" target="_blank" title="Telegram">
+                      
+                        <i class="fa fa-fw fa-telegram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://newdoub.com" title="doubi1" target="_blank">doubi1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://doub.io" title="doubi2" target="_blank">doubi2</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://google1.jiongjun.cc/" title="mirror" target="_blank">mirror</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://program-think.blogspot.com/" title="blogspot" target="_blank">blogspot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Creating-a-TCP-Server"><span class="nav-number">1.</span> <span class="nav-text">Creating a TCP Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Creating-a-Simple-REST-Based-Interface"><span class="nav-number">2.</span> <span class="nav-text">Creating a Simple REST-Based Interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementing-a-Simple-Remote-Procedure-Call-with-XML-RPC"><span class="nav-number">3.</span> <span class="nav-text">Implementing a Simple Remote Procedure Call with XML-RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Communicating-Simply-Between-Interpreters"><span class="nav-number">4.</span> <span class="nav-text">Communicating Simply Between Interpreters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementing-Remote-Procedure-Calls"><span class="nav-number">5.</span> <span class="nav-text">Implementing Remote Procedure Calls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authenticating-Clients-Simply"><span class="nav-number">6.</span> <span class="nav-text">Authenticating Clients Simply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adding-SSL-to-Network-Services"><span class="nav-number">7.</span> <span class="nav-text">Adding SSL to Network Services</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eustoma</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
